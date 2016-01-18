@@ -14,9 +14,9 @@ public class IntakeSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	boolean manualOverride = false;
-	TalonSRX rotateMotor = new TalonSRX(rotateMotorOne_ID);
-	TalonSRX rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
-	TalonSRX intakeMotor = new TalonSRX(intakeMotorOne_ID);
+	//TalonSRX rotateMotor = new TalonSRX(rotateMotorOne_ID);
+	//TalonSRX rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
+	//TalonSRX intakeMotor = new TalonSRX(intakeMotorOne_ID);
 	Encoder rotateEncoder = new Encoder(rotateEncoderA_ID, rotateEncoderB_ID, true, EncodingType.k2X);
 
 	public void initDefaultCommand() {
@@ -29,7 +29,8 @@ public class IntakeSubsystem extends Subsystem {
 		while (rotateEncoder.get() < 9001) {
 			// Speed should depend on distance from goal which is acquired
 			// through the use of a PID loop/subsystem
-			rotateMotor.set(1);
+		//	rotateMotor.set(1);
+			return;
 		}
 	
 	}
@@ -40,14 +41,16 @@ public class IntakeSubsystem extends Subsystem {
 		while (rotateEncoder.get() > -9001) {
 			// Speed should depend on distance from goal which is acquired
 			// through the use of a PID loop/subsystem
-			rotateMotor.set(-1);
+			
+			//rotateMotor.set(-1);
+			return;
 		}
 	
 	}
 
 	public void setAngleWithJoystick(double d) {
 		
-			rotateMotor.set(d);
+		//	rotateMotor.set(d);
 		
 	}
 }

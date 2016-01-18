@@ -24,7 +24,7 @@ public class RobotMap {
 	public static final int rotateEncoderA_ID = 0;
 	public static final int rotateEncoderB_ID = 1;
 	
-	public static final int mainJoyAxis1_ID = 0;
+	public static final int mainJoyAxis1_ID = 1;
 	public static final int mainJoyAxis2_ID = 1;
 	
 	// If you are using multiple modules, make sure to define both the port

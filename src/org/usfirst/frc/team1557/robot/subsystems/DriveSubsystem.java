@@ -2,19 +2,23 @@ package org.usfirst.frc.team1557.robot.subsystems;
 
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 
-import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
+
+import org.usfirst.frc.team1557.robot.OI;
 
 /**
  *
  */
 public class DriveSubsystem extends Subsystem {
-	TalonSRX moterOne = new TalonSRX(driveMotorOne_ID);
-	TalonSRX moterTwo = new TalonSRX(driveMotorTwo_ID);
-	TalonSRX moterThree = new TalonSRX(driveMotorThree_ID);
-	TalonSRX moterFour = new TalonSRX(driveMotorTwo_ID);
-	
+	CANTalon moterOne = new CANTalon(driveMotorOne_ID);
+	CANTalon moterTwo = new CANTalon(driveMotorTwo_ID);
+	CANTalon moterThree = new CANTalon(driveMotorThree_ID);
+	CANTalon moterFour = new CANTalon(driveMotorFour_ID);
+
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 

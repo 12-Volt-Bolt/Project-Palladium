@@ -29,11 +29,11 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 
-	public static DriveSubsystem drive = new DriveSubsystem();
-	public static IntakeSubsystem intake = new IntakeSubsystem();
-	public static IntakeCommand manualIntake = new IntakeCommand();
-	public static SetIntakeUp buttonIntakeUp = new SetIntakeUp();
-	public static SetIntakeDown buttonIntakeDown = new SetIntakeDown();
+	public static DriveSubsystem drive;
+	public static IntakeSubsystem intake;
+	public static IntakeCommand manualIntake;
+	public static SetIntakeUp buttonIntakeUp;
+	public static SetIntakeDown buttonIntakeDown;
 
 	SendableChooser chooser;
 
@@ -43,6 +43,12 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
+		drive = new DriveSubsystem();
+		intake = new IntakeSubsystem();
+		manualIntake = new IntakeCommand();
+		buttonIntakeUp = new SetIntakeUp();
+		buttonIntakeDown = new SetIntakeDown();
+		
 
 	}
 
@@ -95,6 +101,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		drive.initDefaultCommand();
 		
 	}
 
