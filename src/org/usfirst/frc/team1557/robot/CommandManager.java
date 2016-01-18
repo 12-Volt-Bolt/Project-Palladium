@@ -12,6 +12,7 @@ public class CommandManager {
 			Robot.manualIntake.start();
 		} else if (OI.altJoyOne.getRawAxis(0) == 0) {
 			Robot.manualIntake.cancel();
+			// HARRY POTTER
 		}
 		if (OI.openButton.get() && Robot.intake.getCurrentCommand() == null) {
 			Robot.buttonIntakeUp.start();

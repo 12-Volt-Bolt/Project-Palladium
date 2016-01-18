@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.commands.SetIntakeDOWN;
+import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
 
 import edu.wpi.first.wpilibj.Joystick;

@@ -2,7 +2,7 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.commands.IntakeCommand;
-import org.usfirst.frc.team1557.robot.commands.SetIntakeDOWN;
+import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static IntakeSubsystem intake = new IntakeSubsystem();
 	public static IntakeCommand manualIntake = new IntakeCommand();
 	public static SetIntakeUp buttonIntakeUp = new SetIntakeUp();
-	public static SetIntakeDOWN buttonIntakeDown = new SetIntakeDOWN();
+	public static SetIntakeDown buttonIntakeDown = new SetIntakeDown();
 
 	SendableChooser chooser;
 
@@ -87,7 +87,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
+		Scheduler.getInstance().run();  
 	}
 
 	public void teleopInit() {
@@ -113,3 +113,20 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #Billy Bob Bowlwgs wuz here

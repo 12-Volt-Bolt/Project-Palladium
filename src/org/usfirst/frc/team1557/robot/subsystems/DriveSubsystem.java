@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
-import org.usfirst.frc.team1557.robot.commands.DriveCommand;
+import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,19 +14,21 @@ public class DriveSubsystem extends Subsystem {
 	TalonSRX moterTwo = new TalonSRX(driveMotorTwo_ID);
 	TalonSRX moterThree = new TalonSRX(driveMotorThree_ID);
 	TalonSRX moterFour = new TalonSRX(driveMotorTwo_ID);
+	
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new DriveCommand());
+		setDefaultCommand(new TankDriveCommand());
 	}
 
-	public void drive(double x, double y) {
+	public void tankDrive(double x, double y) {
 		moterOne.set(x);
 		moterTwo.set(y);
 		moterThree.set(x);
 		moterFour.set(y);
 	}
+
 }
