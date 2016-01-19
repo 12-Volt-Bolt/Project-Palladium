@@ -2,7 +2,7 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.commands.IntakeCommand;
-import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
+import org.usfirst.frc.team1557.robot.commands.SetIntakeDownCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static IntakeSubsystem intake;
 	public static IntakeCommand manualIntake;
 	public static SetIntakeUp buttonIntakeUp;
-	public static SetIntakeDown buttonIntakeDown;
+	public static SetIntakeDownCommand buttonIntakeDown;
 
 	SendableChooser chooser;
 
@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 		intake = new IntakeSubsystem();
 		manualIntake = new IntakeCommand();
 		buttonIntakeUp = new SetIntakeUp();
-		buttonIntakeDown = new SetIntakeDown();
+		buttonIntakeDown = new SetIntakeDownCommand();
 		
 
 	}

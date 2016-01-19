@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetIntakeDown extends Command {
+public class SetIntakeDownCommand extends Command {
 
-    public SetIntakeDown() {
+    public SetIntakeDownCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.intake);
     }
@@ -20,6 +20,7 @@ public class SetIntakeDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//This sets the desired angle.
     	Robot.intake.setAngleDown();
     }
 
