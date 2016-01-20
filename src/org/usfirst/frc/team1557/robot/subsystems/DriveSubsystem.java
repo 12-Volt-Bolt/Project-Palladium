@@ -23,7 +23,8 @@ public class DriveSubsystem extends Subsystem{
 	CANTalon moterFour = new CANTalon(driveMotorFour_ID);
 
 	public DriveSubsystem(){
-	
+	moterFour.reverseOutput(true);
+	moterOne.reverseOutput(true);
 	}
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -36,8 +37,8 @@ public class DriveSubsystem extends Subsystem{
 	}
 
 	public void tankDrive(double x, double y) {
-		moterOne.set(-x);
-		moterTwo.set(-y);
+		moterOne.set(x);
+		moterTwo.set(y);
 		moterThree.set(x);
 		moterFour.set(y);
 	}
