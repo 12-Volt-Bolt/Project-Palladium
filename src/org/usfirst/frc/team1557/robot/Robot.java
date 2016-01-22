@@ -11,6 +11,7 @@ import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
 
 import com.ni.vision.NIVision.GetClassifierSampleInfoResult;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,7 +31,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
+	/**
+	 * Needs to be set to false if the physical compressor doesn't exist. If
+	 * this is failed to be done, everything is broken.
+	 */
+	boolean doesCompressorExist = false;
+	Compressor compressor;
 	public static DriveSubsystem drive;
 	public static IntakeSubsystem intake;
 	public static IntakeCommand manualIntake;
@@ -45,6 +51,10 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
+		if (doesCompressorExist) {
+			compressor = new Compressor();
+
+		}
 		oi = new OI();
 		drive = new DriveSubsystem();
 		intake = new IntakeSubsystem();
@@ -53,7 +63,6 @@ public class Robot extends IterativeRobot {
 		buttonIntakeDown = new SetIntakeDownCommand();
 		catapult = new CatapultSubsystem();
 		catapultFire = new CatapultCommand();
-		
 
 	}
 
@@ -98,7 +107,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();  
+		Scheduler.getInstance().run();
 	}
 
 	public void teleopInit() {
@@ -107,7 +116,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		drive.initDefaultCommand();
-		
+
 	}
 
 	/**
@@ -125,20 +134,5 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // #Billy Bob Bowlwgs wuz here

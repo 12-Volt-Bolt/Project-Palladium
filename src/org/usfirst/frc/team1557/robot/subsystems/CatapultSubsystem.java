@@ -17,6 +17,8 @@ public class CatapultSubsystem extends Subsystem {
 	public CatapultSubsystem() {
 		solenoidLeft = new Solenoid(CATAPULT_SOLENOID_ONE_MODULE_ID, CATAPULT_SOLENOID_ONE_CHANNEL_ID);
 		solenoidRight = new Solenoid(CATAPULT_SOLENOID_TWO_MODULE_ID, CATAPULT_SOLENOID_TWO_CHANNEL_ID);
+		
+		
 
 	}
 

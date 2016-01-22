@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CatapultCommand extends Command {
 	int count = 0;
 	int countToFinish = 50;
+	
 
 	public CatapultCommand() {
 		requires(Robot.catapult);
