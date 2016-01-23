@@ -33,7 +33,7 @@ public class ClimbSubsystem extends Subsystem {
 
 	public void toggleInfitesimal() {
 		rightInfitesimal.set(!rightInfitesimal.get());
-		leftInfitesimal.set(leftInfitesimal.get());
+		leftInfitesimal.set(!leftInfitesimal.get());
 
 	}
 
