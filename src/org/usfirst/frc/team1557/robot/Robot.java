@@ -2,10 +2,12 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.commands.CatapultCommand;
+import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.IntakeCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeDownCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
 import org.usfirst.frc.team1557.robot.subsystems.CatapultSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
 
@@ -44,6 +46,8 @@ public class Robot extends IterativeRobot {
 	public static SetIntakeDownCommand buttonIntakeDown;
 	public static CatapultSubsystem catapult;
 	public static CatapultCommand catapultFire;
+	public static ClimbSubsystem climb;
+	public static ClimbCommand climbCommand;
 	SendableChooser chooser;
 
 	/**
@@ -63,6 +67,8 @@ public class Robot extends IterativeRobot {
 		buttonIntakeDown = new SetIntakeDownCommand();
 		catapult = new CatapultSubsystem();
 		catapultFire = new CatapultCommand();
+		climb = new ClimbSubsystem();
+		climbCommand = new ClimbCommand();
 
 	}
 
@@ -134,5 +140,3 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 }
-
-// #Billy Bob Bowlwgs wuz here

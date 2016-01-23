@@ -4,9 +4,11 @@ import static org.usfirst.frc.team1557.robot.RobotMap.*;
 import static org.usfirst.frc.team1557.robot.Robot.*;
 
 public class CommandManager {
+
 	public static void manage() {
 		intakeCommands();
 		catapultCommands();
+		climbCommands();
 	}
 
 	private static void intakeCommands() {
@@ -29,7 +31,12 @@ public class CommandManager {
 	private static void catapultCommands() {
 		if (OI.altJoyOne.getRawButton(CATAPULT_FIRE_BUTTON_ID) && !catapultFire.isRunning()) {
 			catapultFire.start();
-			System.out.println("Michael, You printerhead!");
+		}
+	}
+
+	private static void climbCommands() {
+		if (OI.climbButton.get() && !climbCommand.isRunning()) {
+			climbCommand.start();
 		}
 	}
 }

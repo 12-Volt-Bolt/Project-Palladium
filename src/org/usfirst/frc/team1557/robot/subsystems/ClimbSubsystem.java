@@ -19,31 +19,35 @@ public class ClimbSubsystem extends Subsystem {
 		leftProdigious = new Solenoid(0, 0);
 		rightInfitesimal = new Solenoid(0, 0);
 		leftInfitesimal = new Solenoid(0, 0);
+		rightProdigious.set(false);
+		leftProdigious.set(false);
+		rightInfitesimal.set(false);
+		leftInfitesimal.set(false);
+
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
+		// Set the default and for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void openInfitesimal() {
-		rightInfitesimal.set(true);
-		leftInfitesimal.set(true);
+	public void toggleInfitesimal() {
+		rightInfitesimal.set(!rightInfitesimal.get());
+		leftInfitesimal.set(leftInfitesimal.get());
 
 	}
 
-	public void closeInfitesimal() {
-		rightInfitesimal.set(false);
-		leftInfitesimal.set(false);
-	}
-	public void closeProdigious() {
-		rightProdigious.set(false);
-		leftProdigious.set(false);
+	public void toggleProdigious() {
+		rightProdigious.set(!rightProdigious.get());
+		leftProdigious.set(!leftProdigious.get());
 	}
 
-	public void openProdigious() {
-		rightProdigious.set(true);
-		leftProdigious.set(true);
+	public boolean getProdigious() {
+		return rightProdigious.get();
+	}
+
+	public boolean getInfitesimal() {
+		return rightInfitesimal.get();
 	}
 
 }

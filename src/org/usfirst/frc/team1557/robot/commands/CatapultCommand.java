@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CatapultCommand extends Command {
 	int count = 0;
 	int countToFinish = 50;
-	
 
 	public CatapultCommand() {
 		requires(Robot.catapult);
@@ -25,13 +24,13 @@ public class CatapultCommand extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		Robot.catapult.set(false);
+
 		return count >= countToFinish;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
+		Robot.catapult.set(false);
 
 	}
 
