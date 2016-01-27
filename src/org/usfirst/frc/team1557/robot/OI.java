@@ -17,7 +17,9 @@ public class OI {
 	public static Joystick mainJoyTwo = new Joystick(1);
 	public static Joystick altJoyOne = new Joystick(2);
 	public static JoystickButton intakeArmToggle = new JoystickButton(altJoyOne, 2);
-
+	public static JoystickButton openButton = new JoystickButton(altJoyOne, 2);
+	public static JoystickButton closeButton = new JoystickButton(altJoyOne, 1);
+	public static JoystickButton climbButton = new JoystickButton(altJoyOne, RobotMap.CLIMB_BUTTON_ID);
 	public OI() {
 
 	}

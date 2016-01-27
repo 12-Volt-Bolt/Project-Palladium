@@ -20,10 +20,10 @@ public class IntakeSubsystem extends Subsystem {
 	/**
 	 * disable this talon durings tests until talon exists in the real world.
 	 */
-	CANTalon rotateMotor = new CANTalon(rotateMotorOne_ID);
+	CANTalon rotateMotor = new CANTalon(0);
 	// CANTalon rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
 	// CANTalon intakeMotor = new TalonSRX(intakeMotorOne_ID);
-	Encoder rotateEncoder = new Encoder(rotateEncoderA_ID, rotateEncoderB_ID, true, EncodingType.k2X);
+	Encoder rotateEncoder = new Encoder(0, 1, true, EncodingType.k2X);
 	PIDController rotatePID = new PIDController(0.33, 0.33, 0.34, rotateEncoder, rotateMotor);
 
 	public void initEncoder() {

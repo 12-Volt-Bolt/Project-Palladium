@@ -1,14 +1,19 @@
 
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.robot.commands.CatapultCommand;
+import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.IntakeCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeDownCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
+import org.usfirst.frc.team1557.robot.subsystems.CatapultSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
 
 import com.ni.vision.NIVision.GetClassifierSampleInfoResult;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -28,13 +33,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
+	/**
+	 * Needs to be set to false if the physical compressor doesn't exist. If
+	 * this is failed to be done, everything is broken.
+	 */
+	boolean doesCompressorExist = false;
+	Compressor compressor;
 	public static DriveSubsystem drive;
 	public static IntakeSubsystem intake;
 	public static IntakeCommand manualIntake;
 	public static SetIntakeUp buttonIntakeUp;
 	public static SetIntakeDownCommand buttonIntakeDown;
-
+	public static CatapultSubsystem catapult;
+	public static CatapultCommand catapultFire;
+	public static ClimbSubsystem climb;
+	public static ClimbCommand climbCommand;
 	SendableChooser chooser;
 
 	/**
@@ -42,13 +55,20 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
+		if (doesCompressorExist) {
+			compressor = new Compressor();
+
+		}
 		oi = new OI();
 		drive = new DriveSubsystem();
 		intake = new IntakeSubsystem();
 		manualIntake = new IntakeCommand();
 		buttonIntakeUp = new SetIntakeUp();
 		buttonIntakeDown = new SetIntakeDownCommand();
-		
+		catapult = new CatapultSubsystem();
+		catapultFire = new CatapultCommand();
+		climb = new ClimbSubsystem();
+		climbCommand = new ClimbCommand();
 
 	}
 
@@ -93,7 +113,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();  
+		Scheduler.getInstance().run();
 	}
 
 	public void teleopInit() {
@@ -102,7 +122,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		drive.initDefaultCommand();
-		
+
 	}
 
 	/**
@@ -120,20 +140,3 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #Billy Bob Bowlwgs wuz here

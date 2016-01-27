@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
@@ -17,11 +18,11 @@ import org.usfirst.frc.team1557.robot.OI;
  *
  */
 public class DriveSubsystem extends Subsystem{
-	CANTalon moterOne = new CANTalon(driveMotorOne_ID);
-	CANTalon moterTwo = new CANTalon(driveMotorTwo_ID);
-	CANTalon moterThree = new CANTalon(driveMotorThree_ID);
-	CANTalon moterFour = new CANTalon(driveMotorFour_ID);
-
+	CANTalon moterOne = new CANTalon(DRIVE_MOTOR_ONE_ID);
+	CANTalon moterTwo = new CANTalon(DRIVE_MOTOR_TWO_ID);
+	CANTalon moterThree = new CANTalon(DRIVE_MOTOR_THREE_ID);
+	CANTalon moterFour = new CANTalon(DRIVE_MOTOR_FOUR_ID);
+	
 	public DriveSubsystem(){
 	moterFour.reverseOutput(true);
 	moterOne.reverseOutput(true);
