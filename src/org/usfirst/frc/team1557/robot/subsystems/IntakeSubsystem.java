@@ -15,51 +15,40 @@ public class IntakeSubsystem extends Subsystem {
 	// TODO: Change to PIDSubsystem.
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
+	public static boolean isDown = true;
 	boolean manualOverride = false;
 	/**
 	 * disable this talon durings tests until talon exists in the real world.
 	 */
-	//CANTalon rotateMotor = new CANTalon(rotateMotorOne_ID);
-	//CANTalon rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
-	//CANTalon intakeMotor = new TalonSRX(intakeMotorOne_ID);
-	//Encoder rotateEncoder = new Encoder(rotateEncoderA_ID, rotateEncoderB_ID, true, EncodingType.k2X);
-//	PIDController rotateController = new PIDController(0.33, 0.33, 0.34, rotateEncoder,rotateMotor);
-	public void initEncoder(){
-	//	rotateEncoder.setDistancePerPulse(51.42);
-	
-	}
-	public void initDefaultCommand() {
-		
+	CANTalon rotateMotor = new CANTalon(rotateMotorOne_ID);
+	// CANTalon rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
+	// CANTalon intakeMotor = new TalonSRX(intakeMotorOne_ID);
+	Encoder rotateEncoder = new Encoder(rotateEncoderA_ID, rotateEncoderB_ID, true, EncodingType.k2X);
+	PIDController rotatePID = new PIDController(0.33, 0.33, 0.34, rotateEncoder, rotateMotor);
+
+	public void initEncoder() {
+		// Degrees / pulse count;
+		rotateEncoder.setDistancePerPulse((double) 360 / 497);
+		rotatePID = new PIDController(0.05, 0.000, 0, rotateEncoder, rotateMotor);
+		rotatePID.setSetpoint(0);
 	}
 
-	public void setAngleUp() {
-		
-		// Arbitrary number: more testing and research is required.
-	//	while (rotateEncoder.get() < 9001) {
-			// Speed should depend on distance from goal which is acquired
-			// through the use of a PID loop/subsystem
-		//	rotateMotor.set(1);
-	//		return;
-	//	}
-	
+	public void initDefaultCommand() {
+
 	}
 
 	public void setAngleDown() {
-	
-		// Arbitrary number: more testing and research is required.
-	//	while (rotateEncoder.get() > -9001) {
-//			// Speed should depend on distance from goal which is acquired
-			// through the use of a PID loop/subsystem
-			
-			//rotateMotor.set(-1);
-	//		return;
-	//	}
-	
+		rotatePID.setSetpoint(0);
+		togglePos();
 	}
 
-	public void setAngleWithJoystick(double d) {
-		
-		//	rotateMotor.set(d);
-		
+	public void setAngleUp() {
+		// Place holder angle.
+		rotatePID.setSetpoint(90);
+		togglePos();
+	}
+
+	private void togglePos() {
+		isDown = !isDown;
 	}
 }
