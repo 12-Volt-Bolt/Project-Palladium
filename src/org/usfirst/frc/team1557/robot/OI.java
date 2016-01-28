@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 
 	public static Joystick mainJoyOne = new Joystick(0);
-	public static Joystick mainJoyTwo = new Joystick(1);
+	public static Joystick mainJoyTwo = new Joystick(1); 
 	public static Joystick altJoyOne = new Joystick(2);
 	public static JoystickButton intakeArmToggle = new JoystickButton(altJoyOne, 2);
 	public static JoystickButton openButton = new JoystickButton(altJoyOne, 2);

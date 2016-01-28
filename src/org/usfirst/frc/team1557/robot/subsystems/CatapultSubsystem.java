@@ -17,15 +17,13 @@ public class CatapultSubsystem extends Subsystem {
 	public CatapultSubsystem() {
 		solenoidLeft = new Solenoid(CATAPULT_SOLENOID_ONE_MODULE_ID, CATAPULT_SOLENOID_ONE_CHANNEL_ID);
 		solenoidRight = new Solenoid(CATAPULT_SOLENOID_TWO_MODULE_ID, CATAPULT_SOLENOID_TWO_CHANNEL_ID);
-		
-		
-
 	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
+
 	public void set(boolean state) {
 		solenoidLeft.set(state);
 		solenoidRight.set(state);

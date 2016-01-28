@@ -8,9 +8,9 @@ import static org.usfirst.frc.team1557.robot.Robot.*;
 public class CommandManager {
 
 	public static void manage() {
-		intakeCommands();
-		catapultCommands();
-		climbCommands();
+		//intakeCommands();
+		//catapultCommands();
+		//climbCommands();
 	}
 
 	private static void intakeCommands() {

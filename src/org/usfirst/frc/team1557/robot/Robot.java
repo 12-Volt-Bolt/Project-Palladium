@@ -37,8 +37,6 @@ public class Robot extends IterativeRobot {
 	 * Needs to be set to false if the physical compressor doesn't exist. If
 	 * this is failed to be done, everything is broken.
 	 */
-	boolean doesCompressorExist = false;
-	Compressor compressor;
 	public static DriveSubsystem drive;
 	public static IntakeSubsystem intake;
 	public static IntakeCommand manualIntake;
@@ -55,20 +53,16 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		if (doesCompressorExist) {
-			compressor = new Compressor();
-
-		}
 		oi = new OI();
 		drive = new DriveSubsystem();
-		intake = new IntakeSubsystem();
-		manualIntake = new IntakeCommand();
-		buttonIntakeUp = new SetIntakeUp();
-		buttonIntakeDown = new SetIntakeDownCommand();
-		catapult = new CatapultSubsystem();
-		catapultFire = new CatapultCommand();
-		climb = new ClimbSubsystem();
-		climbCommand = new ClimbCommand();
+		// intake = new IntakeSubsystem();
+		// manualIntake = new IntakeCommand();
+		// buttonIntakeUp = new SetIntakeUp();
+		// buttonIntakeDown = new SetIntakeDownCommand();
+		// catapult = new CatapultSubsystem();
+		// catapultFire = new CatapultCommand();
+		// climb = new ClimbSubsystem();
+		// climbCommand = new ClimbCommand();
 
 	}
 
