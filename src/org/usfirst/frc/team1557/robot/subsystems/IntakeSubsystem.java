@@ -18,7 +18,7 @@ public class IntakeSubsystem extends Subsystem {
 	public static boolean isDown = true;
 	boolean manualOverride = false;
 	/**
-	 * disable this talon during tests until talon exists in the real world.
+	 * disable this talon durings tests until talon exists in the real world.
 	 */
 	CANTalon rotateMotor = new CANTalon(0);
 	// CANTalon rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
