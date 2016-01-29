@@ -17,15 +17,16 @@ import org.usfirst.frc.team1557.robot.OI;
 /**
  *
  */
-public class DriveSubsystem extends Subsystem{
+public class DriveSubsystem extends Subsystem {
+	public static boolean isReversed = false;
 	CANTalon moterOne = new CANTalon(DRIVE_MOTOR_ONE_ID);
 	CANTalon moterTwo = new CANTalon(DRIVE_MOTOR_TWO_ID);
 	CANTalon moterThree = new CANTalon(DRIVE_MOTOR_THREE_ID);
 	CANTalon moterFour = new CANTalon(DRIVE_MOTOR_FOUR_ID);
-	
-	public DriveSubsystem(){
-	moterFour.reverseOutput(true);
-	moterOne.reverseOutput(true);
+
+	public DriveSubsystem() {
+		moterFour.reverseOutput(true);
+		moterOne.reverseOutput(true);
 	}
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -34,15 +35,22 @@ public class DriveSubsystem extends Subsystem{
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new TankDriveCommand());
-		
+
 	}
 
 	public void tankDrive(double x, double y) {
+
 		moterOne.set(x);
 		moterTwo.set(y);
 		moterThree.set(x);
 		moterFour.set(y);
 	}
 
+	public void reverseMotors() {
 
+		moterOne.reverseOutput(isReversed);
+		moterTwo.reverseOutput(!isReversed);
+		moterThree.reverseOutput(isReversed);
+		moterFour.reverseOutput(!isReversed);
+	}
 }
