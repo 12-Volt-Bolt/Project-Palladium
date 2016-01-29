@@ -2,11 +2,11 @@ package org.usfirst.frc.team1557.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
 
-public class SpinnerSubsystem {
+public class OuttakeSubsystem {
 	CANTalon leftMotor;
 	CANTalon rightMotor;
 
-	public SpinnerSubsystem() {
+	public OuttakeSubsystem() {
 		leftMotor = new CANTalon(0);
 		rightMotor = new CANTalon(0);
 	}

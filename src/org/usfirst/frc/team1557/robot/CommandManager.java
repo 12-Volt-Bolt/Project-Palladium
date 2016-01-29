@@ -5,20 +5,26 @@ import edu.wpi.first.wpilibj.Joystick;
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 import static org.usfirst.frc.team1557.robot.Robot.*;
 
+/**
+ * Dedicated class to handle custom command starts and stops.
+ * 
+ *
+ */
 public class CommandManager {
-
+	/**
+	 * Call in teleopPeriodic to run all custom cammond functions.
+	 */
 	public static void manage() {
-		//intakeCommands();
-		//catapultCommands();
-		//climbCommands();
+		// intakeCommands();
+		// climbCommands();
 	}
 
 	private static void intakeCommands() {
-		if (isOutDeadzone(OI.altJoyOne, 0) && !Robot.manualIntake.isRunning()) {
+		if (isOutDeadzone(OI.altJoyOne, 0,0.5) && !Robot.manualIntake.isRunning()) {
 			if (Robot.intake.getCurrentCommand() != null)
 				Robot.intake.getCurrentCommand().cancel();
 			Robot.manualIntake.start();
-		} else if (!isOutDeadzone(OI.altJoyOne, 0)) {
+		} else if (!isOutDeadzone(OI.altJoyOne, 0, 0.5)) {
 			if (Robot.intake.getCurrentCommand() != null)
 				Robot.manualIntake.cancel();
 		}
@@ -44,12 +50,6 @@ public class CommandManager {
 		}
 	}
 
-	private static void catapultCommands() {
-		if (OI.altJoyOne.getRawButton(CATAPULT_FIRE_BUTTON_ID) && !catapultFire.isRunning()) {
-			catapultFire.start();
-		}
-	}
-
 	private static void climbCommands() {
 		if (OI.climbButton.get() && !climbCommand.isRunning()) {
 			climbCommand.start();
@@ -57,10 +57,19 @@ public class CommandManager {
 		}
 	}
 
-	//
-	private static double deadzone = 0.05;
+	/**
+	 * 
+	 * @param joy
+	 *            The joystick to check
+	 * @param axis
+	 *            The raw axis ID to check
+	 * @param deadzone
+	 *            The positive double to represent the joystick deadzone.
+	 * @return Returns if the given axis on the given joystick is outside of the
+	 *         given +- deadzone
+	 */
+	private static boolean isOutDeadzone(Joystick joy, int axis, double deadzone) {
 
-	private static boolean isOutDeadzone(Joystick joy, int axis) {
 		return joy.getRawAxis(axis) > deadzone || joy.getRawAxis(axis) < -deadzone;
 	}
 }

@@ -8,13 +8,19 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * An all in one climb command. What the command does depends on the current
+ * state of the arm.
  */
 public class ClimbCommand extends Command {
 	int count = 0;
 	int countToFinish = 50;
 	State currentState = null;
 
+	/**
+	 * The possible positions of the robot lifter arm.
+	 * 
+	 *
+	 */
 	enum State {
 
 		START, EXTENDED, LIFTED, INVALID;
@@ -28,11 +34,11 @@ public class ClimbCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (!Robot.climb.getInfitesimal() && !Robot.climb.getProdigious()) {
+		if (!Robot.climb.getInfinitesimal() && !Robot.climb.getProdigious()) {
 			currentState = State.START;
-		} else if (Robot.climb.getInfitesimal() && Robot.climb.getProdigious()) {
+		} else if (Robot.climb.getInfinitesimal() && Robot.climb.getProdigious()) {
 			currentState = State.EXTENDED;
-		} else if (Robot.climb.getInfitesimal() && !Robot.climb.getProdigious()) {
+		} else if (Robot.climb.getInfinitesimal() && !Robot.climb.getProdigious()) {
 			currentState = State.LIFTED;
 		} else {
 			currentState = State.INVALID;
@@ -46,7 +52,7 @@ public class ClimbCommand extends Command {
 			Robot.climb.toggleProdigious();
 			break;
 		case START:
-			Robot.climb.toggleInfitesimal();
+			Robot.climb.toggleInfinitesimal();
 			break;
 		default:
 			break;
@@ -73,7 +79,7 @@ public class ClimbCommand extends Command {
 			Robot.climb.toggleProdigious();
 			break;
 		case LIFTED:
-			Robot.climb.toggleInfitesimal();
+			Robot.climb.toggleInfinitesimal();
 			break;
 		case START:
 			Robot.climb.toggleProdigious();

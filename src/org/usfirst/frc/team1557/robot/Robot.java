@@ -1,12 +1,9 @@
 
 package org.usfirst.frc.team1557.robot;
-
-import org.usfirst.frc.team1557.robot.commands.CatapultCommand;
 import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.IntakeCommand;
-import org.usfirst.frc.team1557.robot.commands.SetIntakeDownCommand;
+import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
-import org.usfirst.frc.team1557.robot.subsystems.CatapultSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
@@ -21,7 +18,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,19 +27,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
 	public static OI oi;
-	/**
-	 * Needs to be set to false if the physical compressor doesn't exist. If
-	 * this is failed to be done, everything is broken.
-	 */
 	public static DriveSubsystem drive;
 	public static IntakeSubsystem intake;
 	public static IntakeCommand manualIntake;
 	public static SetIntakeUp buttonIntakeUp;
-	public static SetIntakeDownCommand buttonIntakeDown;
-	public static CatapultSubsystem catapult;
-	public static CatapultCommand catapultFire;
+	public static SetIntakeDown buttonIntakeDown;
 	public static ClimbSubsystem climb;
 	public static ClimbCommand climbCommand;
 	SendableChooser chooser;
@@ -92,15 +81,6 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-
 	}
 
 	/**
@@ -111,10 +91,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		drive.initDefaultCommand();
 
 	}

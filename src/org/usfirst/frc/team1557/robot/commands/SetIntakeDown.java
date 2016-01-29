@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetIntakeDownCommand extends Command {
+public class SetIntakeDown extends Command {
 
-    public SetIntakeDownCommand() {
+    public SetIntakeDown() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.intake);
     }

@@ -12,9 +12,6 @@ import static org.usfirst.frc.team1557.robot.RobotMap.*;
  *
  */
 public class IntakeSubsystem extends Subsystem {
-	// TODO: Change to PIDSubsystem.
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	public static boolean isDown = true;
 	boolean manualOverride = false;
 	/**
