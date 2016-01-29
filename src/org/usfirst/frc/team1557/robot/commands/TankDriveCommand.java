@@ -5,6 +5,7 @@ import org.usfirst.frc.team1557.robot.Robot;
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,7 +22,14 @@ public class TankDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+		SmartDashboard.putBoolean("Button", OI.mainJoyOne.getRawButton(2));
+		if (OI.mainJoyOne.getRawButton(2)) {
+			Robot.drive.reverseMotors(true);
+		} else {
+			Robot.drive.reverseMotors(false);
+		}
+		Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
+				OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
