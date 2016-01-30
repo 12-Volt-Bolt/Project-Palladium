@@ -27,6 +27,8 @@ public class RobotMap {
 	public static final int MAIN_JOY_AXIS_ONE_ID = 1;
 	public static final int MAIN_JOY_AXIS_TWO_ID = 1;
 
+	public static final int ALT_JOY_AXIS_ONE_ID = 1;
+
 	public static final int CATAPULT_FIRE_BUTTON_ID = 1;
 	public static final int CLIMB_BUTTON_ID = 2;
 

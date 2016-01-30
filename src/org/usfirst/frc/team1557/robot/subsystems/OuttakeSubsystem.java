@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class OuttakeSubsystem {
+public class OuttakeSubsystem extends Subsystem {
 	CANTalon leftMotor;
 	CANTalon rightMotor;
 
@@ -19,6 +20,11 @@ public class OuttakeSubsystem {
 	public void turnOff() {
 		rightMotor.set(0);
 		leftMotor.set(0);
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+
 	}
 
 }

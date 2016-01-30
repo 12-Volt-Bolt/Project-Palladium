@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -23,7 +25,6 @@ public class IntakeSubsystem extends Subsystem {
 	public IntakeSubsystem() {
 		rotateMotor = new CANTalon(0);
 		rotateEncoder = new Encoder(0, 1, true, EncodingType.k2X);
-		rotatePID = new PIDController(0.33, 0.33, 0.34, rotateEncoder, rotateMotor);
 
 	}
 	// CANTalon rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
@@ -39,21 +40,33 @@ public class IntakeSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-
 	}
 
 	public void setAngleDown() {
 		rotatePID.setSetpoint(0);
-		togglePos();
+		isDown = true;
 	}
 
 	public void setAngleUp() {
 		// Place holder angle.
 		rotatePID.setSetpoint(90);
-		togglePos();
+		isDown = false;
 	}
 
-	private void togglePos() {
-		isDown = !isDown;
+	public void setArmSetpoint(double setpoint) {
+		double currSet = rotatePID.getSetpoint();
+		if (currSet < 90 && currSet > 0) {
+			rotatePID.setSetpoint(currSet + setpoint);
+		} else if (currSet >= 90 && setpoint < 0) {
+			rotatePID.setSetpoint(currSet + setpoint);
+		} else if (currSet <= 0 && setpoint > 0) {
+			rotatePID.setSetpoint(currSet + setpoint);
+		}
+
 	}
+
+	public double getArmSetpoint() {
+		return rotatePID.getSetpoint();
+	}
+
 }

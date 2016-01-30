@@ -20,7 +20,7 @@ public class CommandManager {
 	}
 
 	private static void intakeCommands() {
-		if (isOutDeadzone(OI.altJoyOne, 0,0.5) && !Robot.manualIntake.isRunning()) {
+		if (isOutDeadzone(OI.altJoyOne, 0, 0.5) && !Robot.manualIntake.isRunning()) {
 			if (Robot.intake.getCurrentCommand() != null)
 				Robot.intake.getCurrentCommand().cancel();
 			Robot.manualIntake.start();

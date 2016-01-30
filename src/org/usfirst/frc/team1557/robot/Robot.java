@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
-import org.usfirst.frc.team1557.robot.commands.IntakeCommand;
+import org.usfirst.frc.team1557.robot.commands.ManualIntakeCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSubsystem drive;
 	public static IntakeSubsystem intake;
-	public static IntakeCommand manualIntake;
+	public static ManualIntakeCommand manualIntake;
 	public static SetIntakeUp buttonIntakeUp;
 	public static SetIntakeDown buttonIntakeDown;
 	public static ClimbSubsystem climb;
