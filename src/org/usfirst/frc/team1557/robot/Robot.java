@@ -1,9 +1,13 @@
 
 package org.usfirst.frc.team1557.robot;
+
+import org.usfirst.frc.team1557.robot.autonoms.DriveCommand;
+import org.usfirst.frc.team1557.robot.autonoms.MainAuto;
 import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.ManualIntakeCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
+import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
@@ -11,13 +15,16 @@ import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
 import com.ni.vision.NIVision.GetClassifierSampleInfoResult;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,6 +42,8 @@ public class Robot extends IterativeRobot {
 	public static SetIntakeDown buttonIntakeDown;
 	public static ClimbSubsystem climb;
 	public static ClimbCommand climbCommand;
+	private TestCommand test = new TestCommand();
+
 	SendableChooser chooser;
 
 	/**
@@ -44,6 +53,11 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		drive = new DriveSubsystem();
+		chooser = new SendableChooser();
+		chooser.addDefault("Main Autonomous", new MainAuto());
+		chooser.addObject("Other Autonomous", 1);
+		SmartDashboard.putData("Autonomous chooser", chooser);
+		test.start();
 		// intake = new IntakeSubsystem();
 		// manualIntake = new IntakeCommand();
 		// buttonIntakeUp = new SetIntakeUp();
@@ -80,6 +94,9 @@ public class Robot extends IterativeRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	public void autonomousInit() {
+		if (chooser.getSelected() != null) {
+			((CommandGroup) chooser.getSelected()).start();
+		}
 
 	}
 
@@ -91,6 +108,10 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
+		if (chooser.getSelected() != null) {
+			((CommandGroup) chooser.getSelected()).cancel();
+		}
+
 		drive.initDefaultCommand();
 
 	}
