@@ -10,11 +10,12 @@ import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1557.robot.RobotMap;
+
 /**
  *
  */
-public class IntakeSubsystem extends Subsystem {
-	public static boolean isDown = true;
+public class IntakeArmSubsystem extends Subsystem {
 	boolean manualOverride = false;
 	/**
 	 * disable this talon during tests until talon exists in the real world.
@@ -22,13 +23,14 @@ public class IntakeSubsystem extends Subsystem {
 	CANTalon rotateMotor;
 	Encoder rotateEncoder;
 
-	public IntakeSubsystem() {
+	public IntakeArmSubsystem() {
 		rotateMotor = new CANTalon(0);
 		rotateEncoder = new Encoder(0, 1, true, EncodingType.k2X);
+		initEncoder();
 
 	}
+
 	// CANTalon rotateMotor2 = new TalonSRX(rotateMotorTwo_ID);
-	// CANTalon intakeMotor = new TalonSRX(intakeMotorOne_ID);
 
 	PIDController rotatePID;
 
@@ -44,13 +46,13 @@ public class IntakeSubsystem extends Subsystem {
 
 	public void setAngleDown() {
 		rotatePID.setSetpoint(0);
-		isDown = true;
+
 	}
 
 	public void setAngleUp() {
 		// Place holder angle.
 		rotatePID.setSetpoint(90);
-		isDown = false;
+
 	}
 
 	public void setArmSetpoint(double setpoint) {

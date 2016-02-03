@@ -36,6 +36,8 @@ public class RobotMap {
 	public static final int CATAPULT_SOLENOID_TWO_MODULE_ID = 0;
 	public static final int CATAPULT_SOLENOID_ONE_CHANNEL_ID = 0;
 	public static final int CATAPULT_SOLENOID_TWO_CHANNEL_ID = 0;
+
+	public static final int INTAKE_WHEEL_BUTTON_ID = 0;
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

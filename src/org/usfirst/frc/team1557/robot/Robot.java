@@ -1,16 +1,18 @@
 
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.autonoms.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.MainAuto;
+import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
+import org.usfirst.frc.team1557.robot.commands.IntakeWheelCommand;
 import org.usfirst.frc.team1557.robot.commands.ManualIntakeCommand;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
 import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team1557.robot.subsystems.IntakeSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 
 import com.ni.vision.NIVision.GetClassifierSampleInfoResult;
 
@@ -36,12 +38,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSubsystem drive;
-	public static IntakeSubsystem intake;
-	public static ManualIntakeCommand manualIntake;
-	public static SetIntakeUp buttonIntakeUp;
-	public static SetIntakeDown buttonIntakeDown;
+	public static IntakeArmSubsystem intake;
+	public static ManualIntakeCommand manualIntakeArm;
+	public static SetIntakeUp buttonIntakeArmUp;
+	public static SetIntakeDown buttonIntakeArmDown;
 	public static ClimbSubsystem climb;
 	public static ClimbCommand climbCommand;
+	public static IntakeWheelSubsystem buttonIntakeWheel;
 	private TestCommand test = new TestCommand();
 
 	SendableChooser chooser;

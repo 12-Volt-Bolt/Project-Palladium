@@ -1,5 +1,10 @@
 package org.usfirst.frc.team1557.robot.autonoms;
 
+import org.usfirst.frc.team1557.robot.autonoms.commands.AssistedDriveCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.FireCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

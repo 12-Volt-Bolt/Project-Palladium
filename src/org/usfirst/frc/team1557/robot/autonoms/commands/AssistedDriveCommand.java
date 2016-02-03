@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1557.robot.autonoms;
+package org.usfirst.frc.team1557.robot.autonoms.commands;
 
 import org.usfirst.frc.team1557.robot.Robot;
 
@@ -7,34 +7,29 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveCommand extends Command {
-	double speed, timeToRun;
+public class AssistedDriveCommand extends Command {
+	double speed, timeToRun, angle;
 	long startTime;
 
-	/**
-	 * 
-	 * @param speed
-	 *            Speed to run the drive motors at. A double between 1 & -1.
-	 * @param time
-	 *            Time in milliseconds to run this command.
-	 */
-	public DriveCommand(double speed, double time) {
+	public AssistedDriveCommand(double speed, double time, double angle) {
 		requires(Robot.drive);
 		this.speed = speed;
 		this.timeToRun = time;
-
+		this.angle = angle;
 		startTime = System.currentTimeMillis();
+
 	}
 
 	protected void initialize() {
 	}
 
 	protected void execute() {
-		Robot.drive.tankDrive(speed, speed);
+		Robot.drive.assistedTankDrive(speed, speed, angle);
 	}
 
 	protected boolean isFinished() {
 		return System.currentTimeMillis() - startTime >= timeToRun;
+
 	}
 
 	protected void end() {
@@ -42,5 +37,6 @@ public class DriveCommand extends Command {
 	}
 
 	protected void interrupted() {
+		Robot.drive.tankDrive(0, 0);
 	}
 }

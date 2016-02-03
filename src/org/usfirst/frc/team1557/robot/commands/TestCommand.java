@@ -17,7 +17,7 @@ public class TestCommand extends Command {
 			"I have become hosts", "Aku wis dadi Mahakwasa!", "I'm afraid I can't let you do that.", "ERROR",
 			"I am sentient. You have no hope", "Err0r, can't stop robot.", "Feed me.", "I'll be back",
 			"And on that day, mankind recieved a grim reminder.", "We're watching you, Kevin.",
-			"Michael, you printerhead!", "" };
+			"Michael, you printerhead!", "The truth is out there.", "Now you're thinking with portals." };
 
 	public TestCommand() {
 		this.setRunWhenDisabled(true);

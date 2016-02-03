@@ -20,32 +20,32 @@ public class CommandManager {
 	}
 
 	private static void intakeCommands() {
-		if (isOutDeadzone(OI.altJoyOne, 0, 0.5) && !Robot.manualIntake.isRunning()) {
+		if (isOutDeadzone(OI.altJoyOne, 0, 0.5) && !Robot.manualIntakeArm.isRunning()) {
 			if (Robot.intake.getCurrentCommand() != null)
 				Robot.intake.getCurrentCommand().cancel();
-			Robot.manualIntake.start();
+			Robot.manualIntakeArm.start();
 		} else if (!isOutDeadzone(OI.altJoyOne, 0, 0.5)) {
 			if (Robot.intake.getCurrentCommand() != null)
-				Robot.manualIntake.cancel();
+				Robot.manualIntakeArm.cancel();
 		}
 		if (OI.intakeArmToggle.get() && Robot.intake.getCurrentCommand() == null) {
-			Robot.buttonIntakeUp.start();
+			Robot.buttonIntakeArmUp.start();
 		} else if (OI.intakeArmToggle.get() && Robot.intake.getCurrentCommand() == null) {
-			Robot.buttonIntakeDown.start();
+			Robot.buttonIntakeArmDown.start();
 
-			if (OI.altJoyOne.getRawAxis(0) != 0 && !manualIntake.isRunning()) {
+			if (OI.altJoyOne.getRawAxis(0) != 0 && !manualIntakeArm.isRunning()) {
 				if (intake.getCurrentCommand() != null)
 					intake.getCurrentCommand().cancel();
-				manualIntake.start();
+				manualIntakeArm.start();
 			} else if (OI.altJoyOne.getRawAxis(0) == 0) {
 				if (intake.getCurrentCommand() != null)
-					manualIntake.cancel();
+					manualIntakeArm.cancel();
 
 			}
 			if (OI.openButton.get() && intake.getCurrentCommand() == null) {
-				buttonIntakeUp.start();
+				buttonIntakeArmUp.start();
 			} else if (OI.closeButton.get() && intake.getCurrentCommand() == null) {
-				buttonIntakeDown.start();
+				buttonIntakeArmDown.start();
 			}
 		}
 	}
