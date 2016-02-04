@@ -24,12 +24,11 @@ public class AssistedDriveCommand extends Command {
 	}
 
 	protected void execute() {
-		Robot.drive.assistedTankDrive(speed, speed, angle);
+		Robot.drive.gyroTankDrive(speed, speed, angle);
 	}
 
 	protected boolean isFinished() {
 		return System.currentTimeMillis() - startTime >= timeToRun;
-
 	}
 
 	protected void end() {

@@ -8,14 +8,8 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
-
-import org.usfirst.frc.team1557.robot.OI;
 
 /**
  *
@@ -30,6 +24,10 @@ public class DriveSubsystem extends Subsystem {
 	private boolean reverse = false;
 	ADXRS450_Gyro gyro;
 	PIDController gyroPID;
+	PIDController encoderLeftPID;
+	PIDController encoderRightPID;
+	Encoder leftEncoder;
+	Encoder rightEncoder;
 
 	public DriveSubsystem() {
 
@@ -40,7 +38,7 @@ public class DriveSubsystem extends Subsystem {
 		right = new MotorGroup(motorOne, motorThree);
 		left = new MotorGroup(motorTwo, motorFour);
 		initGyro();
-
+		initEncoders();
 	}
 
 	public void initDefaultCommand() {
@@ -61,11 +59,11 @@ public class DriveSubsystem extends Subsystem {
 		left.set((reverse) ? -rightSpeed : leftSpeed);
 	}
 
-	public void reverseMotors(boolean re) {
-		reverse = re;
+	public void reverseMotors(boolean reverse) {
+		this.reverse = reverse;
 	}
 
-	public void assistedTankDrive(double rightSpeed, double leftSpeed, double angle) {
+	public void gyroTankDrive(double rightSpeed, double leftSpeed, double angle) {
 		if (gyroPID.onTarget()) {
 			gyroPID.disable();
 			right.set(rightSpeed);
@@ -73,6 +71,10 @@ public class DriveSubsystem extends Subsystem {
 		} else if (!gyroPID.isEnabled()) {
 			gyroPID.enable();
 		}
+	}
+
+	public void encoderTankDrive(double distance) {
+
 	}
 
 	private void initGyro() {
@@ -90,21 +92,43 @@ public class DriveSubsystem extends Subsystem {
 		gyroPID.setAbsoluteTolerance(1);
 	}
 
-	public void assistedTurn(double angle) {
+	private void initEncoders() {
+		encoderLeftPID = new PIDController(0.05, 0.0, 0.0, leftEncoder, new PIDOutput() {
+
+			@Override
+			public void pidWrite(double output) {
+				right.set(output);
+
+			}
+		});
+		encoderRightPID = new PIDController(0.05, 0.0, 0.0, rightEncoder, new PIDOutput() {
+
+			@Override
+			public void pidWrite(double output) {
+				left.set(output);
+
+			}
+		});
+	}
+
+	public void gyroTurn(double angle) {
 		gyroPID.setSetpoint(angle);
 		if (!gyroPID.isEnabled() && !gyroPID.onTarget()) {
 			gyroPID.enable();
 		}
-
-		// Levy_J????_Huchingson
 	}
 
-	public boolean isOnTarget() {
+	public boolean isGyroOnTarget() {
 		return gyroPID.onTarget();
 	}
 
 	public void disableGyroPID() {
 		gyroPID.disable();
+	}
+
+	public void disableEncoderPIDs() {
+		encoderLeftPID.disable();
+		encoderRightPID.disable();
 	}
 }
 

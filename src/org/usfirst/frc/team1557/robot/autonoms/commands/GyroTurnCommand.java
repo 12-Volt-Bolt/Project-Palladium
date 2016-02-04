@@ -18,7 +18,7 @@ public class GyroTurnCommand extends Command {
 
 	protected void initialize() {
 		requires(Robot.drive);
-		Robot.drive.assistedTurn(angle);
+		Robot.drive.gyroTurn(angle);
 
 	}
 
@@ -27,7 +27,7 @@ public class GyroTurnCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-		return Robot.drive.isOnTarget() || isTimedOut();
+		return Robot.drive.isGyroOnTarget() || isTimedOut();
 	}
 
 	protected void end() {
