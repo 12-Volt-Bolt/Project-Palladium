@@ -22,12 +22,12 @@ public class DriveSubsystem extends Subsystem {
 	CANTalon motorThree;
 	CANTalon motorFour;
 	private boolean reverse = false;
-	ADXRS450_Gyro gyro;
+	public ADXRS450_Gyro gyro;
 	PIDController gyroPID;
 	PIDController encoderLeftPID;
 	PIDController encoderRightPID;
-	Encoder leftEncoder;
-	Encoder rightEncoder;
+	public Encoder leftEncoder;
+	public Encoder rightEncoder;
 
 	public DriveSubsystem() {
 
@@ -37,8 +37,8 @@ public class DriveSubsystem extends Subsystem {
 		motorFour = new CANTalon(DRIVE_MOTOR_FOUR_ID);
 		right = new MotorGroup(motorOne, motorThree);
 		left = new MotorGroup(motorTwo, motorFour);
-		initGyro();
-		initEncoders();
+		rightEncoder.setDistancePerPulse((360d / 497d));
+		leftEncoder.setDistancePerPulse((360d / 497d));
 	}
 
 	public void initDefaultCommand() {
@@ -53,7 +53,7 @@ public class DriveSubsystem extends Subsystem {
 	 * @param leftSpeed
 	 *            Speed of the left motors.
 	 */
-	public void tankDrive(double rightSpeed, double leftSpeed) {
+	public void tankDrive(double leftSpeed, double rightSpeed) {
 
 		right.set((reverse) ? -leftSpeed : rightSpeed);
 		left.set((reverse) ? -rightSpeed : leftSpeed);
@@ -71,44 +71,6 @@ public class DriveSubsystem extends Subsystem {
 		} else if (!gyroPID.isEnabled()) {
 			gyroPID.enable();
 		}
-	}
-
-	public void encoderTankDrive(double distance) {
-
-	}
-
-	private void initGyro() {
-		gyro = new ADXRS450_Gyro();
-
-		gyroPID = new PIDController(0.05, 0, 0, gyro, new PIDOutput() {
-
-			@Override
-			public void pidWrite(double output) {
-				right.set(-output);
-				left.set(output);
-			}
-		});
-		gyroPID.setContinuous();
-		gyroPID.setAbsoluteTolerance(1);
-	}
-
-	private void initEncoders() {
-		encoderLeftPID = new PIDController(0.05, 0.0, 0.0, leftEncoder, new PIDOutput() {
-
-			@Override
-			public void pidWrite(double output) {
-				right.set(output);
-
-			}
-		});
-		encoderRightPID = new PIDController(0.05, 0.0, 0.0, rightEncoder, new PIDOutput() {
-
-			@Override
-			public void pidWrite(double output) {
-				left.set(output);
-
-			}
-		});
 	}
 
 	public void gyroTurn(double angle) {
