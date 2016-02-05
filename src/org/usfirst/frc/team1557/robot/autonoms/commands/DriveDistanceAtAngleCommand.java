@@ -1,18 +1,20 @@
 package org.usfirst.frc.team1557.robot.autonoms.commands;
 
 import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class DriveDistanceAtAngleCommand extends Command {
 	PIDController leftEncoderPID, rightEncoderPID, gyroPID;
-	double distanceToTravel = 0_0_0_0_0_0_0_0_0_0_0_0_0;
+	double distanceToTravel = 0;
 	double speed = 0;
 	double leftEncoderOutput, rightEncoderOutput, gyroOutput;
 	double angle = 0;
@@ -24,32 +26,38 @@ public class DriveDistanceAtAngleCommand extends Command {
 		this.angle = angle;
 		this.speed = speed;
 		leftEncoderPID = new PIDController(0.05, 0, 0, Robot.drive.leftEncoder, new PIDOutput() {
-
 			@Override
 			public void pidWrite(double output) {
 				leftEncoderOutput = output;
 			}
 		});
+		leftEncoderPID.enable();
 		rightEncoderPID = new PIDController(0.05, 0, 0, Robot.drive.rightEncoder, new PIDOutput() {
 			@Override
 			public void pidWrite(double output) {
 				rightEncoderOutput = output;
 			}
 		});
+		rightEncoderPID.enable();
 		gyroPID = new PIDController(0.05, 0, 0, Robot.drive.gyro, new PIDOutput() {
-
 			@Override
 			public void pidWrite(double output) {
-
 				gyroOutput = output;
 			}
-
 		});
-		gyroPID.setInputRange(-360, 360);
-		gyroPID.setContinuous();
-		gyroPID.setAbsoluteTolerance(5);
-		leftEncoderPID.setAbsoluteTolerance(36);
-		rightEncoderPID.setAbsoluteTolerance(36);
+		gyroPID.enable();
+		
+//		gyroPID.setInputRange(-360, 360);
+//		gyroPID.setContinuous();
+		
+		// set tolerance to 10 degrees
+		gyroPID.setAbsoluteTolerance(10);
+		// set tolerarance to 1/20th of a rotation
+		leftEncoderPID.setAbsoluteTolerance(RobotMap.ENCODER_PULSES_PER_ROTATION / 20);
+		rightEncoderPID.setAbsoluteTolerance(RobotMap.ENCODER_PULSES_PER_ROTATION / 20);
+		
+		SmartDashboard.putData("leftEncoderPID", leftEncoderPID);
+		SmartDashboard.putData("rightEncoderPID", rightEncoderPID);
 	}
 
 	public DriveDistanceAtAngleCommand(double distance, double angle) {
@@ -73,7 +81,12 @@ public class DriveDistanceAtAngleCommand extends Command {
 			rightSpeed /= scale;
 			leftSpeed /= scale;
 		}
+		
 		Robot.drive.tankDrive(leftSpeed * speed, rightSpeed * speed);
+		
+		SmartDashboard.putNumber("Autonomous Left Side", leftSpeed * speed);
+		SmartDashboard.putNumber("Autonomous Right Side", rightSpeed * speed);
+		SmartDashboard.putNumber("Gyro Read Value", Robot.drive.gyro.getAngle());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -83,7 +96,9 @@ public class DriveDistanceAtAngleCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-
+		leftEncoderPID.disable();
+		rightEncoderPID.disable();
+		gyroPID.disable();
 	}
 
 	// Called when another command which requires one or more of the same

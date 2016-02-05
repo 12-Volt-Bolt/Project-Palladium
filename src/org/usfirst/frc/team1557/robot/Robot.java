@@ -3,6 +3,8 @@ package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.autonoms.MainAuto;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.IntakeWheelCommand;
 import org.usfirst.frc.team1557.robot.commands.ManualIntakeCommand;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -57,8 +60,25 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		drive = new DriveSubsystem();
 		chooser = new SendableChooser();
-		chooser.addDefault("Main Autonomous", new MainAuto());
-		chooser.addObject("Other Autonomous", 1);
+		
+		chooser.addDefault("No operation autonomous", new WaitCommand(1));
+		chooser.addObject("Main Autonomous", new MainAuto());
+		chooser.addObject("12 Inches @ 30deg, 0.0 speed", new DriveDistanceAtAngleCommand(12, 30, 0.0));
+		chooser.addObject("12 Inches @ 30deg, 0.4 speed", new DriveDistanceAtAngleCommand(12, 30, 0.4));
+		chooser.addObject("24 Inches @ 30deg, 0.8 speed", new DriveDistanceAtAngleCommand(24, 30, 0.8));
+		chooser.addObject("Turn to 90deg", new GyroTurnCommand(90));
+		chooser.addObject("Turn to -45deg", new GyroTurnCommand(-45));
+		chooser.addObject("Turn to 0deg, 90deg alternating 2 times", new CommandGroup() {
+			{
+				for (int i = 0; i < 2; i++) {
+					this.addSequential(new GyroTurnCommand(0));
+					this.addSequential(new WaitCommand(1));
+					this.addSequential(new GyroTurnCommand(90));
+					this.addSequential(new WaitCommand(1));
+				}
+			}
+		});
+		
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		test.start();
 		// intake = new IntakeSubsystem();
@@ -98,7 +118,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		if (chooser.getSelected() != null) {
-			((CommandGroup) chooser.getSelected()).start();
+			((Command) chooser.getSelected()).start();
 		}
 
 	}
@@ -112,7 +132,7 @@ public class Robot extends IterativeRobot {
 
 	public void teleopInit() {
 		if (chooser.getSelected() != null) {
-			((CommandGroup) chooser.getSelected()).cancel();
+			((Command) chooser.getSelected()).cancel();
 		}
 
 		drive.initDefaultCommand();

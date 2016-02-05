@@ -17,7 +17,7 @@ public class TestCommand extends Command {
 			"I have become hosts", "Aku wis dadi Mahakwasa!", "I'm afraid I can't let you do that.", "ERROR",
 			"I am sentient. You have no hope", "Err0r, can't stop robot.", "Feed me.", "I'll be back",
 			"And on that day, mankind recieved a grim reminder.", "We're watching you, Kevin.",
-			"Michael, you printerhead!", "The truth is out there.", "Now you're thinking with portals." };
+			"Michael, you printerhead!", "The truth is out there.", "Now you're thinking with portals.", "executing notavirus.jar" };
 
 	public TestCommand() {
 		this.setRunWhenDisabled(true);
@@ -55,8 +55,9 @@ public class TestCommand extends Command {
 	}
 
 	private void print() {
-		if (Math.random() >= chance) {
+		if (Math.random() <= chance) {
 			DriverStation.getInstance().reportError(getRandomOutput(), false);
+			DriverStation.getInstance().reportError("\n", false);
 		}
 
 	}
