@@ -28,8 +28,8 @@ public class DriveSubsystem extends Subsystem {
 	private boolean reverse = false;
 	public ADXRS450_Gyro gyro;
 //	PIDController gyroPID;
-	PIDController encoderLeftPID;
-	PIDController encoderRightPID;
+	
+	
 	public Encoder leftEncoder;
 	public Encoder rightEncoder;
 
@@ -60,10 +60,10 @@ public class DriveSubsystem extends Subsystem {
 	}
 	
 	private void setMotors(double leftSpeed, double rightSpeed) {
-		motorOne.set(rightSpeed);
-		motorTwo.set(-leftSpeed);
-		motorThree.set(-rightSpeed);
-		motorFour.set(leftSpeed);
+		motorOne.set(-rightSpeed);
+		motorTwo.set(leftSpeed);
+		motorThree.set(rightSpeed);
+		motorFour.set(-leftSpeed);
 	}
 
 	/**
@@ -81,10 +81,6 @@ public class DriveSubsystem extends Subsystem {
 		this.reverse = reverse;
 	}
 
-	public void disableEncoderPIDs() {
-		encoderLeftPID.disable();
-		encoderRightPID.disable();
-	}
 }
 
 // We know you're watching ;) Death be to the filthy kamikaze pigs. Long live

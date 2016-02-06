@@ -60,25 +60,14 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		drive = new DriveSubsystem();
 		chooser = new SendableChooser();
-		
+
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new MainAuto());
 		chooser.addObject("12 Inches @ 30deg, 0.0 speed", new DriveDistanceAtAngleCommand(12, 30, 0.0));
 		chooser.addObject("12 Inches @ 30deg, 0.4 speed", new DriveDistanceAtAngleCommand(12, 30, 0.4));
 		chooser.addObject("24 Inches @ 30deg, 0.8 speed", new DriveDistanceAtAngleCommand(24, 30, 0.8));
-		chooser.addObject("Turn to 90deg", new GyroTurnCommand(90));
-		chooser.addObject("Turn to -45deg", new GyroTurnCommand(-45));
-		chooser.addObject("Turn to 0deg, 90deg alternating 2 times", new CommandGroup() {
-			{
-				for (int i = 0; i < 2; i++) {
-					this.addSequential(new GyroTurnCommand(0));
-					this.addSequential(new WaitCommand(1));
-					this.addSequential(new GyroTurnCommand(90));
-					this.addSequential(new WaitCommand(1));
-				}
-			}
-		});
-		
+		chooser.addObject("48 Inches @ 0deg, 0.4 speed", new DriveDistanceAtAngleCommand(48, 0, 0.4));
+		chooser.addObject("One rotation @ 0deg, 0.5 speed", new DriveDistanceAtAngleCommand(360, 0, 0.5));
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		test.start();
 		// intake = new IntakeSubsystem();

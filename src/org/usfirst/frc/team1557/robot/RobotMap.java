@@ -49,7 +49,7 @@ public class RobotMap {
 	/**
 	 * THe size of the wheel
 	 */
-	public static final double WHEEL_CIRCUMFERENCE_INCHES = 33.0;
+	public static final double WHEEL_CIRCUMFERENCE_INCHES = 360d;
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

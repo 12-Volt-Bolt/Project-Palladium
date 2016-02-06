@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1557.robot.autonoms.commands;
 
+import static org.usfirst.frc.team1557.robot.RobotMap.ENCODER_PULSES_PER_ROTATION;
+import static org.usfirst.frc.team1557.robot.RobotMap.WHEEL_CIRCUMFERENCE_INCHES;
+
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
 
@@ -47,6 +50,8 @@ public class DriveDistanceAtAngleCommand extends Command {
 		});
 		gyroPID.enable();
 		
+		SmartDashboard.putNumber("DIST_PER_PULSE", 250);
+		
 //		gyroPID.setInputRange(-360, 360);
 //		gyroPID.setContinuous();
 		
@@ -67,6 +72,8 @@ public class DriveDistanceAtAngleCommand extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		gyroPID.setSetpoint(angle);
+		Robot.drive.leftEncoder.reset();
+		Robot.drive.rightEncoder.reset();
 		leftEncoderPID.setSetpoint(distanceToTravel);
 		rightEncoderPID.setSetpoint(distanceToTravel);
 
@@ -74,24 +81,40 @@ public class DriveDistanceAtAngleCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double rightSpeed = rightEncoderOutput - gyroOutput;
-		double leftSpeed = leftEncoderOutput + gyroOutput;
-		double scale = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
-		if (scale > 1) {
-			rightSpeed /= scale;
-			leftSpeed /= scale;
-		}
+//		double rightSpeed = rightEncoderOutput - gyroOutput;
+//		double leftSpeed = leftEncoderOutput + gyroOutput;
+//		double scale = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
+//		if (scale > 1) {
+//			rightSpeed /= scale;
+//			leftSpeed /= scale;
+//		}
 		
-		Robot.drive.tankDrive(leftSpeed * speed, rightSpeed * speed);
+//		Robot.drive.tankDrive(leftSpeed * speed, rightSpeed * speed);
+//		
+//		SmartDashboard.putNumber("Autonomous Left Side", leftSpeed * speed);
+//		SmartDashboard.putNumber("Autonomous Right Side", rightSpeed * speed);
 		
-		SmartDashboard.putNumber("Autonomous Left Side", leftSpeed * speed);
-		SmartDashboard.putNumber("Autonomous Right Side", rightSpeed * speed);
+		Robot.drive.tankDrive(leftEncoderOutput, rightEncoderOutput);
+		SmartDashboard.putNumber("Left Encoder PID Output", leftEncoderOutput);
+		SmartDashboard.putNumber("Right Encoder PID Output", rightEncoderOutput);
+		
 		SmartDashboard.putNumber("Gyro Read Value", Robot.drive.gyro.getAngle());
+		
+		SmartDashboard.putNumber("leftEncoder", Robot.drive.leftEncoder.get());
+		SmartDashboard.putNumber("rightEncoder", Robot.drive.rightEncoder.get());
+		
+		double prot = SmartDashboard.getNumber("DIST_PER_PULSE", 250);
+		Robot.drive.rightEncoder.setDistancePerPulse((prot));
+		Robot.drive.leftEncoder.setDistancePerPulse((prot));
+		
+//		Robot.drive.rightEncoder.setDistancePerPulse((WHEEL_CIRCUMFERENCE_INCHES / ENCODER_PULSES_PER_ROTATION));
+//		Robot.drive.leftEncoder.setDistancePerPulse((WHEEL_CIRCUMFERENCE_INCHES / ENCODER_PULSES_PER_ROTATION));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return gyroPID.onTarget() && leftEncoderPID.onTarget() && rightEncoderPID.onTarget();
+		return false;
+//		return gyroPID.onTarget() && leftEncoderPID.onTarget() && rightEncoderPID.onTarget();
 	}
 
 	// Called once after isFinished returns true
