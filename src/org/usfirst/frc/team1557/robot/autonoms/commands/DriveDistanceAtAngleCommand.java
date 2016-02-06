@@ -1,12 +1,8 @@
 package org.usfirst.frc.team1557.robot.autonoms.commands;
 
-import static org.usfirst.frc.team1557.robot.RobotMap.ENCODER_PULSES_PER_ROTATION;
-import static org.usfirst.frc.team1557.robot.RobotMap.WHEEL_CIRCUMFERENCE_INCHES;
-
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,6 +18,12 @@ public class DriveDistanceAtAngleCommand extends Command {
 	double leftEncoderOutput, rightEncoderOutput, gyroOutput;
 	double angle = 0;
 
+	/**
+	 * Attempts to drive the robot forward for the given distance in inches, at the given relative rotation, at the given speed.
+	 * @param distance
+	 * @param angle
+	 * @param speed
+	 */
 	public DriveDistanceAtAngleCommand(double distance, double angle, double speed) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drive);
@@ -58,8 +60,8 @@ public class DriveDistanceAtAngleCommand extends Command {
 		// set tolerance to 10 degrees
 		gyroPID.setAbsoluteTolerance(10);
 		// set tolerarance to 1/20th of a rotation
-		leftEncoderPID.setAbsoluteTolerance(RobotMap.ENCODER_PULSES_PER_ROTATION / 20);
-		rightEncoderPID.setAbsoluteTolerance(RobotMap.ENCODER_PULSES_PER_ROTATION / 20);
+		leftEncoderPID.setAbsoluteTolerance(RobotMap.ENCODER_LEFT_PULSES_PER_ROTATION / 20);
+		rightEncoderPID.setAbsoluteTolerance(RobotMap.ENCODER_RIGHT_PULSES_PER_ROTATION / 20);
 		
 		SmartDashboard.putData("leftEncoderPID", leftEncoderPID);
 		SmartDashboard.putData("rightEncoderPID", rightEncoderPID);
@@ -71,7 +73,7 @@ public class DriveDistanceAtAngleCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		gyroPID.setSetpoint(angle);
+		gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + angle);
 		Robot.drive.leftEncoder.reset();
 		Robot.drive.rightEncoder.reset();
 		leftEncoderPID.setSetpoint(distanceToTravel);

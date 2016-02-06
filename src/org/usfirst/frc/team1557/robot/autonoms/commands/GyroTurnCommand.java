@@ -17,7 +17,12 @@ public class GyroTurnCommand extends Command {
 
 	PIDController gyroPID;
 	
-	public GyroTurnCommand(double angle) {
+	/**
+	 * Attempts to turn the robot by the given relative angle, within the given tolerance
+	 * @param angle Angle in degrees
+	 * @param tolerance Tolerance in degrees
+	 */
+	public GyroTurnCommand(double angle, double tolerance) {
 		requires(Robot.drive);
 		
 		this.angle = angle;
@@ -29,16 +34,27 @@ public class GyroTurnCommand extends Command {
 				gyroOutput = output;
 			}
 		});
-		gyroPID.enable();
-		gyroPID.setAbsoluteTolerance(10);
+		
+		gyroPID.setAbsoluteTolerance(tolerance);
+	}
+	
+	/**
+	 * Creates a GyroTurnCommand with the given relative angle and a default tolerance of 10
+	 * @param angle The angle to turn to
+	 */
+	public GyroTurnCommand(double angle) {
+		this(angle, 10);
 	}
 
 	protected void initialize() {
-		
+		gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + angle);
+		gyroPID.enable();
 	}
 
 	protected void execute() {
-		gyroTurn(angle);
+//		gyroTurn(angle);
+		
+		Robot.drive.tankDrive(-gyroOutput, gyroOutput);
 	}
 
 	protected boolean isFinished() {
@@ -50,32 +66,33 @@ public class GyroTurnCommand extends Command {
 	}
 
 	protected void interrupted() {
+		end();
 	}
 	
 	
 	
-	public void gyroTankDrive(double rightSpeed, double leftSpeed, double angle) {
-		if (gyroPID.onTarget()) {
-			gyroPID.disable();
-			Robot.drive.tankDrive(leftSpeed, rightSpeed);
-		} else if (!gyroPID.isEnabled()) {
-			gyroPID.enable();
-		}
-	}
-
-	public void gyroTurn(double angle) {
-		gyroPID.setSetpoint(angle);
-		if (!gyroPID.isEnabled() && !gyroPID.onTarget()) {
-			gyroPID.enable();
-		}
-	}
-
+//	public void gyroTankDrive(double rightSpeed, double leftSpeed, double angle) {
+//		if (gyroPID.onTarget()) {
+//			gyroPID.disable();
+//			Robot.drive.tankDrive(leftSpeed, rightSpeed);
+//		} else if (!gyroPID.isEnabled()) {
+//			gyroPID.enable();
+//		}
+//	}
+//
+//	public void gyroTurn(double angle) {
+//		gyroPID.setSetpoint(angle);
+//		if (!gyroPID.isEnabled() && !gyroPID.onTarget()) {
+//			gyroPID.enable();
+//		}
+//	}
+//
 	public boolean isGyroOnTarget() {
 		return gyroPID.onTarget();
 	}
-
-	public void disableGyroPID() {
-		gyroPID.disable();
-	}
+//
+//	public void disableGyroPID() {
+//		gyroPID.disable();
+//	}
 
 }

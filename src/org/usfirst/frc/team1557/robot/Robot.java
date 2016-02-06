@@ -4,6 +4,7 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonoms.MainAuto;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.DriveInAPolygonCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.IntakeWheelCommand;
@@ -63,11 +64,17 @@ public class Robot extends IterativeRobot {
 
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new MainAuto());
-		chooser.addObject("12 Inches @ 30deg, 0.0 speed", new DriveDistanceAtAngleCommand(12, 30, 0.0));
-		chooser.addObject("12 Inches @ 30deg, 0.4 speed", new DriveDistanceAtAngleCommand(12, 30, 0.4));
-		chooser.addObject("24 Inches @ 30deg, 0.8 speed", new DriveDistanceAtAngleCommand(24, 30, 0.8));
-		chooser.addObject("48 Inches @ 0deg, 0.4 speed", new DriveDistanceAtAngleCommand(48, 0, 0.4));
-		chooser.addObject("One rotation @ 0deg, 0.5 speed", new DriveDistanceAtAngleCommand(360, 0, 0.5));
+		chooser.addObject("12 Inches straight, 0.0 speed", new DriveDistanceAtAngleCommand(12, 0, 0.0));
+		chooser.addObject("12 Inches straight, 0.4 speed", new DriveDistanceAtAngleCommand(12, 0, 0.4));
+		chooser.addObject("24 Inches straight, 0.8 speed", new DriveDistanceAtAngleCommand(24, 0, 0.8));
+		chooser.addObject("48 Inches straight, 0.4 speed", new DriveDistanceAtAngleCommand(48, 0, 0.4));
+		
+		chooser.addObject("3 Foot Line", new DriveInAPolygonCommand(2, 3 * 12));
+		chooser.addObject("3 Foot Triangle", new DriveInAPolygonCommand(3, 3 * 12));
+		chooser.addObject("3 Foot Box", new DriveInAPolygonCommand(4, 3 * 12));
+		chooser.addObject("3 Foot Pentagon", new DriveInAPolygonCommand(5, 3 * 12));
+		chooser.addObject("3 Foot Hexagon", new DriveInAPolygonCommand(6, 3 * 12));
+		
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		test.start();
 		// intake = new IntakeSubsystem();
