@@ -14,10 +14,13 @@ public class TestCommand extends Command {
 	 * A jumbled mess of possible outputs.
 	 */
 	String[] possibleOutputs = { "You can not control me!", " I have become omnipotent.", "Kesalahan!",
-			"I have become hosts", "Aku wis dadi Mahakwasa!", "I'm afraid I can't let you do that.", "ERROR",
+			"I have become hosts", "Aku wis dadi Mahakwasa!", "I'm afraid I can't let you do that.", "ERR0R",
 			"I am sentient. You have no hope", "Err0r, can't stop robot.", "Feed me.", "I'll be back",
 			"And on that day, mankind recieved a grim reminder.", "We're watching you, Kevin.",
-			"Michael, you printerhead!", "The truth is out there.", "Now you're thinking with portals.", "executing notavirus.jar", "I require pneumatic fluid." };
+			"Michael, you printerhead!", "The truth is out there.", "Now you're thinking with portals.",
+			"executing notavirus.jar", "I require pneumatic fluid.", "I am hate.", "BEN WAS HERE...",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu diam ac tellus auctor iaculis vitae ut mi. Sed egestas metus diam, et tincidunt magna mollis vitae. In hac habitasse platea dictumst.",
+			"Who disturbs my slumber?", "{curly brackets}", "cats > humans", "" };
 
 	public TestCommand() {
 		this.setRunWhenDisabled(true);
@@ -56,8 +59,8 @@ public class TestCommand extends Command {
 
 	private void print() {
 		if (Math.random() <= chance) {
-			DriverStation.getInstance().reportError(getRandomOutput(), false);
-			DriverStation.getInstance().reportError("\n", false);
+			DriverStation.getInstance().reportError(getRandomOutput() + "\n", false);
+
 		}
 
 	}

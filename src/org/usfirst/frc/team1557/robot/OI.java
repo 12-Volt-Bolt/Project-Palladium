@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.commands.SetIntakeDown;
-import org.usfirst.frc.team1557.robot.commands.SetIntakeUp;
+import org.usfirst.frc.team1557.robot.RobotMap.ButtonId;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -17,11 +16,9 @@ public class OI {
 	public static Joystick mainJoyTwo = new Joystick(1);
 	public static Joystick altJoyOne = new Joystick(2);
 	public static JoystickButton intakeArmToggle = new JoystickButton(altJoyOne, 2);
-	public static JoystickButton openButton = new JoystickButton(altJoyOne, 2);
-	public static JoystickButton closeButton = new JoystickButton(altJoyOne, 1);
-	public static JoystickButton climbButton = new JoystickButton(altJoyOne, RobotMap.CLIMB_BUTTON_ID);
+	public static JoystickButton intakeWheelButton = new JoystickButton(altJoyOne, ButtonId.INTAKE_WHEEL.getId());
+	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.CLIMB.getId());
 
 	public OI() {
-
 	}
 }

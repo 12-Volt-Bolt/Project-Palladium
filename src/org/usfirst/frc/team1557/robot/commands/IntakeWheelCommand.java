@@ -2,7 +2,6 @@ package org.usfirst.frc.team1557.robot.commands;
 
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
-import org.usfirst.frc.team1557.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,7 +12,7 @@ public class IntakeWheelCommand extends Command {
 
 	public IntakeWheelCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.buttonIntakeWheel);
+		requires(Robot.intakeWheel);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,11 +20,12 @@ public class IntakeWheelCommand extends Command {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	
+
 	protected void execute() {
-		if (OI.altJoyOne.getRawButton(RobotMap.INTAKE_WHEEL_BUTTON_ID)) {
-			Robot.buttonIntakeWheel.runIntakeWheels();
+		if (OI.intakeWheelButton.get()) {
+			Robot.intakeWheel.runIntakeWheels();
 		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -35,10 +35,12 @@ public class IntakeWheelCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.intakeWheel.stopMotors();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }

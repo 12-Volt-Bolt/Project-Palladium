@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
+import org.usfirst.frc.team1557.robot.RobotMap;
+import org.usfirst.frc.team1557.robot.RobotMap.MotorId;
+
 /**
  *
  */
@@ -19,24 +22,24 @@ public class DriveSubsystem extends Subsystem {
 	CANTalon motorFour;
 	private boolean reverse = false;
 	public ADXRS450_Gyro gyro;
-	
+
 	public Encoder leftEncoder;
 	public Encoder rightEncoder;
 
 	public DriveSubsystem() {
-		motorOne = new CANTalon(DRIVE_MOTOR_ONE_ID);
-		motorTwo = new CANTalon(DRIVE_MOTOR_TWO_ID);
-		motorThree = new CANTalon(DRIVE_MOTOR_THREE_ID);
-		motorFour = new CANTalon(DRIVE_MOTOR_FOUR_ID);
-		
+		motorOne = new CANTalon(MotorId.DRIVE_ONE.getId());
+		motorTwo = new CANTalon(MotorId.DRIVE_TWO.getId());
+		motorThree = new CANTalon(MotorId.DRIVE_THREE.getId());
+		motorFour = new CANTalon(MotorId.DRIVE_FOUR.getId());
+
 		gyro = new ADXRS450_Gyro();
-		leftEncoder = new Encoder(ENCODER_LEFT_A, ENCODER_LEFT_B);
-		rightEncoder = new Encoder(ENCODER_RIGHT_A, ENCODER_RIGHT_B);
-		
+		leftEncoder = new Encoder(EncoderId.LEFT_A.getId(), EncoderId.LEFT_B.getId());
+		rightEncoder = new Encoder(EncoderId.RIGHT_A.getId(), EncoderId.RIGHT_B.getId());
+
 		SmartDashboard.putData("gyro", gyro);
 		SmartDashboard.putData("leftEncoder", leftEncoder);
 		SmartDashboard.putData("rightEncoder", rightEncoder);
-		
+
 		rightEncoder.setDistancePerPulse((WHEEL_CIRCUMFERENCE_INCHES / ENCODER_LEFT_PULSES_PER_ROTATION));
 		leftEncoder.setDistancePerPulse((WHEEL_CIRCUMFERENCE_INCHES / ENCODER_RIGHT_PULSES_PER_ROTATION));
 	}
@@ -44,7 +47,14 @@ public class DriveSubsystem extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new TankDriveCommand());
 	}
-	
+
+	/**
+	 * Sets the speed of the motors for the drive. Positive is forwards for both
+	 * sides.
+	 * 
+	 * @param leftSpeed
+	 * @param rightSpeed
+	 */
 	private void setMotors(double leftSpeed, double rightSpeed) {
 		motorOne.set(-rightSpeed);
 		motorTwo.set(leftSpeed);
@@ -53,6 +63,8 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	/**
+	 * Sets the speed of the motors for the drive. Positive is forwards for both
+	 * sides.
 	 * 
 	 * @param rightSpeed
 	 *            Speed of the right motors.

@@ -8,11 +8,11 @@ import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * An autonomous routine that uses timed movements and a gyro. <b>NOT TESTED</b>
  */
-public class MainAuto extends CommandGroup {
+public class TimedAuto extends CommandGroup {
 
-	public MainAuto() {
+	public TimedAuto() {
 		addSequential(new AssistedDriveCommand(0.5, 1, 0));
 		addSequential(new DriveCommand(0.5, 0.6));
 		addSequential(new AssistedDriveCommand(0.5, 1.2, 0));

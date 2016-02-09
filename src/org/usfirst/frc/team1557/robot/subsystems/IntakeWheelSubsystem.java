@@ -1,28 +1,27 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
 import org.usfirst.frc.team1557.robot.RobotMap;
+import org.usfirst.frc.team1557.robot.RobotMap.MotorId;
+import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Dedicated subsystem that controls the intake wheels using a digitalinput
  */
 public class IntakeWheelSubsystem extends Subsystem {
 	CANTalon intakeMotor;
 	DigitalInput boulderSwitch;
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	public IntakeWheelSubsystem() {
-		intakeMotor = new CANTalon(RobotMap.INTAKE_MOTOR_ONE_ID);
+		intakeMotor = new CANTalon(MotorId.INTAKE_ONE.getId());
 		boulderSwitch = new DigitalInput(0);
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new ControlIntakeArmCommand());
 	}
 
 	public void runIntakeWheels() {
@@ -31,5 +30,9 @@ public class IntakeWheelSubsystem extends Subsystem {
 		} else {
 			intakeMotor.set(1);
 		}
+	}
+
+	public void stopMotors() {
+		intakeMotor.set(0);
 	}
 }
