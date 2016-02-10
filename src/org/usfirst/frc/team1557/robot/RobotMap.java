@@ -52,7 +52,7 @@ public class RobotMap {
 	public static final int ALT_JOY_AXIS_ONE_ID = 1;
 
 	public enum ButtonId {
-		CLIMB(2), INTAKE_WHEEL(0), REVERSE(2);
+		CLIMB(2), INTAKE_WHEEL(0), REVERSE(2), PUSHUP(3);
 		int id;
 
 		ButtonId(int id) {

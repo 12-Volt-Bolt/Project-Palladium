@@ -5,13 +5,14 @@ import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveInAPolygonCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
-import org.usfirst.frc.team1557.robot.commands.ClimbCommand;
+import org.usfirst.frc.team1557.robot.commands.ExtendClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,13 +30,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	public static long START_TIME;
 	public static OI oi;
 	public static DriveSubsystem drive;
 	public static IntakeArmSubsystem intake;
 	public static ControlIntakeArmCommand intakeControlCommand;
 	public static ClimbSubsystem climb;
-	public static ClimbCommand climbCommand;
+	public static ExtendClimbCommand climbCommand;
 	public static IntakeWheelSubsystem intakeWheel;
+	public static PushupSubsystem pushup;
 	private TestCommand test = new TestCommand();
 
 	SendableChooser chooser;
@@ -71,6 +74,7 @@ public class Robot extends IterativeRobot {
 		// catapultFire = new CatapultCommand();
 		// climb = new ClimbSubsystem();
 		// climbCommand = new ClimbCommand();
+		// pushup = new PushupSubsystem();
 
 	}
 
@@ -94,6 +98,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
+		START_TIME = System.currentTimeMillis();
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).cancel();
 		}
