@@ -50,9 +50,10 @@ public class RobotMap {
 	public static final int MAIN_JOY_AXIS_ONE_ID = 1;
 	public static final int MAIN_JOY_AXIS_TWO_ID = 1;
 	public static final int ALT_JOY_AXIS_ONE_ID = 1;
+	public static final int MAIN_JOY_ROTATE_AXIS_ID = 3;
 
 	public enum ButtonId {
-		CLIMB(2), INTAKE_WHEEL(0), REVERSE(2), PUSHUP(3);
+		CLIMB(2), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3);
 		int id;
 
 		ButtonId(int id) {
@@ -64,13 +65,10 @@ public class RobotMap {
 		}
 	}
 
-	//
-	// Solenoid Ids
-
 	// Divisor by the wheel circumference
 	public static final double ENCODER_LEFT_PULSES_PER_ROTATION = 28.0;
 	public static final double ENCODER_RIGHT_PULSES_PER_ROTATION = 230.0;
-	public static final double JOYSTICK_DEADZONE = 0.05;
+	public static final double JOYSTICK_DEADZONE = 0.075;
 
 	/**
 	 * THE size of the wheel

@@ -45,7 +45,7 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDriveCommand());
+
 	}
 
 	/**
@@ -66,10 +66,10 @@ public class DriveSubsystem extends Subsystem {
 	 * Sets the speed of the motors for the drive. Positive is forwards for both
 	 * sides.
 	 * 
-	 * @param rightSpeed
-	 *            Speed of the right motors.
 	 * @param leftSpeed
 	 *            Speed of the left motors.
+	 * @param rightSpeed
+	 *            Speed of the right motors.
 	 */
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		setMotors((reverse) ? -rightSpeed : leftSpeed, (reverse) ? -leftSpeed : rightSpeed);

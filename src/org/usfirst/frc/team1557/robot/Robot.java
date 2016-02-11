@@ -6,8 +6,10 @@ import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleComm
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveInAPolygonCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import org.usfirst.frc.team1557.robot.commands.ExtendClimbCommand;
+import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
+import org.usfirst.frc.team1557.robot.commands.TwistyTankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
@@ -42,12 +44,12 @@ public class Robot extends IterativeRobot {
 	private TestCommand test = new TestCommand();
 
 	SendableChooser chooser;
+	SendableChooser driveChooser;
 
 	public void robotInit() {
 		oi = new OI();
 		drive = new DriveSubsystem();
 		chooser = new SendableChooser();
-
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		chooser.addObject("12 Inches straight, 0.0 speed", new DriveDistanceAtAngleCommand(12, 0, 0.0));
@@ -64,6 +66,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("3 Foot Pentagon", new DriveInAPolygonCommand(5, 3 * 12));
 		chooser.addObject("3 Foot Hexagon", new DriveInAPolygonCommand(6, 3 * 12));
 
+		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
+		driveChooser.addObject("Terrific Twisty", new TwistyTankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		test.start();
 		// intake = new IntakeSubsystem();
@@ -102,8 +106,9 @@ public class Robot extends IterativeRobot {
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).cancel();
 		}
-
-		drive.initDefaultCommand();
+		if (driveChooser.getSelected() != null) {
+			((Command) driveChooser.getSelected()).start();
+		}
 		intake.initDefaultCommand();
 
 	}

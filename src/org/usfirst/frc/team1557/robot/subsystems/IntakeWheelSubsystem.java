@@ -24,15 +24,15 @@ public class IntakeWheelSubsystem extends Subsystem {
 		setDefaultCommand(new ControlIntakeArmCommand());
 	}
 
-	public void runIntakeWheels() {
-		if (boulderSwitch.get()) {
-			intakeMotor.set(-1);
-		} else {
-			intakeMotor.set(1);
-		}
-	}
-
 	public void stopMotors() {
 		intakeMotor.set(0);
+	}
+
+	public void forward() {
+		intakeMotor.set(1);
+	}
+
+	public void reverse() {
+		intakeMotor.set(-1);
 	}
 }

@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeWheelCommand extends Command {
+public class ControlIntakeWheelCommand extends Command {
 
-	public IntakeWheelCommand() {
+	public ControlIntakeWheelCommand() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intakeWheel);
 	}
@@ -20,10 +20,11 @@ public class IntakeWheelCommand extends Command {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-
 	protected void execute() {
 		if (OI.intakeWheelButton.get()) {
-			Robot.intakeWheel.runIntakeWheels();
+			Robot.intakeWheel.forward();
+		} else if (OI.outtakeWheelButton.get()) {
+			Robot.intakeWheel.reverse();
 		}
 
 	}

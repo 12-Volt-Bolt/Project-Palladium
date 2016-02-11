@@ -21,8 +21,9 @@ public class OI {
 	public static Joystick altJoyOne = new Joystick(2);
 	public static JoystickButton intakeArmToggle = new JoystickButton(altJoyOne, 2);
 	public static JoystickButton intakeWheelButton = new JoystickButton(altJoyOne, ButtonId.INTAKE_WHEEL.getId());
+	public static JoystickButton outtakeWheelButton = new JoystickButton(altJoyOne, ButtonId.OUTTAKE_WHEEL.getId());
 	Trigger pushupToggle = new Trigger() {
-		
+
 		@Override
 		public boolean get() {
 			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
