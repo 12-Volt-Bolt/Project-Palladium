@@ -25,6 +25,8 @@ public class ControlIntakeWheelCommand extends Command {
 			Robot.intakeWheel.forward();
 		} else if (OI.outtakeWheelButton.get()) {
 			Robot.intakeWheel.reverse();
+		} else {
+			Robot.intakeWheel.stopMotors();
 		}
 
 	}

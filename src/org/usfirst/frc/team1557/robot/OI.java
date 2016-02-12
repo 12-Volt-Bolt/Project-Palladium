@@ -52,6 +52,10 @@ public class OI {
 	};
 
 	public OI() {
+
+	}
+
+	public void initButtonCommands() {
 		extendClimb.whenActive(new ExtendClimbCommand());
 		upperClimbToggle.whenActive(new UpperClimbCommand());
 		pushupToggle.whenActive(new PushupCommand());

@@ -3,6 +3,7 @@ package org.usfirst.frc.team1557.robot.subsystems;
 import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.RobotMap.MotorId;
 import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
+import org.usfirst.frc.team1557.robot.commands.ControlIntakeWheelCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,11 +18,11 @@ public class IntakeWheelSubsystem extends Subsystem {
 
 	public IntakeWheelSubsystem() {
 		intakeMotor = new CANTalon(MotorId.INTAKE_ONE.getId());
-		boulderSwitch = new DigitalInput(0);
+		// boulderSwitch = new DigitalInput(0);
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ControlIntakeArmCommand());
+		setDefaultCommand(new ControlIntakeWheelCommand());
 	}
 
 	public void stopMotors() {

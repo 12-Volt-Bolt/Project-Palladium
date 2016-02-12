@@ -15,7 +15,7 @@ public class RobotMap {
 	 */
 	public enum MotorId {
 
-		DRIVE_ONE(0), DRIVE_TWO(1), DRIVE_THREE(2), DRIVE_FOUR(3), ROTATE_ONE(4), ROTATE_TWO(5), INTAKE_ONE(6);
+		DRIVE_ONE(0), DRIVE_TWO(1), DRIVE_THREE(2), DRIVE_FOUR(3), ROTATE_ONE(4), ROTATE_TWO(9001), INTAKE_ONE(5);
 		int id;
 
 		MotorId(int id) {

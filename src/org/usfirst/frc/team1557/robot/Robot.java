@@ -36,9 +36,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSubsystem drive;
 	public static IntakeArmSubsystem intake;
-	public static ControlIntakeArmCommand intakeControlCommand;
 	public static ClimbSubsystem climb;
-	public static ExtendClimbCommand climbCommand;
 	public static IntakeWheelSubsystem intakeWheel;
 	public static PushupSubsystem pushup;
 	private TestCommand test = new TestCommand();
@@ -49,7 +47,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		drive = new DriveSubsystem();
+		intake = new IntakeArmSubsystem();
+		intakeWheel = new IntakeWheelSubsystem();
+		climb = new ClimbSubsystem();
+		pushup = new PushupSubsystem();
+		oi.initButtonCommands();
 		chooser = new SendableChooser();
+		driveChooser = new SendableChooser();
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		chooser.addObject("12 Inches straight, 0.0 speed", new DriveDistanceAtAngleCommand(12, 0, 0.0));
@@ -69,16 +73,8 @@ public class Robot extends IterativeRobot {
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		driveChooser.addObject("Terrific Twisty", new TwistyTankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
+		SmartDashboard.putData("Drive Chooser", driveChooser);
 		test.start();
-		// intake = new IntakeSubsystem();
-		// manualIntake = new IntakeCommand();
-		// buttonIntakeUp = new SetIntakeUp();
-		// buttonIntakeDown = new SetIntakeDownCommand();
-		// catapult = new CatapultSubsystem();
-		// catapultFire = new CatapultCommand();
-		// climb = new ClimbSubsystem();
-		// climbCommand = new ClimbCommand();
-		// pushup = new PushupSubsystem();
 
 	}
 
@@ -110,6 +106,7 @@ public class Robot extends IterativeRobot {
 			((Command) driveChooser.getSelected()).start();
 		}
 		intake.initDefaultCommand();
+		intakeWheel.initDefaultCommand();
 
 	}
 

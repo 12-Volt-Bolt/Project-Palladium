@@ -16,8 +16,8 @@ public class ClimbSubsystem extends Subsystem {
 	public SolenoidGroup infinitesimal;
 
 	public ClimbSubsystem() {
-		prodigious = new SolenoidGroup(new Solenoid(0, 0), new Solenoid(0, 0));
-		infinitesimal = new SolenoidGroup(new Solenoid(0, 0), new Solenoid(0, 0));
+		prodigious = new SolenoidGroup(new Solenoid(0, 0), new Solenoid(0, 1));
+		infinitesimal = new SolenoidGroup(new Solenoid(0, 2), new Solenoid(0, 3));
 	}
 
 	public void initDefaultCommand() {

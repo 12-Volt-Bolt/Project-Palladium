@@ -21,18 +21,10 @@ public class ControlIntakeArmCommand extends Command {
 
 	protected void execute() {
 
-		if (OI.intakeArmToggle.get()) {
-			if (Robot.intake.getArmSetpoint() <= 0) {
-				Robot.intake.setAngleUp();
-			} else if (Robot.intake.getArmSetpoint() >= 90) {
-				Robot.intake.setAngleDown();
-			} else if (Robot.intake.getArmSetpoint() > 45) {
-				Robot.intake.setAngleUp();
-			} else {
-				Robot.intake.setAngleDown();
-			}
-		} else if (Math.abs(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID)) > RobotMap.JOYSTICK_DEADZONE) {
-			Robot.intake.setArmSetpoint(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
+		if (Math.abs(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID)) > RobotMap.JOYSTICK_DEADZONE) {
+			Robot.intake.set(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
+		} else {
+			Robot.intake.set(0);
 		}
 	}
 
@@ -42,7 +34,7 @@ public class ControlIntakeArmCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.intake.rotatePID.disable();
+		Robot.intake.set(0);
 	}
 
 	// Called when another command which requires one or more of the same

@@ -24,8 +24,8 @@ public class TwistyTankDriveCommand extends Command {
 		@Override
 		public boolean shouldRun() {
 
-			return OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID) >= RobotMap.JOYSTICK_DEADZONE
-					|| OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID) >= RobotMap.JOYSTICK_DEADZONE;
+			return Math.abs(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID)) >= RobotMap.JOYSTICK_DEADZONE
+					|| Math.abs(OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_ONE_ID)) >= RobotMap.JOYSTICK_DEADZONE;
 		}
 
 		@Override
@@ -38,7 +38,7 @@ public class TwistyTankDriveCommand extends Command {
 		@Override
 		public boolean shouldRun() {
 
-			return OI.mainJoyTwo.getRawAxis(MAIN_JOY_ROTATE_AXIS_ID) >= RobotMap.JOYSTICK_DEADZONE;
+			return Math.abs(OI.mainJoyTwo.getRawAxis(MAIN_JOY_ROTATE_AXIS_ID)) >= RobotMap.JOYSTICK_DEADZONE;
 		}
 
 		@Override
@@ -46,6 +46,19 @@ public class TwistyTankDriveCommand extends Command {
 			Robot.drive.tankDrive(OI.mainJoyTwo.getRawAxis(MAIN_JOY_ROTATE_AXIS_ID) * scaleSpeed,
 					-OI.mainJoyTwo.getRawAxis(MAIN_JOY_ROTATE_AXIS_ID) * scaleSpeed);
 		}
+	}, new PriorityObject(2) {
+
+		@Override
+		public boolean shouldRun() {
+
+			return true;
+		}
+
+		@Override
+		public void run() {
+			Robot.drive.tankDrive(0, 0);
+		}
+
 	});
 
 	public TwistyTankDriveCommand() {
@@ -60,7 +73,6 @@ public class TwistyTankDriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		Robot.drive.tankDrive(0, 0);
 		if (OI.mainJoyOne.getRawButton(2)) {
 			Robot.drive.reverseMotors(true);
 		} else {
