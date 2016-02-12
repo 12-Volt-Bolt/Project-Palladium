@@ -53,7 +53,7 @@ public class RobotMap {
 	public static final int MAIN_JOY_ROTATE_AXIS_ID = 3;
 
 	public enum ButtonId {
-		CLIMB(2), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3);
+		CLIMB(2), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3), ARM(1);
 		int id;
 
 		ButtonId(int id) {

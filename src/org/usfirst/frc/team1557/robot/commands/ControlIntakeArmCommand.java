@@ -21,7 +21,8 @@ public class ControlIntakeArmCommand extends Command {
 
 	protected void execute() {
 
-		if (Math.abs(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID)) > RobotMap.JOYSTICK_DEADZONE) {
+		if (OI.altJoyOne.getRawButton(RobotMap.ButtonId.ARM.getId())
+				&& Math.abs(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID)) > RobotMap.JOYSTICK_DEADZONE) {
 			Robot.intake.set(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
 		} else {
 			Robot.intake.set(0);
