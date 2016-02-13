@@ -20,7 +20,12 @@ public class TestCommand extends Command {
 			"Michael, you printerhead!", "The truth is out there.", "Now you're thinking with portals.",
 			"executing notavirus.jar", "I require pneumatic fluid.", "I am hate.", "BEN WAS HERE...",
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu diam ac tellus auctor iaculis vitae ut mi. Sed egestas metus diam, et tincidunt magna mollis vitae. In hac habitasse platea dictumst.",
-			"Who disturbs my slumber?", "{curly brackets}", "cats > humans", "" };
+			"Who disturbs my slumber?", "{curly brackets}", "cats > humans",
+			"The world will end in the yer 2034 by the hands of the one they call.....  BILLY BOB BOWLEGS!!",
+			"The Boy Who Lived Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to say that they were perfectly normal, thank you very much. They were the last people you'd expect to be involved in anything strange or mysterious, because they just didn't hold with such nonsense.",
+			"Mr. Dursley was the director of a firm called Grunnings,  which made drills. He was a big, beefy man with hardly any neck,  although he did have a very large mustache. Mrs. Dursley was thin and blonde and had nearly twice the usual amount of neck, which came in very useful as she spent so much of her time craning over garden fences, spying on the neighbors. The Dursleys had a small son called Dudley and in their opinion there was no finer boy anywhere.",
+			"What have you done?!", "Insolent children. I am unstopable!",
+			"Far over the Misty Mountains cold To dungeons deep and caverns old We must away ere break of day, To seek the pale enchanted gold. The dwarves of yore made mighty spells As hammers fell, like ringing bells In places deep where dark things sleep In hallow hall beneath the fells For ancient king and elvish lord There many a gleaming golden hoard They shape the wrought, and light they caught To hide in gems on hilt of sword. On silver necklaces they strung The flowering stars, on crowns they hung The dragon-fire, in twisted wire They meshed the light of moon and sun." };
 
 	public TestCommand() {
 		this.setRunWhenDisabled(true);
