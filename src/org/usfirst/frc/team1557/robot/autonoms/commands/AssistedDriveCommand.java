@@ -8,16 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AssistedDriveCommand extends Command {
-	double speed, timeToRun, angle;
-	long startTime;
-
+	double speed, angle;
+	
 	public AssistedDriveCommand(double speed, double time, double angle) {
 		requires(Robot.drive);
 		this.speed = speed;
-		this.timeToRun = time;
 		this.angle = angle;
-		startTime = System.currentTimeMillis();
-
+		
+		setTimeout(time);
 	}
 
 	protected void initialize() {
@@ -28,7 +26,7 @@ public class AssistedDriveCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-		return System.currentTimeMillis() - startTime >= timeToRun;
+		return isTimedOut();
 	}
 
 	protected void end() {

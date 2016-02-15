@@ -1,16 +1,17 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
-import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
+import static org.usfirst.frc.team1557.robot.RobotMap.ENCODER_LEFT_PULSES_PER_ROTATION;
+import static org.usfirst.frc.team1557.robot.RobotMap.ENCODER_RIGHT_PULSES_PER_ROTATION;
+import static org.usfirst.frc.team1557.robot.RobotMap.WHEEL_CIRCUMFERENCE_INCHES;
+
+import org.usfirst.frc.team1557.robot.RobotMap.EncoderId;
+import org.usfirst.frc.team1557.robot.RobotMap.MotorId;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
-
-import org.usfirst.frc.team1557.robot.RobotMap;
-import org.usfirst.frc.team1557.robot.RobotMap.MotorId;
 
 /**
  *

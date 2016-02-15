@@ -2,8 +2,6 @@ package org.usfirst.frc.team1557.robot.utils;
 
 import java.util.HashMap;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 public class PriorityGroup {
 	HashMap<Integer, PriorityObject> objectsInList;
 	boolean didRun = false;

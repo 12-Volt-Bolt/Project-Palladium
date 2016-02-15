@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveCommand extends Command {
 	double speed, timeToRun;
-	long startTime;
 
 	/**
 	 * 
@@ -23,10 +22,16 @@ public class DriveCommand extends Command {
 		this.speed = speed;
 		this.timeToRun = time;
 
-		startTime = System.currentTimeMillis();
+		setTimeout(this.timeToRun);
 	}
 
 	protected void initialize() {
+		System.err.println("Initializing " + this);
+	}
+
+	@Override
+	public String toString() {
+		return "DriveCommand [speed=" + speed + ", timeToRun=" + timeToRun + "]";
 	}
 
 	protected void execute() {
@@ -34,7 +39,7 @@ public class DriveCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-		return System.currentTimeMillis() - startTime >= timeToRun;
+		return isTimedOut();
 	}
 
 	protected void end() {

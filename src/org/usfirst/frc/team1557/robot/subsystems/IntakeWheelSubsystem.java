@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
-import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.RobotMap.MotorId;
-import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
 import org.usfirst.frc.team1557.robot.commands.ControlIntakeWheelCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -30,10 +28,10 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
 
 	public void forward() {
-		intakeMotor.set(1);
+		intakeMotor.set(-1);
 	}
 
 	public void reverse() {
-		intakeMotor.set(-1);
+		intakeMotor.set(1);
 	}
 }

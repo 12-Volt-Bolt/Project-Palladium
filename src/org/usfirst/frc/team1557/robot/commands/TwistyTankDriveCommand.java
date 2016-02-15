@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1557.robot.commands;
 
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
+import static org.usfirst.frc.team1557.robot.RobotMap.MAIN_JOY_AXIS_ONE_ID;
+import static org.usfirst.frc.team1557.robot.RobotMap.MAIN_JOY_AXIS_TWO_ID;
+import static org.usfirst.frc.team1557.robot.RobotMap.MAIN_JOY_ROTATE_AXIS_ID;
 
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;

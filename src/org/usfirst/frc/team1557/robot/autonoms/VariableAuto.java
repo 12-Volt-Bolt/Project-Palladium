@@ -16,7 +16,8 @@ public class VariableAuto extends CommandGroup {
 
 	}
 
-	public void run() {
+	@Override
+	public void execute() {
 		switch (robotPosititon) {
 		case LEFT:
 			if (goToRightSide) {

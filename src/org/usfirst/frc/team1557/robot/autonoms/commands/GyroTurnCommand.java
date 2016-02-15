@@ -5,6 +5,7 @@ import org.usfirst.frc.team1557.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -42,6 +43,8 @@ public class GyroTurnCommand extends Command {
 		});
 
 		gyroPID.setAbsoluteTolerance(tolerance);
+
+		SmartDashboard.putData("gyroid", gyroPID);
 	}
 
 	/**
@@ -56,17 +59,27 @@ public class GyroTurnCommand extends Command {
 	}
 
 	protected void initialize() {
+		System.err.println("Initializing " + this);
+		
 		gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + angle);
 		gyroPID.enable();
 	}
 
+	@Override
+	public String toString() {
+		return "GyroTurnCommand [angle=" + angle + ", gyroOutput=" + gyroOutput + "]";
+	}
+
 	protected void execute() {
 		// gyroTurn(angle);
+		
+		SmartDashboard.putNumber("gyro_value", Robot.drive.gyro.getAngle());
 
 		Robot.drive.tankDrive(-gyroOutput, gyroOutput);
 	}
 
 	protected boolean isFinished() {
+//		return false;
 		return isGyroOnTarget() || isTimedOut();
 	}
 

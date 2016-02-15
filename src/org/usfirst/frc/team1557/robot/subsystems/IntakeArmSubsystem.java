@@ -1,19 +1,10 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.TalonSRX;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
-
-import java.util.ArrayList;
-
 import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
+
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *

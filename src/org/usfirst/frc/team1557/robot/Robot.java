@@ -1,13 +1,16 @@
 
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.backupauto.AutoManager;
+import org.usfirst.frc.team1557.backupauto.Lowbar;
+import org.usfirst.frc.team1557.backupauto.RockWall;
+import org.usfirst.frc.team1557.backupauto.RoughTerrain;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
+import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveInAPolygonCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
-import org.usfirst.frc.team1557.robot.commands.ExtendClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
-import org.usfirst.frc.team1557.robot.commands.ControlIntakeArmCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.commands.TwistyTankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
@@ -60,6 +63,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("12 Inches straight, 0.4 speed", new DriveDistanceAtAngleCommand(12, 0, 0.4));
 		chooser.addObject("24 Inches straight, 0.8 speed", new DriveDistanceAtAngleCommand(24, 0, 0.8));
 		chooser.addObject("48 Inches straight, 0.4 speed", new DriveDistanceAtAngleCommand(48, 0, 0.4));
+		chooser.addObject("Turn 30 degrees", new GyroTurnCommand(30));
 		chooser.addObject("Turn 90 degrees", new GyroTurnCommand(90));
 		chooser.addObject("Turn 360 degrees", new GyroTurnCommand(360));
 		chooser.addObject("Turn -90 degrees", new GyroTurnCommand(-90));
@@ -70,12 +74,17 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("3 Foot Pentagon", new DriveInAPolygonCommand(5, 3 * 12));
 		chooser.addObject("3 Foot Hexagon", new DriveInAPolygonCommand(6, 3 * 12));
 
+		chooser.addObject("Backup: Lowbar", new Lowbar());
+		chooser.addObject("Backup: Rock Wall", new RockWall());
+		chooser.addObject("Backup: Rough Terrain", new RoughTerrain());
+
+		chooser.addObject("Go straight @ full for 5 seconds", new DriveCommand(1, 5));
+
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		driveChooser.addObject("Terrific Twisty", new TwistyTankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
 		test.start();
-
 	}
 
 	public void disabledInit() {
@@ -86,11 +95,18 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+	public AutoManager manager;
+
 	public void autonomousInit() {
+		try {
+			Robot.drive.gyro.reset();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).start();
 		}
-
 	}
 
 	public void autonomousPeriodic() {

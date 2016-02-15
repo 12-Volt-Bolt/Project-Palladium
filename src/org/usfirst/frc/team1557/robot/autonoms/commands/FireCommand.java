@@ -17,7 +17,8 @@ public class FireCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-		return false;
+		// TODO: condition
+		return true;
 	}
 
 	protected void end() {
