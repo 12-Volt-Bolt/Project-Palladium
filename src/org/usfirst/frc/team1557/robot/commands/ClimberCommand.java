@@ -29,7 +29,7 @@ public class ClimberCommand extends Command {
     		} else if (OI.climberDownButton.get()) {
     			Robot.climber.down();
     		} else {
-    			Robot.climber.stopMotor();
+    			Robot.climber.stopMotors();
     		}
     	}
     }
@@ -41,7 +41,7 @@ public class ClimberCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.climber.stopMotor();
+    	Robot.climber.stopMotors();
     }
 
     // Called when another command which requires one or more of the same
