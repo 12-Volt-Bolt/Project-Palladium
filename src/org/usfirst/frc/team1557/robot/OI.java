@@ -21,6 +21,10 @@ public class OI {
 	public static JoystickButton intakeArmToggle = new JoystickButton(altJoyOne, 2);
 	public static JoystickButton intakeWheelButton = new JoystickButton(altJoyOne, ButtonId.INTAKE_WHEEL.getId());
 	public static JoystickButton outtakeWheelButton = new JoystickButton(altJoyOne, ButtonId.OUTTAKE_WHEEL.getId());
+	public static JoystickButton climberUpButton = new JoystickButton(altJoyOne, ButtonId.CLIMB_UP.getId());
+	public static JoystickButton climberDownButton = new JoystickButton(altJoyOne, ButtonId.CLIMB_DOWN.getId());
+	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.CLIMB.getId());
+	
 	Trigger pushupToggle = new Trigger() {
 
 		@Override
@@ -34,21 +38,25 @@ public class OI {
 		@Override
 		public boolean get() {
 			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-			return isInEndGame && altJoyOne.getRawButton(ButtonId.CLIMB.getId()) && Robot.climb.infinitesimal.getState()
-					&& altJoyOne.getRawAxis(2) >= 0.95
+			return isInEndGame && altJoyOne.getRawButton(ButtonId.CLIMB.getId()) && 
+					//Robot.climb.infinitesimal.getState() &&
+					altJoyOne.getRawAxis(2) >= 0.95
 					&& System.currentTimeMillis() - Robot.climb.timeSinceLastUsed >= 1_000;
 		}
 	};
+	
 	Trigger extendClimb = new Trigger() {
 
 		@Override
 		public boolean get() {
 			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
 			return isInEndGame && altJoyOne.getRawButton(ButtonId.CLIMB.getId()) && altJoyOne.getRawAxis(2) >= 0.95
-					&& System.currentTimeMillis() - Robot.climb.timeSinceLastUsed >= 1_000
-					&& !Robot.climb.infinitesimal.getState();
+					&& System.currentTimeMillis() - Robot.climb.timeSinceLastUsed >= 1_000;
+					//&& !Robot.climb.infinitesimal.getState();
 		}
 	};
+	
+	
 
 	public OI() {
 
@@ -58,5 +66,8 @@ public class OI {
 		extendClimb.whenActive(new ExtendClimbCommand());
 		upperClimbToggle.whenActive(new UpperClimbCommand());
 		pushupToggle.whenActive(new PushupCommand());
+		
+		
+		
 	}
 }

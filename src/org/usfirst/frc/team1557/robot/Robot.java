@@ -14,6 +14,7 @@ import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.commands.TwistyTankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
@@ -40,6 +41,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem drive;
 	public static IntakeArmSubsystem intake;
 	public static ClimbSubsystem climb;
+	public static ClimberSubsystem climber;
 	public static IntakeWheelSubsystem intakeWheel;
 	public static PushupSubsystem pushup;
 	private TestCommand test = new TestCommand();
@@ -53,6 +55,7 @@ public class Robot extends IterativeRobot {
 		intake = new IntakeArmSubsystem();
 		intakeWheel = new IntakeWheelSubsystem();
 		climb = new ClimbSubsystem();
+		climber = new ClimberSubsystem();
 		pushup = new PushupSubsystem();
 		oi.initButtonCommands();
 		chooser = new SendableChooser();
