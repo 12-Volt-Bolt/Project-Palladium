@@ -126,7 +126,7 @@ public class Robot extends IterativeRobot {
 		}
 		intake.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
-
+		climber.initDefaultCommand();
 	}
 
 	public void teleopPeriodic() {
