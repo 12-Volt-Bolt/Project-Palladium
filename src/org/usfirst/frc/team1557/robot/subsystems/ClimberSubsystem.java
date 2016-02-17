@@ -32,13 +32,13 @@ public class ClimberSubsystem extends Subsystem {
 	}
 	
 	public void up() {
-		climberMotorOne.set(.15);
-		climberMotorTwo.set(.15);
+		climberMotorOne.set(1);
+		climberMotorTwo.set(1);
 	}
 	
 	public void down() {
-		climberMotorOne.set(-.15);
-		climberMotorTwo.set(-.15);
+		climberMotorOne.set(-1);
+		climberMotorTwo.set(-1);
 	}
 }
 
