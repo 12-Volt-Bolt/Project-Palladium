@@ -14,6 +14,7 @@ public class PushupSubsystem extends Subsystem {
 	public long timeSinceLastUsed;
 
 	public PushupSubsystem() {
+		//Magic numbers
 		pushupGroup = new SolenoidGroup(new Solenoid(0, 4), new Solenoid(0, 5));
 	}
 

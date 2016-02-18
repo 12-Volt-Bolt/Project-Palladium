@@ -27,6 +27,7 @@ public class IntakeArmSubsystem extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new ControlIntakeArmCommand());
 	}
+
 	public void set(double output) {
 		intakeArmMotorOne.set(output * speed);
 		intakeArmMotorTwo.set(output * speed);

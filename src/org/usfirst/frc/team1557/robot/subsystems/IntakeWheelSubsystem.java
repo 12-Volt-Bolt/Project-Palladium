@@ -34,4 +34,8 @@ public class IntakeWheelSubsystem extends Subsystem {
 	public void reverse() {
 		intakeMotor.set(.33);
 	}
+
+	public boolean getBoulderSwitch() {
+		return boulderSwitch.get();
+	}
 }
