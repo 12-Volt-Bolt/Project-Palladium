@@ -6,47 +6,45 @@ import org.usfirst.frc.team1557.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
-*
+ *
  */
-public class ExtendClimbCommand extends Command {
-//	int count = 0;
-//	int countToFinish = 50;
+public class LiftClimbCommand extends Command {
 
-	public ExtendClimbCommand() {
-		requires(Robot.climb);
-
-
+	public LiftClimbCommand() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.liftClimb);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
-		//Robot.climb.setInfinitesimal(true);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-	//	if (count == 50)
-	//		Robot.climb.setProdigious(true);
-	//	count++;
-		
 
+		if (OI.liftClimbUpButton.get()) {
+			Robot.liftClimb.up();
+		} else if (OI.liftClimbDownButton.get()) {
+			Robot.liftClimb.down();
+		} else {
+			Robot.liftClimb.stopMotors();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-	//	return count > countToFinish;
 		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-
+		Robot.liftClimb.stopMotors();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-
+		end();
 	}
 }

@@ -14,7 +14,7 @@ public class AutoManager extends Command {
 
 	public AutoManager() {
 		requires(Robot.drive);
-		requires(Robot.intake);
+		requires(Robot.intakeArm);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class AutoManager extends Command {
 
 	public void setMotors(double left, double right, double arm) {
 		Robot.drive.tankDrive(left, right);
-		Robot.intake.set(arm);
+		Robot.intakeArm.set(arm);
 	}
 
 	@Override

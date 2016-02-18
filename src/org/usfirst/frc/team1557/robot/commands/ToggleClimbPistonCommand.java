@@ -1,17 +1,19 @@
 package org.usfirst.frc.team1557.robot.commands;
 
+import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.RobotMap.ButtonId;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class UpperClimbCommand extends Command {
+public class ToggleClimbPistonCommand extends Command {
 
-	public UpperClimbCommand() {
+	public ToggleClimbPistonCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.climb);
+		requires(Robot.climbPiston);
 	}
 
 	// Called just before this Command runs the first time
@@ -20,12 +22,20 @@ public class UpperClimbCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.climb.setProdigious(!Robot.climb.prodigious.getState());
+
+		if (Robot.climbPiston.timeSinceLastUsed >= 1_000) {
+			if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
+				Robot.climbPiston.prodigious.set(true);
+			} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
+				Robot.climbPiston.prodigious.set(false);
+			}
+		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	// Called once after isFinished returns true

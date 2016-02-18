@@ -10,16 +10,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ClimbSubsystem extends Subsystem {
-	// 2 Pistons per side
-	// 4 Solenoids total.
-	public long timeSinceLastUsed;
-	public SolenoidGroup prodigious;
-	//public SolenoidGroup infinitesimal;
+public class ClimbPistonSubsystem extends Subsystem {
 
-	public ClimbSubsystem() {
+	public long timeSinceLastUsed;
+	/**
+	 * Two pistons total. One per side.
+	 */
+	public SolenoidGroup prodigious;
+
+	public ClimbPistonSubsystem() {
 		prodigious = new SolenoidGroup(new Solenoid(0, 0), new Solenoid(0, 1));
-		//infinitesimal = new SolenoidGroup(new Solenoid(0, 2), new Solenoid(0, 3));
 	}
 
 	public void initDefaultCommand() {
@@ -29,10 +29,5 @@ public class ClimbSubsystem extends Subsystem {
 		prodigious.set(state);
 		timeSinceLastUsed = System.currentTimeMillis();
 	}
-
-//	public void setInfinitesimal(boolean state) {
-		//infinitesimal.set(state);
-//		timeSinceLastUsed = System.currentTimeMillis();
-//	}
 
 }

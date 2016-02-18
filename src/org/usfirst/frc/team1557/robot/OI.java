@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.RobotMap.ButtonId;
-import org.usfirst.frc.team1557.robot.commands.ExtendClimbCommand;
+import org.usfirst.frc.team1557.robot.commands.LiftClimbCommand;
 import org.usfirst.frc.team1557.robot.commands.PushupCommand;
-import org.usfirst.frc.team1557.robot.commands.UpperClimbCommand;
+import org.usfirst.frc.team1557.robot.commands.ToggleClimbPistonCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -18,57 +18,35 @@ public class OI {
 	public static Joystick mainJoyOne = new Joystick(0);
 	public static Joystick mainJoyTwo = new Joystick(1);
 	public static Joystick altJoyOne = new Joystick(2);
-	public static JoystickButton intakeArmToggle = new JoystickButton(altJoyOne, 2);
 	public static JoystickButton intakeWheelButton = new JoystickButton(altJoyOne, ButtonId.INTAKE_WHEEL.getId());
 	public static JoystickButton outtakeWheelButton = new JoystickButton(altJoyOne, ButtonId.OUTTAKE_WHEEL.getId());
-	public static JoystickButton climberUpButton = new JoystickButton(altJoyOne, ButtonId.CLIMB_UP.getId());
-	public static JoystickButton climberDownButton = new JoystickButton(altJoyOne, ButtonId.CLIMB_DOWN.getId());
-	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.CLIMB.getId());
-	
+	public static JoystickButton liftClimbUpButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_UP.getId());
+	public static JoystickButton liftClimbDownButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_DOWN.getId());
+	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.EXTEND_CLIMB_PISTON.getId());
+	public static Trigger isInEndGame = new Trigger() {
+
+		@Override
+		public boolean get() {
+			return System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
+		}
+	};
 	Trigger pushupToggle = new Trigger() {
 
 		@Override
 		public boolean get() {
-			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-			return isInEndGame && altJoyOne.getRawButton(ButtonId.PUSHUP.getId()) && altJoyOne.getRawAxis(2) >= 0.95;
+			// boolean isInEndGame = System.currentTimeMillis() -
+			// Robot.START_TIME >= (60 + 60) * 1_000;
+			return isInEndGame.get() && mainJoyOne.getRawButton(ButtonId.PUSHUP.getId());
 		}
 	};
-	Trigger upperClimbToggle = new Trigger() {
-
-		@Override
-		public boolean get() {
-			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-			return isInEndGame && altJoyOne.getRawButton(ButtonId.CLIMB.getId()) && 
-					//Robot.climb.infinitesimal.getState() &&
-					altJoyOne.getRawAxis(2) >= 0.95
-					&& System.currentTimeMillis() - Robot.climb.timeSinceLastUsed >= 1_000;
-		}
-	};
-	
-	Trigger extendClimb = new Trigger() {
-
-		@Override
-		public boolean get() {
-			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-			return isInEndGame && altJoyOne.getRawButton(ButtonId.CLIMB.getId()) && altJoyOne.getRawAxis(2) >= 0.95
-					&& System.currentTimeMillis() - Robot.climb.timeSinceLastUsed >= 1_000;
-					//&& !Robot.climb.infinitesimal.getState();
-		}
-	};
-	
-	
 
 	public OI() {
 
 	}
 
 	public void initButtonCommands() {
-		extendClimb.whenActive(new ExtendClimbCommand());
-		upperClimbToggle.whenActive(new UpperClimbCommand());
 		pushupToggle.whenActive(new PushupCommand());
-		
-		
-		
-		
+		isInEndGame.whenActive(new ToggleClimbPistonCommand());
+		isInEndGame.whenActive(new LiftClimbCommand());
 	}
 }

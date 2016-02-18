@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ControlIntakeArmCommand extends Command {
 
 	public ControlIntakeArmCommand() {
-		requires(Robot.intake);
+		requires(Robot.intakeArm);
 	}
 
 	protected void initialize() {
@@ -23,9 +23,9 @@ public class ControlIntakeArmCommand extends Command {
 
 		if (OI.altJoyOne.getRawButton(RobotMap.ButtonId.ARM.getId())
 				&& Math.abs(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID)) > RobotMap.JOYSTICK_DEADZONE) {
-			Robot.intake.set(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
+			Robot.intakeArm.set(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
 		} else {
-			Robot.intake.set(0);
+			Robot.intakeArm.set(0);
 		}
 	}
 
@@ -35,7 +35,7 @@ public class ControlIntakeArmCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.intake.set(0);
+		Robot.intakeArm.set(0);
 	}
 
 	// Called when another command which requires one or more of the same

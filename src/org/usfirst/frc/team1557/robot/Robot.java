@@ -13,8 +13,8 @@ import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.commands.TwistyTankDriveCommand;
-import org.usfirst.frc.team1557.robot.subsystems.ClimbSubsystem;
-import org.usfirst.frc.team1557.robot.subsystems.ClimberSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.ClimbPistonSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.LiftClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
@@ -39,23 +39,22 @@ public class Robot extends IterativeRobot {
 	public static long START_TIME;
 	public static OI oi;
 	public static DriveSubsystem drive;
-	public static IntakeArmSubsystem intake;
-	public static ClimbSubsystem climb;
-	public static ClimberSubsystem climber;
+	public static IntakeArmSubsystem intakeArm;
+	public static ClimbPistonSubsystem climbPiston;
+	public static LiftClimbSubsystem liftClimb;
 	public static IntakeWheelSubsystem intakeWheel;
 	public static PushupSubsystem pushup;
 	private TestCommand test = new TestCommand();
-
 	SendableChooser chooser;
 	SendableChooser driveChooser;
 
 	public void robotInit() {
 		oi = new OI();
 		drive = new DriveSubsystem();
-		intake = new IntakeArmSubsystem();
+		intakeArm = new IntakeArmSubsystem();
 		intakeWheel = new IntakeWheelSubsystem();
-		climb = new ClimbSubsystem();
-		climber = new ClimberSubsystem();
+		climbPiston = new ClimbPistonSubsystem();
+		liftClimb = new LiftClimbSubsystem();
 		pushup = new PushupSubsystem();
 		oi.initButtonCommands();
 		chooser = new SendableChooser();
@@ -106,7 +105,7 @@ public class Robot extends IterativeRobot {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).start();
 		}
@@ -124,9 +123,9 @@ public class Robot extends IterativeRobot {
 		if (driveChooser.getSelected() != null) {
 			((Command) driveChooser.getSelected()).start();
 		}
-		intake.initDefaultCommand();
+		intakeArm.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
-		climber.initDefaultCommand();
+		liftClimb.initDefaultCommand();
 	}
 
 	public void teleopPeriodic() {

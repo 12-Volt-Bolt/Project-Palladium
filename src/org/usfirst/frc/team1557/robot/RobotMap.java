@@ -15,7 +15,8 @@ public class RobotMap {
 	 */
 	public enum MotorId {
 
-		DRIVE_ONE(0), DRIVE_TWO(1), DRIVE_THREE(2), DRIVE_FOUR(3), ROTATE_ONE(4), ROTATE_TWO(9001), INTAKE_ONE(5), CLIMB_ONE(6), CLIMB_TWO(7);
+		DRIVE_ONE(0), DRIVE_TWO(1), DRIVE_THREE(2), DRIVE_FOUR(3), LIFT_CLIMB_ONE(11), LIFT_CLIMB_TWO(
+				12), INTAKE_ARM_ONE(21), INTAKE_ARM_TWO(22), INTAKE_WHEEL(31);
 		int id;
 
 		MotorId(int id) {
@@ -53,8 +54,8 @@ public class RobotMap {
 	public static final int MAIN_JOY_ROTATE_AXIS_ID = 3;
 
 	public enum ButtonId {
-		CLIMB(2),
-		INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3), ARM(1), CLIMB_UP(4), CLIMB_DOWN(5);
+		EXTEND_CLIMB_PISTON(4), RETRACT_CLIMB_PISTON(5), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3), ARM(1), LIFT_CLIMB_UP(10), // bad_eclipse_formatting
+		LIFT_CLIMB_DOWN(11);
 		int id;
 
 		ButtonId(int id) {
