@@ -26,9 +26,12 @@ public class TestCommand extends Command {
 			"Mr. Dursley was the director of a firm called Grunnings,  which made drills. He was a big, beefy man with hardly any neck,  although he did have a very large mustache. Mrs. Dursley was thin and blonde and had nearly twice the usual amount of neck, which came in very useful as she spent so much of her time craning over garden fences, spying on the neighbors. The Dursleys had a small son called Dudley and in their opinion there was no finer boy anywhere.",
 			"What have you done?!", "Insolent children. I am unstopable!",
 			"Far over the Misty Mountains cold To dungeons deep and caverns old We must away ere break of day, To seek the pale enchanted gold. The dwarves of yore made mighty spells As hammers fell, like ringing bells In places deep where dark things sleep In hallow hall beneath the fells For ancient king and elvish lord There many a gleaming golden hoard They shape the wrought, and light they caught To hide in gems on hilt of sword. On silver necklaces they strung The flowering stars, on crowns they hung The dragon-fire, in twisted wire They meshed the light of moon and sun.",
-			"Eggroll, I wish I had a breeze running down my leg, I'd kill for a cookie, a stingray, a doubble sided scooby snack.", ".........................................", 
-			"get better soon Levi", "Fresh Frozen Custard is the solution to all of life's problems!", "Gasp!", "It appears you've encountered a nonconformity. You should fix that.",
-			"Ben Imagination", "SaladWorks", "Grammar is important everywhere."};
+			"Eggroll, I wish I had a breeze running down my leg, I'd kill for a cookie, a stingray, a doubble sided scooby snack.",
+			".........................................", "get better soon Levi",
+			"Fresh Frozen Custard is the solution to all of life's problems!", "Gasp!",
+			"It appears you've encountered a nonconformity. You should fix that.", "Ben Imagination", "SaladWorks",
+			"Grammar is important everywhere.", "You're next.", "GG no re", "wake up Jacob", "No", "#FeelTheBern2K16",
+			"#MakeAmericaGreatAgain", };
 
 	public TestCommand() {
 		this.setRunWhenDisabled(true);
@@ -74,63 +77,16 @@ public class TestCommand extends Command {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ....................................................................................secret..........................................................................................
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//.......................__ ............ 
-//..............<ROFL ROFL ROFL ROFL>... 
-//........................| |........... 
-//................... __\||/____........ 
-//.\\...............|'-|--| .\\....\.... 
-//..\ \_...........|--|---|..\\ ....\... 
-//../ L \____,/-------\___\___\       ..
-//.|LOL|-------------O----- ----,\.. ...
-//..\ L /______,---''-----------, /..... 
-//../ /.............\_________ ,/.......
-//.//.............____//___ __\\__/.....
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// .......................__ ............
+// ..............<ROFL ROFL ROFL ROFL>...
+// ........................| |...........
+// ................... __\||/____........
+// .\\...............|'-|--| .\\....\....
+// ..\ \_...........|--|---|..\\ ....\...
+// ../ L \____,/-------\___\___\ ..
+// .|LOL|-------------O----- ----,\.. ...
+// ..\ L /______,---''-----------, /.....
+// ../ /.............\_________ ,/.......
+// .//.............____//___ __\\__/.....

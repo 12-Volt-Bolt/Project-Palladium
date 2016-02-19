@@ -20,7 +20,8 @@ public class ClimbPistonSubsystem extends Subsystem {
 	public SolenoidGroup prodigious;
 
 	public ClimbPistonSubsystem() {
-		prodigious = new SolenoidGroup(new Solenoid(0, 0), new Solenoid(0, 1));
+		prodigious = new SolenoidGroup(new Solenoid(0, RobotMap.SolenoidId.CLIMB_PISTON_ONE.getId()),
+				new Solenoid(0, RobotMap.SolenoidId.CLIMB_PISTON_TWO.getId()));
 	}
 
 	public void initDefaultCommand() {

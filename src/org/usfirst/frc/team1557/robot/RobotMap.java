@@ -48,6 +48,19 @@ public class RobotMap {
 		}
 	}
 
+	public enum SolenoidId {
+		PUSHUP_ONE(4), PUSHUP_TWO(5), CLIMB_PISTON_ONE(0), CLIMB_PISTON_TWO(1);
+		int id;
+
+		SolenoidId(int i) {
+			id = i;
+		}
+
+		public int getId() {
+			return id;
+		}
+	}
+
 	//
 	// Joystick, Button, and Axes Ids
 	public static final int MAIN_JOY_AXIS_ONE_ID = 1;

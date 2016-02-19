@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
+import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.utils.SolenoidGroup;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -14,8 +15,9 @@ public class PushupSubsystem extends Subsystem {
 	public long timeSinceLastUsed;
 
 	public PushupSubsystem() {
-		//Magic numbers
-		pushupGroup = new SolenoidGroup(new Solenoid(0, 4), new Solenoid(0, 5));
+		// Magic numbers
+		pushupGroup = new SolenoidGroup(new Solenoid(0, RobotMap.SolenoidId.PUSHUP_ONE.getId()),
+				new Solenoid(0, RobotMap.SolenoidId.PUSHUP_TWO.getId()));
 	}
 
 	// Put methods for controlling this subsystem

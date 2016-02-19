@@ -61,20 +61,7 @@ public class Robot extends IterativeRobot {
 		driveChooser = new SendableChooser();
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
-		chooser.addObject("12 Inches straight, 0.0 speed", new DriveDistanceAtAngleCommand(12, 0, 0.0));
-		chooser.addObject("12 Inches straight, 0.4 speed", new DriveDistanceAtAngleCommand(12, 0, 0.4));
-		chooser.addObject("24 Inches straight, 0.8 speed", new DriveDistanceAtAngleCommand(24, 0, 0.8));
-		chooser.addObject("48 Inches straight, 0.4 speed", new DriveDistanceAtAngleCommand(48, 0, 0.4));
-		chooser.addObject("Turn 30 degrees", new GyroTurnCommand(30));
-		chooser.addObject("Turn 90 degrees", new GyroTurnCommand(90));
-		chooser.addObject("Turn 360 degrees", new GyroTurnCommand(360));
-		chooser.addObject("Turn -90 degrees", new GyroTurnCommand(-90));
-		chooser.addObject("Turn -360 degrees", new GyroTurnCommand(-360));
-		chooser.addObject("3 Foot Line", new DriveInAPolygonCommand(2, 3 * 12));
-		chooser.addObject("3 Foot Triangle", new DriveInAPolygonCommand(3, 3 * 12));
-		chooser.addObject("3 Foot Box", new DriveInAPolygonCommand(4, 3 * 12));
-		chooser.addObject("3 Foot Pentagon", new DriveInAPolygonCommand(5, 3 * 12));
-		chooser.addObject("3 Foot Hexagon", new DriveInAPolygonCommand(6, 3 * 12));
+		chooser.addObject("Basic Drive Forward Autonomous", new DriveCommand(0.5, 1));
 
 		chooser.addObject("Backup: Lowbar", new Lowbar());
 		chooser.addObject("Backup: Rock Wall", new RockWall());
@@ -83,7 +70,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Go straight @ full for 5 seconds", new DriveCommand(1, 5));
 
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
-		driveChooser.addObject("Terrific Twisty", new TwistyTankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
 		test.start();
