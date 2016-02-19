@@ -22,12 +22,13 @@ public class ToggleClimbPistonCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
-		if (Robot.climbPiston.timeSinceLastUsed >= 1_000) {
-			if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
-				Robot.climbPiston.prodigious.set(true);
-			} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
-				Robot.climbPiston.prodigious.set(false);
+		if (System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000) {
+			if (Robot.climbPiston.timeSinceLastUsed >= 1_000) {
+				if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
+					Robot.climbPiston.prodigious.set(true);
+				} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
+					Robot.climbPiston.prodigious.set(false);
+				}
 			}
 		}
 

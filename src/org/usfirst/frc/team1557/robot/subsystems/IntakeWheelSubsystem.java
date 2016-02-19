@@ -16,7 +16,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 
 	public IntakeWheelSubsystem() {
 		intakeMotor = new CANTalon(MotorId.INTAKE_WHEEL.getId());
-		// boulderSwitch = new DigitalInput(0);
+		boulderSwitch = new DigitalInput(5);
 	}
 
 	public void initDefaultCommand() {

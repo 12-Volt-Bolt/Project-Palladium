@@ -126,10 +126,12 @@ public class Robot extends IterativeRobot {
 		intakeArm.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
 		liftClimb.initDefaultCommand();
+		climbPiston.initDefaultCommand();
 	}
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("TIME", (System.currentTimeMillis() - START_TIME) / 1000L);
 	}
 
 	public void testPeriodic() {

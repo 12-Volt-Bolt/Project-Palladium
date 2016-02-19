@@ -22,13 +22,14 @@ public class LiftClimbCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
-		if (OI.liftClimbUpButton.get()) {
-			Robot.liftClimb.up();
-		} else if (OI.liftClimbDownButton.get()) {
-			Robot.liftClimb.down();
-		} else {
-			Robot.liftClimb.stopMotors();
+		if (System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000) {
+			if (OI.liftClimbUpButton.get()) {
+				Robot.liftClimb.up();
+			} else if (OI.liftClimbDownButton.get()) {
+				Robot.liftClimb.down();
+			} else {
+				Robot.liftClimb.stopMotors();
+			}
 		}
 	}
 

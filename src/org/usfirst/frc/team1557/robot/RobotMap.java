@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1557.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -54,8 +56,9 @@ public class RobotMap {
 	public static final int MAIN_JOY_ROTATE_AXIS_ID = 3;
 
 	public enum ButtonId {
-		EXTEND_CLIMB_PISTON(4), RETRACT_CLIMB_PISTON(5), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3), ARM(1), LIFT_CLIMB_UP(10), // bad_eclipse_formatting
-		LIFT_CLIMB_DOWN(11);
+		EXTEND_CLIMB_PISTON(4), RETRACT_CLIMB_PISTON(5), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(3), ARM(
+				1), LIFT_CLIMB_UP(3), // bad_eclipse_formatting
+				LIFT_CLIMB_DOWN(2);
 		int id;
 
 		ButtonId(int id) {
@@ -64,6 +67,19 @@ public class RobotMap {
 
 		public int getId() {
 			return id;
+		}
+	}
+
+	public enum JoystickId {
+		MAIN_ONE(OI.mainJoyOne), MAIN_TWO(OI.mainJoyTwo), ALT_ONE(OI.altJoyOne);
+		Joystick joy;
+
+		JoystickId(Joystick joy) {
+			this.joy = joy;
+		}
+
+		public Joystick getJoystick() {
+			return joy;
 		}
 	}
 

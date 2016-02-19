@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
 import org.usfirst.frc.team1557.robot.RobotMap;
+import org.usfirst.frc.team1557.robot.commands.ToggleClimbPistonCommand;
 import org.usfirst.frc.team1557.robot.utils.SolenoidGroup;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -23,6 +24,7 @@ public class ClimbPistonSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new ToggleClimbPistonCommand());
 	}
 
 	public void setProdigious(boolean state) {

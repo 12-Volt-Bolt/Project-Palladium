@@ -23,20 +23,12 @@ public class OI {
 	public static JoystickButton liftClimbUpButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_UP.getId());
 	public static JoystickButton liftClimbDownButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_DOWN.getId());
 	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.EXTEND_CLIMB_PISTON.getId());
-	public static Trigger isInEndGame = new Trigger() {
-
-		@Override
-		public boolean get() {
-			return System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-		}
-	};
 	Trigger pushupToggle = new Trigger() {
 
 		@Override
 		public boolean get() {
-			// boolean isInEndGame = System.currentTimeMillis() -
-			// Robot.START_TIME >= (60 + 60) * 1_000;
-			return isInEndGame.get() && mainJoyOne.getRawButton(ButtonId.PUSHUP.getId());
+			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
+			return isInEndGame && altJoyOne.getRawButton(ButtonId.PUSHUP.getId());
 		}
 	};
 
@@ -46,7 +38,5 @@ public class OI {
 
 	public void initButtonCommands() {
 		pushupToggle.whenActive(new PushupCommand());
-		isInEndGame.whenActive(new ToggleClimbPistonCommand());
-		isInEndGame.whenActive(new LiftClimbCommand());
 	}
 }
