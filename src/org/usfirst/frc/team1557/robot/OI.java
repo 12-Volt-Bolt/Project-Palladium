@@ -28,7 +28,8 @@ public class OI {
 		@Override
 		public boolean get() {
 			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-			return isInEndGame && altJoyOne.getRawButton(ButtonId.PUSHUP.getId());
+			return isInEndGame && mainJoyOne.getRawButton(ButtonId.PUSHUP.getId())
+					&& mainJoyTwo.getRawButton(ButtonId.PUSHUP.getId());
 		}
 	};
 
