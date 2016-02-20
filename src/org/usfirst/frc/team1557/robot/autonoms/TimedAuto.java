@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot.autonoms;
 
+import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.FireCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
@@ -7,7 +8,8 @@ import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * An autonomous routine that uses timed movements and a gyro. <b>NOT TESTED</b>
+ * An autonomous routine that uses timed movements <b>TESTED</b> Lowers the arm,
+ * drives forwards, and then retreats slightly.
  */
 public class TimedAuto extends CommandGroup {
 
@@ -25,17 +27,19 @@ public class TimedAuto extends CommandGroup {
 		// addSequential(new AssistedDriveCommand(0.5, 1.2, 180));
 
 		// this is a temporary custom drive which may or may not work
-		addSequential(new DriveCommand(0.5, 1));
-		addSequential(new DriveCommand(0.5, 0.6));
-		addSequential(new DriveCommand(0.5, 1.2));
-		addSequential(new GyroTurnCommand(27.6));
-		addSequential(new DriveCommand(1, .75));
-		addSequential(new DriveCommand(0.5, .34));
-		addSequential(new FireCommand());
-		addSequential(new DriveCommand(-0.5, .34));
-		addSequential(new DriveCommand(-1, .75));
-		addSequential(new GyroTurnCommand(180));
-		addSequential(new DriveCommand(0.5, 1.2));
+		addSequential(new ControlArmCommand(1, 0.75));
+		addSequential(new DriveCommand(-0.61, 1.6));
+		addSequential(new DriveCommand(0.61, 0.25));
+		// addSequential(new DriveCommand(0.5, 0.6));
+		// addSequential(new DriveCommand(0.5, 1.2));
+		// addSequential(new GyroTurnCommand(27.6));
+		// addSequential(new DriveCommand(1, .75));
+		// addSequential(new DriveCommand(0.5, .34));
+		// addSequential(new FireCommand());
+		// addSequential(new DriveCommand(-0.5, .34));
+		// addSequential(new DriveCommand(-1, .75));
+		// addSequential(new GyroTurnCommand(180));
+		// addSequential(new DriveCommand(0.5, 1.2));
 
 	}
 }

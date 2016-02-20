@@ -81,6 +81,3 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 }
-
-// We know you're watching ;) Death be to the filthy kamikaze pigs. Long live
-// volty.

@@ -1,6 +1,5 @@
-package org.usfirst.frc.team1557.robot.commands;
+package org.usfirst.frc.team1557.robot.autonoms.commands;
 
-import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,12 +7,26 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LiftClimbCommand extends Command {
+public class ControlArmCommand extends Command {
+	double speed;
 
-	public LiftClimbCommand() {
+	/**
+	 * Moves the intake arm at the given speed for the given time; if no time is
+	 * given it defaults to 1 second
+	 * 
+	 * @param speed
+	 *            speed to run the arm at. Positive takes the arm out. Negative
+	 *            pulls the arm into the robot.
+	 * @param time
+	 */
+	public ControlArmCommand(double speed, double time) {
 		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(Robot.liftClimb);
+		requires(Robot.intakeArm);
+		this.setTimeout(time);
+	}
+
+	public ControlArmCommand(double speed) {
+		this(speed, 1);
 	}
 
 	// Called just before this Command runs the first time
@@ -22,32 +35,21 @@ public class LiftClimbCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000) {
-			if (OI.liftClimbUpButton.get()) {
-				Robot.liftClimb.up();
-			} else if (OI.liftClimbDownButton.get()) {
-				Robot.liftClimb.down();
-			} else {
-				Robot.liftClimb.stopMotors();
-			}
-		} else {
-			Robot.liftClimb.stopMotors();
-		}
+		Robot.intakeArm.set(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.liftClimb.stopMotors();
+		Robot.intakeArm.set(0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		end();
 	}
 }

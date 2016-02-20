@@ -62,6 +62,7 @@ public class RobotMap {
 	}
 
 	//
+	public static final int PCM_ID = 0;
 	// Joystick, Button, and Axes Ids
 	public static final int MAIN_JOY_AXIS_ONE_ID = 1;
 	public static final int MAIN_JOY_AXIS_TWO_ID = 1;

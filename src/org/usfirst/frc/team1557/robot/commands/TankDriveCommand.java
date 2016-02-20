@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TankDriveCommand extends Command {
 
 	public TankDriveCommand() {
+		
 		requires(Robot.drive);
 	}
 

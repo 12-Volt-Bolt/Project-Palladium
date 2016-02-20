@@ -22,7 +22,9 @@ public class ControlIntakeArmCommand extends Command {
 	protected void execute() {
 
 		if (Math.abs(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID)) > RobotMap.JOYSTICK_DEADZONE) {
-			Robot.intakeArm.set(OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
+			Robot.intakeArm.set(-OI.altJoyOne.getRawAxis(RobotMap.ALT_JOY_AXIS_ONE_ID));
+		}else{
+			Robot.intakeArm.set(0);
 		}
 	}
 

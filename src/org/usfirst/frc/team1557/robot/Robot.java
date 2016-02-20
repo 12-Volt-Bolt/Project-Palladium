@@ -6,6 +6,7 @@ import org.usfirst.frc.team1557.backupauto.Lowbar;
 import org.usfirst.frc.team1557.backupauto.RockWall;
 import org.usfirst.frc.team1557.backupauto.RoughTerrain;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
+import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveInAPolygonCommand;
@@ -62,17 +63,13 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		chooser.addObject("Basic Drive Forward Autonomous", new DriveCommand(0.5, 1));
-
 		chooser.addObject("Backup: Lowbar", new Lowbar());
 		chooser.addObject("Backup: Rock Wall", new RockWall());
 		chooser.addObject("Backup: Rough Terrain", new RoughTerrain());
-
-		chooser.addObject("Go straight @ full for 5 seconds", new DriveCommand(1, 5));
-
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
-		test.start();
+		// test.start();
 	}
 
 	public void disabledInit() {

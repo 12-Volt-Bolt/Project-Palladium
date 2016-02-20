@@ -16,8 +16,8 @@ public class PushupSubsystem extends Subsystem {
 
 	public PushupSubsystem() {
 		// Magic numbers
-		pushupGroup = new SolenoidGroup(new Solenoid(0, RobotMap.SolenoidId.PUSHUP_ONE.getId()),
-				new Solenoid(0, RobotMap.SolenoidId.PUSHUP_TWO.getId()));
+		pushupGroup = new SolenoidGroup(new Solenoid(RobotMap.PCM_ID, RobotMap.SolenoidId.PUSHUP_ONE.getId()),
+				new Solenoid(RobotMap.PCM_ID, RobotMap.SolenoidId.PUSHUP_TWO.getId()));
 	}
 
 	// Put methods for controlling this subsystem
