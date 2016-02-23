@@ -3,8 +3,6 @@ package org.usfirst.frc.team1557.robot.subsystems;
 import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.commands.ToggleClimbPistonCommand;
 import org.usfirst.frc.team1557.robot.utils.SolenoidGroup;
-
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
