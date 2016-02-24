@@ -57,6 +57,7 @@ public class DriveSubsystem extends Subsystem {
 	 * @param rightSpeed
 	 */
 	private void setMotors(double leftSpeed, double rightSpeed) {
+
 		motorOne.set(-rightSpeed);
 		motorTwo.set(leftSpeed);
 		motorThree.set(rightSpeed);

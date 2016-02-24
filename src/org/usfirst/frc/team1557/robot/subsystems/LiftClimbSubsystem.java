@@ -2,6 +2,7 @@ package org.usfirst.frc.team1557.robot.subsystems;
 
 import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.commands.LiftClimbCommand;
+import org.usfirst.frc.team1557.robot.utils.Mramp;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -38,7 +39,9 @@ public class LiftClimbSubsystem extends Subsystem {
 	}
 
 	public void down() {
+
 		climberMotorOne.set(-0.67);
 		climberMotorTwo.set(-0.67);
 	}
+
 }
