@@ -3,6 +3,7 @@ package org.usfirst.frc.team1557.robot.subsystems;
 import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.utils.SolenoidGroup;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -16,8 +17,9 @@ public class PushupSubsystem extends Subsystem {
 
 	public PushupSubsystem() {
 		// Magic numbers
-		pushupGroup = new SolenoidGroup(new Solenoid(RobotMap.PCM_ID, RobotMap.SolenoidId.PUSHUP_ONE.getId()),
-				new Solenoid(RobotMap.PCM_ID, RobotMap.SolenoidId.PUSHUP_TWO.getId()));
+		pushupGroup = new SolenoidGroup(new DoubleSolenoid(RobotMap.PCM_ID, RobotMap.SolenoidId.PUSHUP_ONE.getId(),
+				RobotMap.SolenoidId.PUSHUP_TWO.getId()));
+
 	}
 
 	// Put methods for controlling this subsystem
@@ -28,7 +30,7 @@ public class PushupSubsystem extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void set(boolean state) {
+	public void set(DoubleSolenoid.Value state) {
 		pushupGroup.set(state);
 		timeSinceLastUsed = System.currentTimeMillis();
 	}

@@ -4,6 +4,7 @@ import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap.ButtonId;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -22,15 +23,16 @@ public class ToggleClimbPistonCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000) {
-			if (Robot.climbPiston.timeSinceLastUsed >= 1_000) {
-				if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
-					Robot.climbPiston.prodigious.set(true);
-				} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
-					Robot.climbPiston.prodigious.set(false);
-				}
+		// if (System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) *
+		// 1_000) {
+		if (System.currentTimeMillis() - Robot.climbPiston.lastUsedTime >= 1_000) {
+			if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
+				Robot.climbPiston.prodigious.set(Value.kForward);
+			} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
+				Robot.climbPiston.prodigious.set(Value.kReverse);
 			}
 		}
+		// }
 
 	}
 

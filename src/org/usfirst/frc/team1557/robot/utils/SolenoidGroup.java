@@ -1,33 +1,37 @@
 package org.usfirst.frc.team1557.robot.utils;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class SolenoidGroup {
 	private String name = "nullName";
-	Solenoid[] solenoids;
+	DoubleSolenoid[] solenoids;
 
-	public SolenoidGroup(Solenoid... solenoids) {
+	public SolenoidGroup(DoubleSolenoid... solenoids) {
 		this.solenoids = solenoids;
 	}
 
-	public SolenoidGroup(String name, Solenoid... solenoids) {
+	public SolenoidGroup(String name, DoubleSolenoid... solenoids) {
 		this(solenoids);
 		this.name = name;
 
 	}
 
-	public void set(boolean state) {
-		for (Solenoid s : solenoids) {
+	public void set(DoubleSolenoid.Value state) {
+		for (DoubleSolenoid s : solenoids) {
+			System.err.println("Solenoids were set");
 			s.set(state);
 		}
+
 	}
 
-	public boolean getState() {
-		boolean firstBoolean = solenoids[0].get();
+	public DoubleSolenoid.Value getState() {
+		Value firstState = solenoids[0].get();
 
-		for (Solenoid s : solenoids) {
-			if (s.get() != firstBoolean) {
+		for (DoubleSolenoid s : solenoids) {
+			if (s.get() != firstState) {
 				DriverStation.getInstance().reportError(
 						"Solenoids " + name
 								+ " states do not match! \n Using the value of the first solenoid. Code will break.",
@@ -35,7 +39,17 @@ public class SolenoidGroup {
 			}
 		}
 
-		return firstBoolean;
+		return firstState;
 	}
 
+	public DoubleSolenoid.Value reverseState(DoubleSolenoid.Value value) {
+		switch (value) {
+		case kForward:
+			return Value.kReverse;
+
+		case kReverse:
+			return Value.kForward;
+		}
+		return Value.kOff;
+	}
 }

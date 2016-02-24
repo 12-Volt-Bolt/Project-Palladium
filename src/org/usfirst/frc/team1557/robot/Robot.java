@@ -21,6 +21,7 @@ import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -37,6 +38,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	Compressor com;
 	public static long START_TIME;
 	public static OI oi;
 	public static DriveSubsystem drive;
@@ -50,6 +52,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser driveChooser;
 
 	public void robotInit() {
+		com = new Compressor(RobotMap.PCM_ID);
 		oi = new OI();
 		drive = new DriveSubsystem();
 		intakeArm = new IntakeArmSubsystem();
