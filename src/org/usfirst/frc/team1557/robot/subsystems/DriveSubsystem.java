@@ -12,15 +12,19 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1557.robot.utils.MotorGroup;
 
 /**
  *
  */
 public class DriveSubsystem extends Subsystem {
-	CANTalon motorOne;
+    MotorGroup right;
+	MotorGroup left;
+
+	/*CANTalon motorOne;
 	CANTalon motorTwo;
 	CANTalon motorThree;
-	CANTalon motorFour;
+	CANTalon motorFour;*/
 	private boolean reverse = false;
 	public ADXRS450_Gyro gyro;
 
@@ -28,10 +32,12 @@ public class DriveSubsystem extends Subsystem {
 	public Encoder rightEncoder;
 
 	public DriveSubsystem() {
-		motorOne = new CANTalon(MotorId.DRIVE_ONE.getId());
+        right = new MotorGroup(CANTalon.class, MotorId.DRIVE_ONE.getId(), MotorId.DRIVE_THREE.getId()).setInverts(true, false);
+        left = new MotorGroup(CANTalon.class, MotorId.DRIVE_TWO.getId(), MotorId.DRIVE_FOUR.getId()).setInverts(false, true);
+		/*motorOne = new CANTalon(MotorId.DRIVE_ONE.getId());
 		motorTwo = new CANTalon(MotorId.DRIVE_TWO.getId());
 		motorThree = new CANTalon(MotorId.DRIVE_THREE.getId());
-		motorFour = new CANTalon(MotorId.DRIVE_FOUR.getId());
+		motorFour = new CANTalon(MotorId.DRIVE_FOUR.getId());*/
 
 		gyro = new ADXRS450_Gyro();
 		leftEncoder = new Encoder(EncoderId.LEFT_A.getId(), EncoderId.LEFT_B.getId());
@@ -57,11 +63,12 @@ public class DriveSubsystem extends Subsystem {
 	 * @param rightSpeed
 	 */
 	private void setMotors(double leftSpeed, double rightSpeed) {
-
-		motorOne.set(-rightSpeed);
+        left.set(leftSpeed);
+        right.set(rightSpeed);
+		/*motorOne.set(-rightSpeed);
 		motorTwo.set(leftSpeed);
 		motorThree.set(rightSpeed);
-		motorFour.set(-leftSpeed);
+		motorFour.set(-leftSpeed);*/
 	}
 
 	/**
