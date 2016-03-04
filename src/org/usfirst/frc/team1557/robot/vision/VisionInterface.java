@@ -1,16 +1,13 @@
 package org.usfirst.frc.team1557.robot.vision;
 
-public abstract class VisionInterface {
-	private String cameraAddress = "";
+public interface VisionInterface {
+	public boolean initCamera(String address);
 
-	public VisionInterface(String cameraAddress) {
-		this.cameraAddress = cameraAddress;
-	}
+	public double getAngle();
 
-	public abstract void testThing();
-	public abstract double testThing2ElectricBoogaloo();
-	public String getAddress(){
-		return cameraAddress;
-	}
-	public abstract String testThing3();
+	public void setAngle();
+
+	public void startProcessing();
+
+	public void stopProcessing();
 }
