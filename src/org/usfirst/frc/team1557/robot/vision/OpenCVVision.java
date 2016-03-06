@@ -178,7 +178,7 @@ public class OpenCVVision implements VisionInterface {
 		Rect foundRect = new Rect();
 		for (Rect r : rects) {
 			if ((Math.abs(expectedSize[0] - r.size().width)
-					+ Math.abs(expectedSize[1] - r.size().height)) > smallestError) {
+					+ Math.abs(expectedSize[1] - r.size().height)) < smallestError) {
 				foundRect = r;
 				smallestError = (Math.abs(expectedSize[0] - r.size().width)
 						+ Math.abs(expectedSize[1] - r.size().height));
