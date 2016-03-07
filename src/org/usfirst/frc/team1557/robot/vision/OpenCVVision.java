@@ -43,20 +43,29 @@ public class OpenCVVision implements VisionInterface {
 
 		@Override
 		public void run() {
-			while (shouldRun) {
-				if (hasInitCamera && hasInitLibrary) {
-					// Processing code
-					Mat startImage = getImageInMat();
-					// TODO: Canny operation?
-					List<MatOfPoint> contours = findContours(startImage, new Scalar(0, 0, 0),
-							new Scalar(360, 255, 255));
-					List<Rect> rects = filterRectsBySize(0, 0, 1000, 1000, contours);
-					Rect foundRect = findTargetWithoutSize(rects);
-					setAngle(findAngle(findError(foundRect)[0]));
-					// End processing code
+			while (true) {
+				if (shouldRun()) {
+					if (hasInitCamera && hasInitLibrary) {
+						// Processing code
+						Mat startImage = getImageInMat();
+						// TODO: Canny operation?
+						List<MatOfPoint> contours = findContours(startImage, new Scalar(0, 0, 0),
+								new Scalar(360, 255, 255));
+						List<Rect> rects = filterRectsBySize(0, 0, 1000, 1000, contours);
+						Rect foundRect = findTargetWithoutSize(rects);
+						setAngle(findAngle(findError(foundRect)[0]));
+						// End processing code
+					} else {
+						System.out.println("Something has not been initialized." + "    Camera:" + hasInitCamera
+								+ "    " + "Library:" + hasInitLibrary);
+					}
 				} else {
-					System.out.println("Something has not been initialized." + "    Camera:" + hasInitCamera + "    "
-							+ "Library:" + hasInitLibrary);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 
@@ -101,7 +110,7 @@ public class OpenCVVision implements VisionInterface {
 	}
 
 	@Override
-	public void startProcessing() {
+	public synchronized void startProcessing() {
 		shouldRun = true;
 		if (!processingThread.isAlive()) {
 			processingThread.start();
@@ -109,8 +118,12 @@ public class OpenCVVision implements VisionInterface {
 	}
 
 	@Override
-	public void stopProcessing() {
+	public synchronized void stopProcessing() {
 		shouldRun = false;
+	}
+
+	private synchronized boolean shouldRun() {
+		return shouldRun;
 	}
 
 	private Mat getImageInMat() {
@@ -144,10 +157,11 @@ public class OpenCVVision implements VisionInterface {
 	private List<MatOfPoint> findContours(Mat imageInMat, Scalar min, Scalar max) {
 		List<MatOfPoint> contours = new ArrayList<>();
 		/*
-		 * Puts the hue values back into 0-360 format like most HSV formats.
+		 * Converts 0-360 format to 0-180 format to be able to be used in
+		 * inRange()
 		 */
-		min.val[0] = min.val[0] * 2;
-		max.val[0] = max.val[0] * 2;
+		min.val[0] = min.val[0] / 2;
+		max.val[0] = max.val[0] / 2;
 		Imgproc.cvtColor(imageInMat, imageInMat, Imgproc.COLOR_BGR2HSV);
 		Core.inRange(imageInMat, min, max, imageInMat);
 		Imgproc.findContours(imageInMat, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);

@@ -2,18 +2,9 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.backupauto.AutoManager;
-import org.usfirst.frc.team1557.backupauto.Lowbar;
-import org.usfirst.frc.team1557.backupauto.RockWall;
-import org.usfirst.frc.team1557.backupauto.RoughTerrain;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
-import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
-import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
-import org.usfirst.frc.team1557.robot.autonoms.commands.DriveDistanceAtAngleCommand;
-import org.usfirst.frc.team1557.robot.autonoms.commands.DriveInAPolygonCommand;
-import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
-import org.usfirst.frc.team1557.robot.commands.TwistyTankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbPistonSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LiftClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
@@ -65,10 +56,6 @@ public class Robot extends IterativeRobot {
 		driveChooser = new SendableChooser();
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
-		chooser.addObject("Basic Drive Forward Autonomous", new DriveCommand(0.5, 1));
-		chooser.addObject("Backup: Lowbar", new Lowbar());
-		chooser.addObject("Backup: Rock Wall", new RockWall());
-		chooser.addObject("Backup: Rough Terrain", new RoughTerrain());
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
