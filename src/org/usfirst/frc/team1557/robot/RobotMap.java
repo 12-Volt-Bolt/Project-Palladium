@@ -71,8 +71,7 @@ public class RobotMap {
 
 	public enum ButtonId {
 		EXTEND_CLIMB_PISTON(4), RETRACT_CLIMB_PISTON(5), INTAKE_WHEEL(6), OUTTAKE_WHEEL(7), REVERSE(2), PUSHUP(1), ARM(
-				1), LIFT_CLIMB_UP(3), // bad_eclipse_formatting
-				LIFT_CLIMB_DOWN(2);
+				1), LIFT_CLIMB_UP(3), LIFT_CLIMB_DOWN(2), VISION(3);
 		int id;
 
 		ButtonId(int id) {

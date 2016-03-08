@@ -26,9 +26,6 @@ public class OpenCVVision implements VisionInterface {
 	private boolean shouldRun = false;
 	private boolean hasInitCamera = false;
 	private double angleOff = 0;
-	/**
-	 * Not sure if this is the best way to calculate.
-	 */
 	private final double degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
 
 	static {
@@ -48,31 +45,37 @@ public class OpenCVVision implements VisionInterface {
 					if (hasInitCamera && hasInitLibrary) {
 						// Processing code
 						Mat startImage = getImageInMat();
-						// TODO: Canny operation?
-						List<MatOfPoint> contours = findContours(startImage, new Scalar(160, 150, 100),
-								new Scalar(240, 255, 200));
-						List<Rect> rects = filterRectsBySize(0, 100, 100, 1000, contours);
-						Rect foundRect = findTargetWithoutSize(rects);
-						setAngle(findAngle(findError(foundRect)[0]));
-						// End processing code
+						if (startImage != null) {
+							List<MatOfPoint> contours = findContours(startImage, new Scalar(160, 150, 100),
+									new Scalar(240, 255, 200));
+							List<Rect> rects = filterRectsBySize(0, 100, 100, 1000, contours);
+							Rect foundRect = findTargetWithoutSize(rects);
+							if (!foundRect.equals(new Rect())) {
+								setAngle(findAngle(findError(foundRect)[0]));
+							} else {
+								setAngle(0.0);
+							}
+							// End processing code
+
+						} else {
+							// startimage
+						}
 					} else {
+						// init
 						System.out.println("Something has not been initialized." + "    Camera:" + hasInitCamera
 								+ "    " + "Library:" + hasInitLibrary);
 					}
 				} else {
-					try {
-
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					// shouldrun
+					sleep(50);
 				}
 			}
 
 		}
 	}, "OpenCV Processing Thread");
 
-	private @Override public boolean initCamera(String address) {
+	@Override
+	public boolean initCamera(String address) {
 		try {
 			this.address = new URL(address);
 			hasInitCamera = true;
@@ -86,6 +89,14 @@ public class OpenCVVision implements VisionInterface {
 			System.out.println("Obviously something went wrong with camera initialization.");
 		}
 		return hasInitCamera;
+	}
+
+	private void sleep(int timeToSleep) {
+		try {
+			Thread.sleep(timeToSleep);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -131,6 +142,8 @@ public class OpenCVVision implements VisionInterface {
 			imageFromCamera = ImageIO.read(address);
 		} catch (IOException e) {
 			e.printStackTrace();
+			// ***
+			return null;
 		}
 		return convertBufferedImageToMat(imageFromCamera);
 	}

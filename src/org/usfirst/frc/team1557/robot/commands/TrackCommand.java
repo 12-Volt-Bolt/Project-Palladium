@@ -28,6 +28,7 @@ public class TrackCommand {
 	public void run() {
 		gyroPID.enable();
 		vision.startProcessing();
+		// VVV This will act strange because of disproportionate update times.
 		gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + vision.getAngle());
 		// One side needs to be negative. Not sure which yet.
 		Robot.drive.tankDrive(pidOutput, -pidOutput);

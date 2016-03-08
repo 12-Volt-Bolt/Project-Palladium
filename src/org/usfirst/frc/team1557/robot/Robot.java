@@ -11,6 +11,7 @@ import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
+import org.usfirst.frc.team1557.robot.vision.AWTVision;
 import org.usfirst.frc.team1557.robot.vision.OpenCVVision;
 import org.usfirst.frc.team1557.robot.vision.VisionInterface;
 
@@ -64,7 +65,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		visionInterfaceChooser.addDefault("OpenCV Vision", new OpenCVVision());
-		visionInterfaceChooser.addObject("AWT Vision", null);
+		visionInterfaceChooser.addObject("AWT Vision", new AWTVision());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
 		SmartDashboard.putData("Vision Interface Chooser", visionInterfaceChooser);
