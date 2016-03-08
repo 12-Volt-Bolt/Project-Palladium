@@ -2,12 +2,11 @@ package org.usfirst.frc.team1557.robot.vision;
 
 public interface VisionInterface {
 	/**
-	 * According to screensteps this is the view angle of the m1013.
+	 * FOV of the m1013
 	 */
-	final double FOV = 49;
+	final double FOV = 67;
 	/**
-	 * I believe this is what we set the resolution of the camera to. Need to
-	 * confirm. 320width by 240 height.
+	 * The resolution of the camera.
 	 */
 	final int[] CAMERA_RESOLUTION = new int[] { 320, 240 };
 

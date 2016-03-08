@@ -29,7 +29,7 @@ public class OpenCVVision implements VisionInterface {
 	/**
 	 * Not sure if this is the best way to calculate.
 	 */
-	private final double degreesPerPixel = (FOV) / (CAMERA_RESOLUTION[0]);
+	private final double degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
 
 	static {
 		if (!hasInitLibrary) {
@@ -49,9 +49,9 @@ public class OpenCVVision implements VisionInterface {
 						// Processing code
 						Mat startImage = getImageInMat();
 						// TODO: Canny operation?
-						List<MatOfPoint> contours = findContours(startImage, new Scalar(0, 0, 0),
-								new Scalar(360, 255, 255));
-						List<Rect> rects = filterRectsBySize(0, 0, 1000, 1000, contours);
+						List<MatOfPoint> contours = findContours(startImage, new Scalar(160, 150, 100),
+								new Scalar(240, 255, 200));
+						List<Rect> rects = filterRectsBySize(0, 100, 100, 1000, contours);
 						Rect foundRect = findTargetWithoutSize(rects);
 						setAngle(findAngle(findError(foundRect)[0]));
 						// End processing code
@@ -61,7 +61,7 @@ public class OpenCVVision implements VisionInterface {
 					}
 				} else {
 					try {
-						Thread.sleep(500);
+
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -72,8 +72,7 @@ public class OpenCVVision implements VisionInterface {
 		}
 	}, "OpenCV Processing Thread");
 
-	@Override
-	public boolean initCamera(String address) {
+	private @Override public boolean initCamera(String address) {
 		try {
 			this.address = new URL(address);
 			hasInitCamera = true;
@@ -228,7 +227,7 @@ public class OpenCVVision implements VisionInterface {
 	 */
 	private double[] findError(Rect r) {
 		double xError = 0, yError = 0;
-		xError = ((CAMERA_RESOLUTION[0] / 2) - (r.x + r.width / 2)) * -1;
+		xError = (((CAMERA_RESOLUTION[0] / 2) - (r.x + r.width / 2))) * -1;
 		yError = ((CAMERA_RESOLUTION[1] / 2) - (r.y + r.height / 2));
 		return new double[] { xError, yError };
 	}
