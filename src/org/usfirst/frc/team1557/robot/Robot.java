@@ -102,6 +102,9 @@ public class Robot extends IterativeRobot {
 		if (driveChooser.getSelected() != null) {
 			((Command) driveChooser.getSelected()).start();
 		}
+		if (visionInterfaceChooser.getSelected() != null) {
+			((Command) visionInterfaceChooser.getSelected()).start();
+		}
 		intakeArm.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
 		liftClimb.initDefaultCommand();
