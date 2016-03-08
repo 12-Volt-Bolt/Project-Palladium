@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class TankDriveCommand extends Command {
+	
+	TrackCommand vision;
 
 	public TankDriveCommand() {
 		requires(Robot.drive);
@@ -18,17 +20,24 @@ public class TankDriveCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		vision = new TrackCommand();
+		vision.initialize();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (OI.mainJoyOne.getRawButton(2)) {
-			Robot.drive.reverseMotors(true);
+		if (!OI.mainJoyOne.getRawButton(3)) {
+			vision.notRunning();
+			if (OI.mainJoyOne.getRawButton(2)) {
+				Robot.drive.reverseMotors(true);
+			} else {
+				Robot.drive.reverseMotors(false);
+			}
+			Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
+					OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
 		} else {
-			Robot.drive.reverseMotors(false);
-		}
-		Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
-				OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+			vision.run();		
+			}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
