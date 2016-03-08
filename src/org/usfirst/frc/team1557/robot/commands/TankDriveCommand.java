@@ -5,6 +5,7 @@ import static org.usfirst.frc.team1557.robot.RobotMap.MAIN_JOY_AXIS_TWO_ID;
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
+import org.usfirst.frc.team1557.robot.vision.GyroTracker;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TankDriveCommand extends Command {
 
-	TrackCommand vision;
+	GyroTracker tracker;
 
 	public TankDriveCommand() {
 		requires(Robot.drive);
@@ -22,14 +23,14 @@ public class TankDriveCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		vision = new TrackCommand();
-		vision.initialize();
+		tracker = new GyroTracker();
+		tracker.initialize();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (!OI.mainJoyOne.getRawButton(RobotMap.ButtonId.VISION.getId())) {
-			vision.notRunning();
+			tracker.stopRunning();
 			if (OI.mainJoyOne.getRawButton(RobotMap.ButtonId.REVERSE.getId())) {
 				Robot.drive.reverseMotors(true);
 			} else {
@@ -38,7 +39,7 @@ public class TankDriveCommand extends Command {
 			Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
 					OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
 		} else {
-			vision.run();
+			tracker.run();
 		}
 	}
 

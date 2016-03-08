@@ -26,7 +26,7 @@ public class OpenCVVision implements VisionInterface {
 	private boolean shouldRun = false;
 	private boolean hasInitCamera = false;
 	private double angleOff = 0;
-	private final double degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
+	private double degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
 
 	static {
 		if (!hasInitLibrary) {
@@ -137,9 +137,12 @@ public class OpenCVVision implements VisionInterface {
 	}
 
 	private Mat getImageInMat() {
-		BufferedImage imageFromCamera = new BufferedImage(320, 240, BufferedImage.TYPE_3BYTE_BGR);
+		BufferedImage imageFromCamera = null;
 		try {
 			imageFromCamera = ImageIO.read(address);
+			CAMERA_RESOLUTION[0] = imageFromCamera.getWidth();
+			CAMERA_RESOLUTION[1] = imageFromCamera.getHeight();
+			degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
 		} catch (IOException e) {
 			e.printStackTrace();
 			// ***
