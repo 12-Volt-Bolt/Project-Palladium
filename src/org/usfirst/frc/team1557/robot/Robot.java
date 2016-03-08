@@ -11,6 +11,7 @@ import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
+import org.usfirst.frc.team1557.robot.vision.OpenCVVision;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 	private TestCommand test = new TestCommand();
 	SendableChooser chooser;
 	SendableChooser driveChooser;
+	SendableChooser visionInterfaceChooser;
 
 	public void robotInit() {
 		com = new Compressor(RobotMap.PCM_ID);
@@ -54,11 +56,15 @@ public class Robot extends IterativeRobot {
 		oi.initButtonCommands();
 		chooser = new SendableChooser();
 		driveChooser = new SendableChooser();
+		visionInterfaceChooser = new SendableChooser();
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
+		visionInterfaceChooser.addDefault("OpenCV Vision", new OpenCVVision());
+		visionInterfaceChooser.addObject("AWT Vision", null);
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
+		SmartDashboard.putData("Vision Interface Chooser", visionInterfaceChooser);
 		// test.start();
 	}
 
