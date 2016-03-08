@@ -12,6 +12,7 @@ import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
 import org.usfirst.frc.team1557.robot.vision.OpenCVVision;
+import org.usfirst.frc.team1557.robot.vision.VisionInterface;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -43,6 +44,8 @@ public class Robot extends IterativeRobot {
 	SendableChooser chooser;
 	SendableChooser driveChooser;
 	SendableChooser visionInterfaceChooser;
+	
+	public static VisionInterface vision;
 
 	public void robotInit() {
 		com = new Compressor(RobotMap.PCM_ID);
@@ -103,7 +106,7 @@ public class Robot extends IterativeRobot {
 			((Command) driveChooser.getSelected()).start();
 		}
 		if (visionInterfaceChooser.getSelected() != null) {
-			((Command) visionInterfaceChooser.getSelected()).start();
+			vision = ((VisionInterface) visionInterfaceChooser.getSelected());
 		}
 		intakeArm.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
