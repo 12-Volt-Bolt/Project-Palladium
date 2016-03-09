@@ -6,6 +6,7 @@ import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.vision.GyroTracker;
+import org.usfirst.frc.team1557.robot.vision.TrackInterface;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TankDriveCommand extends Command {
 
-	GyroTracker tracker;
+	TrackInterface tracker;
 
 	public TankDriveCommand() {
 		requires(Robot.drive);
@@ -23,7 +24,7 @@ public class TankDriveCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		tracker = new GyroTracker();
+		tracker = Robot.track;
 		tracker.initialize();
 	}
 

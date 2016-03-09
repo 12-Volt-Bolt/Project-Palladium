@@ -4,7 +4,7 @@ import org.usfirst.frc.team1557.robot.Robot;
 
 public class BasicTracker implements TrackInterface {
 	VisionInterface vision;
-	private int count = 0;
+	private double count = 0.d;
 	private double lastAngle = 0;
 
 	@Override
@@ -28,12 +28,13 @@ public class BasicTracker implements TrackInterface {
 
 	private double getOutput() {
 		double newAngle = vision.getAngle();
-		// if(Math.signum(lastAngle) == Math.signum(newAngle)){
-		// count = 0;
-		// }else if(count < 100){
-		// count++;
-		// }
-		// lastAngle = newAngle;
-		return (newAngle / VisionInterface.FOV / 2d);
+		if (Math.signum(lastAngle) != Math.signum(newAngle)) {
+			count = 0;
+		}
+		lastAngle = newAngle;
+		if (count < 500 * 3) {
+			count++;
+		}
+		return (count / (500d * 3)) * Math.signum(newAngle);
 	}
 }

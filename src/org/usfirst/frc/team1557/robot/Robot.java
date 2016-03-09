@@ -12,7 +12,10 @@ import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
 import org.usfirst.frc.team1557.robot.vision.AWTVision;
+import org.usfirst.frc.team1557.robot.vision.BasicTracker;
+import org.usfirst.frc.team1557.robot.vision.GyroTracker;
 import org.usfirst.frc.team1557.robot.vision.OpenCVVision;
+import org.usfirst.frc.team1557.robot.vision.TrackInterface;
 import org.usfirst.frc.team1557.robot.vision.VisionInterface;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -45,8 +48,10 @@ public class Robot extends IterativeRobot {
 	SendableChooser chooser;
 	SendableChooser driveChooser;
 	SendableChooser visionInterfaceChooser;
+	SendableChooser trackInterfaceChooser;
 	
 	public static VisionInterface vision;
+	public static TrackInterface track;
 
 	public void robotInit() {
 		com = new Compressor(RobotMap.PCM_ID);
@@ -61,11 +66,14 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser();
 		driveChooser = new SendableChooser();
 		visionInterfaceChooser = new SendableChooser();
+		trackInterfaceChooser = new SendableChooser();
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		visionInterfaceChooser.addDefault("OpenCV Vision", new OpenCVVision());
 		visionInterfaceChooser.addObject("AWT Vision", new AWTVision());
+		trackInterfaceChooser.addDefault("Gyro Tracker", new GyroTracker());
+		trackInterfaceChooser.addObject("Basic Tracker", new BasicTracker());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
 		SmartDashboard.putData("Vision Interface Chooser", visionInterfaceChooser);
@@ -108,6 +116,9 @@ public class Robot extends IterativeRobot {
 		}
 		if (visionInterfaceChooser.getSelected() != null) {
 			vision = ((VisionInterface) visionInterfaceChooser.getSelected());
+		}
+		if (trackInterfaceChooser.getSelected() != null) {
+			track = ((TrackInterface) trackInterfaceChooser.getSelected());
 		}
 		intakeArm.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
