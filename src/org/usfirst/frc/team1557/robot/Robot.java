@@ -3,6 +3,7 @@ package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.backupauto.AutoManager;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
+import org.usfirst.frc.team1557.robot.autonoms.VisionAuto;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TestCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClimbPistonSubsystem;
@@ -74,6 +75,7 @@ public class Robot extends IterativeRobot {
 		// Objects for auto
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
+		chooser.addObject("Vision Aided", new VisionAuto());
 		// Object for drive
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		// Objects for Vision
