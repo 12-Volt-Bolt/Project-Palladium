@@ -9,6 +9,7 @@ import org.usfirst.frc.team1557.robot.vision.GyroTracker;
 import org.usfirst.frc.team1557.robot.vision.TrackInterface;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
@@ -19,7 +20,6 @@ public class TankDriveCommand extends Command {
 
 	public TankDriveCommand() {
 		requires(Robot.drive);
-		
 	}
 
 	// Called just before this Command runs the first time
@@ -51,10 +51,12 @@ public class TankDriveCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		tracker.stopRunning();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }

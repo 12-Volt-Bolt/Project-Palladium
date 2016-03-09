@@ -5,17 +5,21 @@ import org.usfirst.frc.team1557.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GyroTracker implements TrackInterface {
 	VisionInterface vision;
 	PIDController gyroPID;
 	double pidOutput = 0;
-	private boolean hasSetSetPoint = false;
+	private boolean hasSetSetpoint = false;
 	private boolean hasInitialize = false;
+	private long initTime = 0;
+	private int timeToWait = 1_000;
 
 	@Override
 	public void initialize() {
 		if (!hasInitialize) {
+
 			vision = Robot.vision;
 			vision.initCamera(VisionInterface.URL);
 			gyroPID = new PIDController(0.05, 0, 0, Robot.drive.gyro, new PIDOutput() {
@@ -25,25 +29,34 @@ public class GyroTracker implements TrackInterface {
 				}
 			});
 			hasInitialize = true;
+			SmartDashboard.putData("GyroTrackerPID", gyroPID);
+			SmartDashboard.putNumber("timeToWait", timeToWait);
+
 		}
+		initTime = System.currentTimeMillis();
 	}
 
 	@Override
 	public void run() {
-		gyroPID.enable();
+		timeToWait = (int) SmartDashboard.getNumber("timeToWait");
 		vision.startProcessing();
-		if (!hasSetSetPoint) {
-			gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + vision.getAngle());
-			hasSetSetPoint = true;
-		}
+		setSetpoint();
 		// TODO: One side needs to be negative. Not sure which yet.
 		Robot.drive.tankDrive(pidOutput, -pidOutput);
+	}
+
+	private void setSetpoint() {
+		if (!hasSetSetpoint && System.currentTimeMillis() - initTime > timeToWait/* 1_000 */) {
+			gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + vision.getAngle());
+			gyroPID.enable();
+			hasSetSetpoint = true;
+		}
 	}
 
 	@Override
 	public void stopRunning() {
 		gyroPID.disable();
 		vision.stopProcessing();
-		hasSetSetPoint = false;
+		hasSetSetpoint = false;
 	}
 }

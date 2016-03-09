@@ -27,6 +27,7 @@ public class OpenCVVision implements VisionInterface {
 	private boolean hasInitCamera = false;
 	private double angleOff = 0;
 	private double degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
+	private boolean hasStartedThreadPreviously = false;
 
 	static {
 		if (!hasInitLibrary) {
@@ -58,7 +59,7 @@ public class OpenCVVision implements VisionInterface {
 							// End processing code
 
 						} else {
-							// startimage
+							setAngle(0.0);
 						}
 					} else {
 						// init
@@ -122,8 +123,9 @@ public class OpenCVVision implements VisionInterface {
 	@Override
 	public synchronized void startProcessing() {
 		shouldRun = true;
-		if (!processingThread.isAlive()) {
+		if (!processingThread.isAlive() && !hasStartedThreadPreviously) {
 			processingThread.start();
+			hasStartedThreadPreviously = true;
 		}
 	}
 

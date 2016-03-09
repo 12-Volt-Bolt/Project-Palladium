@@ -21,6 +21,8 @@ public class AWTVision implements Runnable, VisionInterface {
 	int stepSize = 5;
 
 	public boolean initCamera(String cam) {
+		if (camera != null)
+			return true;
 		try {
 			camera = new URL(cam);
 			new Thread(this).start();
