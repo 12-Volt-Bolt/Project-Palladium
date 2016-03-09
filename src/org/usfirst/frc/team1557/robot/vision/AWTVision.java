@@ -114,11 +114,11 @@ public class AWTVision implements Runnable, VisionInterface {
 		int start = frame.getWidth() / 4;
 		int stop = frame.getWidth() * 3 / 4;
 
-		errors = new int[frame.getWidth()];
+		// errors = new int[frame.getWidth()];
 
 		for (int x = start; x < stop; x += stepSize) {
 			int error = calcSymmetryError(x);
-			errors[x] = error;
+			// errors[x] = error;
 			// System.out.println(error);
 			if (error < bestError) {
 				bestX = x;

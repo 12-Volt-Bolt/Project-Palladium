@@ -7,16 +7,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class BasicTracker implements TrackInterface {
 	VisionInterface vision;
 	private boolean hasInitialize = false;
-	private double rampRate = 0.02;
+	private double rampRate = 0.33d;
 
 	@Override
 	public void initialize() {
-		if (!hasInitialize) {
-			vision = Robot.vision;
-			vision.initCamera(VisionInterface.URL);
-			hasInitialize = true;
-			SmartDashboard.putNumber("rampRate", rampRate);
-		}
+		vision = Robot.vision;
+		vision.initCamera(VisionInterface.URL);
+		hasInitialize = true;
+		SmartDashboard.putNumber("rampRate", rampRate);
 
 	}
 
@@ -42,7 +40,7 @@ public class BasicTracker implements TrackInterface {
 			throttle = -throttle;
 		if (throttle < 0)
 			throttle = 0;
-		throttle += 0.33d * rampRate;
+		throttle += rampRate * 0.02;
 		if (reverse)
 			throttle = -throttle;
 		return throttle;

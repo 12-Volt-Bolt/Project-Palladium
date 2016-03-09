@@ -18,10 +18,9 @@ public class GyroTracker implements TrackInterface {
 
 	@Override
 	public void initialize() {
+		vision = Robot.vision;
+		vision.initCamera(VisionInterface.URL);
 		if (!hasInitialize) {
-
-			vision = Robot.vision;
-			vision.initCamera(VisionInterface.URL);
 			gyroPID = new PIDController(0.05, 0, 0, Robot.drive.gyro, new PIDOutput() {
 				@Override
 				public void pidWrite(double output) {
@@ -31,9 +30,8 @@ public class GyroTracker implements TrackInterface {
 			hasInitialize = true;
 			SmartDashboard.putData("GyroTrackerPID", gyroPID);
 			SmartDashboard.putNumber("timeToWait", timeToWait);
-
 		}
-		initTime = System.currentTimeMillis();
+		gyroPID.setSetpoint(0);
 	}
 
 	@Override
@@ -55,7 +53,8 @@ public class GyroTracker implements TrackInterface {
 
 	@Override
 	public void stopRunning() {
-		gyroPID.disable();
+		initTime = System.currentTimeMillis();
+		gyroPID.reset();
 		vision.stopProcessing();
 		hasSetSetpoint = false;
 	}
