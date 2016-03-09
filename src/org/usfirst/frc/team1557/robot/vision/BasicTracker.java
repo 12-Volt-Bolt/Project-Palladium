@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class BasicTracker implements TrackInterface {
 	VisionInterface vision;
 	private boolean hasInitialize = false;
-	private double rampRate = 0.33d;
+	private double rampRate = 0.165d;
 
 	@Override
 	public void initialize() {

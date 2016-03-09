@@ -60,7 +60,7 @@ public class GyroTurnCommand extends Command {
 
 	protected void initialize() {
 		System.err.println("Initializing " + this);
-		
+
 		gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + angle);
 		gyroPID.enable();
 	}
@@ -72,14 +72,14 @@ public class GyroTurnCommand extends Command {
 
 	protected void execute() {
 		// gyroTurn(angle);
-		
+
 		SmartDashboard.putNumber("gyro_value", Robot.drive.gyro.getAngle());
 
 		Robot.drive.tankDrive(-gyroOutput, gyroOutput);
 	}
 
 	protected boolean isFinished() {
-//		return false;
+		// return false;
 		return isGyroOnTarget() || isTimedOut();
 	}
 

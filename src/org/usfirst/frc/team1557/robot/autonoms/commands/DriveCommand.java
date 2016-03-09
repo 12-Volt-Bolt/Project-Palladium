@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveCommand extends Command {
-	double speed, timeToRun;
+	double rightSpeed, leftSpeed, timeToRun;
 
 	/**
 	 * 
@@ -17,9 +17,10 @@ public class DriveCommand extends Command {
 	 * @param time
 	 *            Time in milliseconds to run this command.
 	 */
-	public DriveCommand(double speed, double time) {
+	public DriveCommand(double rightSpeed, double leftSpeed, double time) {
 		requires(Robot.drive);
-		this.speed = speed;
+		this.rightSpeed = rightSpeed;
+		this.leftSpeed = leftSpeed;
 		this.timeToRun = time;
 
 		setTimeout(this.timeToRun);
@@ -31,11 +32,11 @@ public class DriveCommand extends Command {
 
 	@Override
 	public String toString() {
-		return "DriveCommand [speed=" + speed + ", timeToRun=" + timeToRun + "]";
+		return "DriveCommand [speed=" + leftSpeed + ":" + rightSpeed + ", timeToRun=" + timeToRun + "]";
 	}
 
 	protected void execute() {
-		Robot.drive.tankDrive(speed, speed);
+		Robot.drive.tankDrive(leftSpeed, rightSpeed);
 	}
 
 	protected boolean isFinished() {

@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
 
 	public static VisionInterface vision;
 	public static TrackInterface track;
+	double FIRST_DRIVE = 2.2, TURN = 0.4, DRIVE_TO_BATTER = 0.4, DRIVE_UP_BATTER = 1;
 
 	public void robotInit() {
 		com = new Compressor(RobotMap.PCM_ID);
@@ -86,6 +87,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Drive Chooser", driveChooser);
 		SmartDashboard.putData("Vision Interface Chooser", visionInterfaceChooser);
 		SmartDashboard.putData("Tracker Chooser", trackInterfaceChooser);
+
+		// AUTOTIMES
+		SmartDashboard.putNumber("FIRST_DRIVE", FIRST_DRIVE);
+		SmartDashboard.putNumber("TURN", TURN);
+		SmartDashboard.putNumber("DRIVE_TO_BATTER", DRIVE_TO_BATTER);
+		SmartDashboard.putNumber("DRIVE_UP_BATTER", DRIVE_UP_BATTER);
 	}
 
 	public void disabledInit() {

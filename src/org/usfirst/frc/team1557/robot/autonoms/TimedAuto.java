@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1557.robot.autonoms;
 
 import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.ControlPistonArmCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.FireCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
@@ -28,8 +29,10 @@ public class TimedAuto extends CommandGroup {
 
 		// this is a temporary custom drive which may or may not work
 		addSequential(new ControlArmCommand(1, 0.75));
-		addSequential(new DriveCommand(-0.61, 1.6));
-		addSequential(new DriveCommand(0.61, 0.25));
+		// Lower ICBMs!
+		addSequential(new ControlPistonArmCommand(true, 1));
+		addSequential(new DriveCommand(-0.61, -0.61, 1.6));
+		addSequential(new DriveCommand(0.61, 0.61, 0.25));
 		// addSequential(new DriveCommand(0.5, 0.6));
 		// addSequential(new DriveCommand(0.5, 1.2));
 		// addSequential(new GyroTurnCommand(27.6));

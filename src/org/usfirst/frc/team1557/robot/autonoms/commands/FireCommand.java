@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class FireCommand extends Command {
 
-	public FireCommand() {
+	public FireCommand(int time) {
 		requires(Robot.intakeWheel);
-		this.setTimeout(1);
+		this.setTimeout(time);
 	}
 
 	protected void initialize() {
@@ -22,7 +22,6 @@ public class FireCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-
 		return isTimedOut();
 	}
 
