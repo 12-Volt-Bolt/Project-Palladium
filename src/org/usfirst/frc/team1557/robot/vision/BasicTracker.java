@@ -4,17 +4,20 @@ import org.usfirst.frc.team1557.robot.Robot;
 
 public class BasicTracker implements TrackInterface {
 	VisionInterface vision;
-	private double count = 0.d;
-	private double lastAngle = 0;
+	private boolean hasInitialize = false;
 
 	@Override
 	public void initialize() {
-		vision = Robot.vision;
-		vision.initCamera("ADDRESS_GOES_HERE");
+		if (!hasInitialize) {
+			vision = Robot.vision;
+			vision.initCamera(VisionInterface.URL);
+			hasInitialize = true;
+		}
 	}
 
 	@Override
 	public void run() {
+
 		vision.startProcessing();
 		double output = getOutput();
 		// TODO: Again, one side needs to be negative. Not sure which yet.
@@ -34,7 +37,7 @@ public class BasicTracker implements TrackInterface {
 			throttle = -throttle;
 		if (throttle < 0)
 			throttle = 0;
-		throttle += 0.33d * 0.05;
+		throttle += 0.33d * 0.02;
 		if (reverse)
 			throttle = -throttle;
 		return throttle;

@@ -44,40 +44,47 @@ public class Robot extends IterativeRobot {
 	public static LiftClimbSubsystem liftClimb;
 	public static IntakeWheelSubsystem intakeWheel;
 	public static PushupSubsystem pushup;
-	private TestCommand test = new TestCommand();
 	SendableChooser chooser;
 	SendableChooser driveChooser;
 	SendableChooser visionInterfaceChooser;
 	SendableChooser trackInterfaceChooser;
-	
+
 	public static VisionInterface vision;
 	public static TrackInterface track;
 
 	public void robotInit() {
 		com = new Compressor(RobotMap.PCM_ID);
+		//OI must be called before subsystems
 		oi = new OI();
+		//Subsystems
 		drive = new DriveSubsystem();
 		intakeArm = new IntakeArmSubsystem();
 		intakeWheel = new IntakeWheelSubsystem();
 		climbPiston = new ClimbPistonSubsystem();
 		liftClimb = new LiftClimbSubsystem();
 		pushup = new PushupSubsystem();
+		//InitButton commands. Must be called after subsystems are created.
 		oi.initButtonCommands();
+		//Sendable Choosers
 		chooser = new SendableChooser();
 		driveChooser = new SendableChooser();
 		visionInterfaceChooser = new SendableChooser();
 		trackInterfaceChooser = new SendableChooser();
+		//Objects for auto
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
+		//Object for drive
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
+		//Objects for Vision
 		visionInterfaceChooser.addDefault("OpenCV Vision", new OpenCVVision());
 		visionInterfaceChooser.addObject("AWT Vision", new AWTVision());
+		//Objects for Tracker
 		trackInterfaceChooser.addDefault("Gyro Tracker", new GyroTracker());
 		trackInterfaceChooser.addObject("Basic Tracker", new BasicTracker());
+		//Load choosers into DriverStation
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
 		SmartDashboard.putData("Vision Interface Chooser", visionInterfaceChooser);
-		// test.start();
 	}
 
 	public void disabledInit() {

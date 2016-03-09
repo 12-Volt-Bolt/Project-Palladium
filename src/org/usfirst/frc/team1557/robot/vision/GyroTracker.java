@@ -11,28 +11,32 @@ public class GyroTracker implements TrackInterface {
 	PIDController gyroPID;
 	double pidOutput = 0;
 	private boolean hasSetSetPoint = false;
+	private boolean hasInitialize = false;
 
 	@Override
 	public void initialize() {
-		vision = Robot.vision;
-		vision.initCamera("ADDRESS_GOES_HERE");
-		gyroPID = new PIDController(0.05, 0, 0, Robot.drive.gyro, new PIDOutput() {
-			@Override
-			public void pidWrite(double output) {
-				pidOutput = output;
-			}
-		});
+		if (!hasInitialize) {
+			vision = Robot.vision;
+			vision.initCamera(VisionInterface.URL);
+			gyroPID = new PIDController(0.05, 0, 0, Robot.drive.gyro, new PIDOutput() {
+				@Override
+				public void pidWrite(double output) {
+					pidOutput = output;
+				}
+			});
+			hasInitialize = true;
+		}
 	}
 
 	@Override
 	public void run() {
 		gyroPID.enable();
-		vision.startProcessing();	
+		vision.startProcessing();
 		if (!hasSetSetPoint) {
 			gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + vision.getAngle());
 			hasSetSetPoint = true;
 		}
-		//TODO: One side needs to be negative. Not sure which yet.
+		// TODO: One side needs to be negative. Not sure which yet.
 		Robot.drive.tankDrive(pidOutput, -pidOutput);
 	}
 
