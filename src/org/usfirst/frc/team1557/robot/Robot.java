@@ -5,7 +5,7 @@ import org.usfirst.frc.team1557.backupauto.AutoManager;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.VisionAuto;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
-import org.usfirst.frc.team1557.robot.commands.TestCommand;
+
 import org.usfirst.frc.team1557.robot.subsystems.ClimbPistonSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LiftClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
