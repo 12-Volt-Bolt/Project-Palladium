@@ -27,8 +27,7 @@ public class GyroTracker implements TrackInterface {
 	@Override
 	public void run() {
 		gyroPID.enable();
-		vision.startProcessing();
-		
+		vision.startProcessing();	
 		if (!hasSetSetPoint) {
 			gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + vision.getAngle());
 			hasSetSetPoint = true;

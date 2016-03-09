@@ -26,15 +26,17 @@ public class BasicTracker implements TrackInterface {
 		vision.stopProcessing();
 	}
 
+	double throttle = 0;
+
 	private double getOutput() {
-		double newAngle = vision.getAngle();
-		if (Math.signum(lastAngle) != Math.signum(newAngle)) {
-			count = 0;
-		}
-		lastAngle = newAngle;
-		if (count < 500 * 3) {
-			count++;
-		}
-		return (count / (500d * 3)) * Math.signum(newAngle);
+		boolean reverse = (vision.getAngle() < 0) ? true : false;
+		if (reverse)
+			throttle = -throttle;
+		if (throttle < 0)
+			throttle = 0;
+		throttle += 0.33d * 0.05;
+		if (reverse)
+			throttle = -throttle;
+		return throttle;
 	}
 }
