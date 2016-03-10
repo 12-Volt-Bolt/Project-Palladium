@@ -21,7 +21,8 @@ public class ControlIntakeWheelCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (OI.intakeWheelButton.get() && Robot.intakeWheel.getBoulderSwitch()) {
+		if (OI.intakeWheelButton
+				.get() /* && Robot.intakeWheel.getBoulderSwitch() */) {
 			Robot.intakeWheel.forward();
 		} else if (OI.outtakeWheelButton.get()) {
 			Robot.intakeWheel.reverse();

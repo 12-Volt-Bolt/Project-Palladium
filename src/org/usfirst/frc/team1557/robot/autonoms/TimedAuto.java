@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1557.robot.autonoms;
 
 import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
+import org.usfirst.frc.team1557.robot.autonoms.commands.ControlPistonArmCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.FireCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
@@ -27,9 +28,11 @@ public class TimedAuto extends CommandGroup {
 		// addSequential(new AssistedDriveCommand(0.5, 1.2, 180));
 
 		// this is a temporary custom drive which may or may not work
-		addSequential(new ControlArmCommand(1, 0.75));
-		addSequential(new DriveCommand(-0.61, 1.6));
-		addSequential(new DriveCommand(0.61, 0.25));
+		System.out.println("Activating Timed Auto");
+		addSequential(new ControlArmCommand(0.5, 1.25));
+		addSequential(new ControlPistonArmCommand(true, 2.25));
+		addSequential(new DriveCommand(-0.61, 2.5));
+		// addSequential(new DriveCommand(0.61, 0.25));
 		// addSequential(new DriveCommand(0.5, 0.6));
 		// addSequential(new DriveCommand(0.5, 1.2));
 		// addSequential(new GyroTurnCommand(27.6));

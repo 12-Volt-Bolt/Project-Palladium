@@ -81,4 +81,8 @@ public class DriveSubsystem extends Subsystem {
 		this.reverse = reverse;
 	}
 
+	public void reverseMotors() {
+		reverse = !reverse;
+	}
+
 }

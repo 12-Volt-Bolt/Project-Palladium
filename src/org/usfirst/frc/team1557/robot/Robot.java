@@ -5,6 +5,7 @@ import org.usfirst.frc.team1557.backupauto.AutoManager;
 import org.usfirst.frc.team1557.backupauto.Lowbar;
 import org.usfirst.frc.team1557.backupauto.RockWall;
 import org.usfirst.frc.team1557.backupauto.RoughTerrain;
+import org.usfirst.frc.team1557.robot.autonoms.HighSpeedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
@@ -65,10 +66,8 @@ public class Robot extends IterativeRobot {
 		driveChooser = new SendableChooser();
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
-		chooser.addObject("Basic Drive Forward Autonomous", new DriveCommand(0.5, 1));
-		chooser.addObject("Backup: Lowbar", new Lowbar());
-		chooser.addObject("Backup: Rock Wall", new RockWall());
-		chooser.addObject("Backup: Rough Terrain", new RoughTerrain());
+		chooser.addObject("High Speed Auto", new HighSpeedAuto());
+		chooser.addObject("Floor it!", new DriveCommand(0.75, 1.5));
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
@@ -86,11 +85,11 @@ public class Robot extends IterativeRobot {
 	public AutoManager manager;
 
 	public void autonomousInit() {
-		try {
-			Robot.drive.gyro.reset();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		// try {
+		// Robot.drive.gyro.reset();
+		// } catch (Exception ex) {
+		// ex.printStackTrace();
+		// }
 
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).start();
