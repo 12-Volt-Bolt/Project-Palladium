@@ -21,7 +21,7 @@ public class SolenoidGroup {
 
 	public void set(DoubleSolenoid.Value state) {
 		for (DoubleSolenoid s : solenoids) {
-			System.err.println("Solenoids were set");
+	//		System.err.println("Solenoids were set");
 			s.set(state);
 		}
 

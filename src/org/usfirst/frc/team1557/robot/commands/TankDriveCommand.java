@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TankDriveCommand extends Command {
 	boolean rNewPress = false;
+	boolean sNewPress = false;
+	boolean doBatter = false;
 
 	public TankDriveCommand() {
 
@@ -34,12 +36,25 @@ public class TankDriveCommand extends Command {
 		} else if (!OI.mainJoyOne.getRawButton(2) && rNewPress) {
 			rNewPress = false;
 		}
-		if (OI.mainJoyTwo.getRawButton(RobotMap.ButtonId.STAY_ON_BATTER.getId())) {
+
+		if (OI.mainJoyTwo.getRawButton(RobotMap.ButtonId.STAY_ON_BATTER.getId()) && !sNewPress) {
+			doBatter = !doBatter;
+			sNewPress = true;
+		} else if (!OI.mainJoyTwo.getRawButton(RobotMap.ButtonId.STAY_ON_BATTER.getId()) && sNewPress) {
+			sNewPress = false;
+
+			Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
+					OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+		} else {
+		}
+		if (doBatter) {
 			Robot.drive.tankDrive(0.35, 0.35);
 		} else {
 			Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
 					OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+
 		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

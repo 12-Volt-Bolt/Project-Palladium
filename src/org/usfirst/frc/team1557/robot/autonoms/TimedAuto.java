@@ -28,7 +28,7 @@ public class TimedAuto extends CommandGroup {
 		// addSequential(new AssistedDriveCommand(0.5, 1.2, 180));
 
 		// this is a temporary custom drive which may or may not work
-		System.out.println("Activating Timed Auto");
+		System.out.println("Scheduled timed auto to run");
 		addSequential(new ControlArmCommand(0.5, 1.25));
 		addSequential(new ControlPistonArmCommand(true, 2.25));
 		addSequential(new DriveCommand(-0.61, 2.5));
@@ -43,6 +43,10 @@ public class TimedAuto extends CommandGroup {
 		// addSequential(new DriveCommand(-1, .75));
 		// addSequential(new GyroTurnCommand(180));
 		// addSequential(new DriveCommand(0.5, 1.2));
+	}
 
+	@Override
+	public String toString() {
+		return "Lowbar Autonomous";
 	}
 }

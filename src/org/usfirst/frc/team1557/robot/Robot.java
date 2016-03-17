@@ -6,6 +6,7 @@ import org.usfirst.frc.team1557.backupauto.Lowbar;
 import org.usfirst.frc.team1557.backupauto.RockWall;
 import org.usfirst.frc.team1557.backupauto.RoughTerrain;
 import org.usfirst.frc.team1557.robot.autonoms.HighSpeedAuto;
+import org.usfirst.frc.team1557.robot.autonoms.SandwichCommand;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.commands.ControlArmCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.DriveCommand;
@@ -49,10 +50,16 @@ public class Robot extends IterativeRobot {
 	public static IntakeWheelSubsystem intakeWheel;
 	public static PushupSubsystem pushup;
 	private TestCommand test = new TestCommand();
-	SendableChooser chooser;
+	// SendableChooser chooser;
+	Command autonomousCommand = null;
 	SendableChooser driveChooser;
 
+	public Robot() {
+
+	}
+
 	public void robotInit() {
+		// chooser = new SendableChooser();
 		com = new Compressor(RobotMap.PCM_ID);
 		oi = new OI();
 		drive = new DriveSubsystem();
@@ -62,15 +69,14 @@ public class Robot extends IterativeRobot {
 		liftClimb = new LiftClimbSubsystem();
 		pushup = new PushupSubsystem();
 		oi.initButtonCommands();
-		chooser = new SendableChooser();
 		driveChooser = new SendableChooser();
-		chooser.addDefault("No operation autonomous", new WaitCommand(1));
-		chooser.addObject("Main Autonomous", new TimedAuto());
-		chooser.addObject("High Speed Auto", new HighSpeedAuto());
-		chooser.addObject("Floor it!", new DriveCommand(0.75, 1.5));
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
-		SmartDashboard.putData("Autonomous chooser", chooser);
 		SmartDashboard.putData("Drive Chooser", driveChooser);
+		// chooser.addDefault("No operation autonomous", new WaitCommand(1));
+		// chooser.addObject("Main Autonomous", new TimedAuto());
+		// chooser.addObject("High Speed Auto", new HighSpeedAuto());
+		// chooser.addObject("Sandwhich!", new SandwichCommand());
+		// SmartDashboard.putData("Autonomous chooser", chooser);
 		// test.start();
 	}
 
@@ -84,6 +90,7 @@ public class Robot extends IterativeRobot {
 
 	public AutoManager manager;
 
+	@Override
 	public void autonomousInit() {
 		// try {
 		// Robot.drive.gyro.reset();
@@ -91,9 +98,13 @@ public class Robot extends IterativeRobot {
 		// ex.printStackTrace();
 		// }
 
-		if (chooser.getSelected() != null) {
-			((Command) chooser.getSelected()).start();
-		}
+		// if (chooser.getSelected() != null) {
+		autonomousCommand = new HighSpeedAuto();
+		autonomousCommand.start();
+		System.out.println("Running an auto...");
+		System.out.println(autonomousCommand.toString());
+		// }
+
 	}
 
 	public void autonomousPeriodic() {
@@ -102,8 +113,8 @@ public class Robot extends IterativeRobot {
 
 	public void teleopInit() {
 		START_TIME = System.currentTimeMillis();
-		if (chooser.getSelected() != null) {
-			((Command) chooser.getSelected()).cancel();
+		if (autonomousCommand != null && autonomousCommand.isRunning()) {
+			autonomousCommand.cancel();
 		}
 		if (driveChooser.getSelected() != null) {
 			((Command) driveChooser.getSelected()).start();

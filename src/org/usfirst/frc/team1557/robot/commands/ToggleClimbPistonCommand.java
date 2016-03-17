@@ -25,12 +25,13 @@ public class ToggleClimbPistonCommand extends Command {
 	protected void execute() {
 		// if (System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) *
 		// 1_000) {
-		if (System.currentTimeMillis() - Robot.climbPiston.lastUsedTime >= 1_000) {
-			if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
-				Robot.climbPiston.prodigious.set(Value.kForward);
-			} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
-				Robot.climbPiston.prodigious.set(Value.kReverse);
-			}
+
+		if (OI.altJoyOne.getRawButton(ButtonId.EXTEND_CLIMB_PISTON.getId())) {
+			Robot.climbPiston.prodigious.set(Value.kForward);
+			System.out.println("Extends the pistons");
+		} else if (OI.altJoyOne.getRawButton(ButtonId.RETRACT_CLIMB_PISTON.getId())) {
+			Robot.climbPiston.prodigious.set(Value.kReverse);
+			System.out.println("Retracted the pistons!");
 		}
 		// }
 
