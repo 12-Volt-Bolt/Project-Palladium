@@ -10,7 +10,7 @@ public interface VisionInterface {
 	 */
 	final int[] CAMERA_RESOLUTION = new int[] { 320, 240 };
 
-	final String URL = "http://192.168.0.90/axis-cgi/jpg/image.cgi";
+	final String URL = "http://10.15.57.90/axis-cgi/jpg/image.cgi";
 
 	public boolean initCamera(String address);
 

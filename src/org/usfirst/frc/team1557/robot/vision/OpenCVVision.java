@@ -1,20 +1,18 @@
 package org.usfirst.frc.team1557.robot.vision;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
+
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class OpenCVVision implements VisionInterface {
 	// Many thanks to Exploding Bacon (1902) for the help they provided.
@@ -31,7 +29,8 @@ public class OpenCVVision implements VisionInterface {
 
 	static {
 		if (!hasInitLibrary) {
-			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+			// System.loadLibrary("libopencv_java310");
+			System.load("/usr/local/frc/lib/libopencv_java310.so");
 			hasInitLibrary = true;
 			System.out.println("OpenCV has been loaded");
 		}
@@ -42,10 +41,14 @@ public class OpenCVVision implements VisionInterface {
 		@Override
 		public void run() {
 			while (true) {
+				DriverStation.getInstance().reportError("out ShouldRun", false);
 				if (shouldRun()) {
+					DriverStation.getInstance().reportError("shouldRun", false);
+					Mat startImage = getImageInMat();
+					DriverStation.getInstance().reportError("Image width:" + startImage.width(), false);
 					if (hasInitCamera && hasInitLibrary) {
 						// Processing code
-						Mat startImage = getImageInMat();
+
 						if (startImage != null) {
 							List<MatOfPoint> contours = findContours(startImage, new Scalar(160, 150, 100),
 									new Scalar(240, 255, 200));
@@ -63,8 +66,8 @@ public class OpenCVVision implements VisionInterface {
 						}
 					} else {
 						// init
-						System.out.println("Something has not been initialized." + "    Camera:" + hasInitCamera
-								+ "    " + "Library:" + hasInitLibrary);
+						System.out.println("Something has not been initialized." + " Camera:" + hasInitCamera + " "
+								+ "Library:" + hasInitLibrary);
 					}
 				} else {
 					// shouldrun
@@ -126,6 +129,7 @@ public class OpenCVVision implements VisionInterface {
 		if (!processingThread.isAlive() && !hasStartedThreadPreviously) {
 			processingThread.start();
 			hasStartedThreadPreviously = true;
+			DriverStation.getInstance().reportError("Yo. Things!", false);
 		}
 	}
 
@@ -139,26 +143,39 @@ public class OpenCVVision implements VisionInterface {
 	}
 
 	private Mat getImageInMat() {
-		BufferedImage imageFromCamera = null;
-		try {
-			imageFromCamera = ImageIO.read(address);
-			CAMERA_RESOLUTION[0] = imageFromCamera.getWidth();
-			CAMERA_RESOLUTION[1] = imageFromCamera.getHeight();
-			degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
-		} catch (IOException e) {
-			e.printStackTrace();
-			// ***
-			return null;
+		Mat mat = new Mat();
+		VideoCapture cam = new VideoCapture(URL);
+		while (!cam.isOpened()) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			cam.open(URL);
 		}
-		return convertBufferedImageToMat(imageFromCamera);
+		cam.read(mat);
+		// BufferedImage imageFromCamera = null;
+		// try {
+		// imageFromCamera = ImageIO.read(address);
+		CAMERA_RESOLUTION[0] = mat.width();
+		CAMERA_RESOLUTION[1] = mat.height();
+		degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// // ***
+		// return null;
+		// }
+		// return convertBufferedImageToMat(imageFromCamera);
+		return mat;
 	}
 
-	private Mat convertBufferedImageToMat(BufferedImage b) {
-		Mat convertedMat = new Mat(b.getHeight(), b.getWidth(), CvType.CV_8UC3);
-		byte[] data = ((DataBufferByte) b.getRaster().getDataBuffer()).getData();
-		convertedMat.put(0, 0, data);
-		return convertedMat;
-	}
+	// private Mat convertBufferedImageToMat(BufferedImage b) {
+	// Mat convertedMat = new Mat(b.getHeight(), b.getWidth(), CvType.CV_8UC3);
+	// byte[] data = ((DataBufferByte) b.getRaster().getDataBuffer()).getData();
+	// convertedMat.put(0, 0, data);
+	// return convertedMat;
+	// }
 
 	/**
 	 * The scalars used are in HSV format. H ranges from 0-360(rather than

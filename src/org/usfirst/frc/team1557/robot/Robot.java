@@ -12,7 +12,7 @@ import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
-import org.usfirst.frc.team1557.robot.vision.AWTVision;
+
 import org.usfirst.frc.team1557.robot.vision.BasicTracker;
 import org.usfirst.frc.team1557.robot.vision.GyroTracker;
 import org.usfirst.frc.team1557.robot.vision.OpenCVVision;
@@ -80,7 +80,8 @@ public class Robot extends IterativeRobot {
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		// Objects for Vision
 		visionInterfaceChooser.addDefault("OpenCV Vision", new OpenCVVision());
-		visionInterfaceChooser.addObject("AWT Vision", new AWTVision());
+		// Moved because image class crashing//
+		// visionInterfaceChooser.addObject("AWT Vision", new AWTVision());
 		// Objects for Tracker
 		trackInterfaceChooser.addDefault("Gyro Tracker", new GyroTracker());
 		trackInterfaceChooser.addObject("Basic Tracker", new BasicTracker());

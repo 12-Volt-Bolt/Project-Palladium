@@ -2,6 +2,7 @@ package org.usfirst.frc.team1557.robot.vision;
 
 import org.usfirst.frc.team1557.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
