@@ -1,14 +1,20 @@
 package org.usfirst.frc.team1557.robot.vision;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
@@ -168,6 +174,26 @@ public class OpenCVVision implements VisionInterface {
 		// }
 		// return convertBufferedImageToMat(imageFromCamera);
 		return mat;
+	}
+
+	private Mat altGetImageInMat(URL f) {
+		try {
+			URLConnection con = f.openConnection();
+			int length = con.getContentLength();
+			if (length == -1) {
+				throw new IOException("COuld not read file length!");
+			}
+			byte[] data = new byte[length];
+			InputStream in = con.getInputStream();
+			while (in.read(data) != -1) {
+
+			}
+			Mat image = Imgcodecs.imdecode(new MatOfByte(data), Imgcodecs.IMREAD_UNCHANGED);
+			return image;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// private Mat convertBufferedImageToMat(BufferedImage b) {
