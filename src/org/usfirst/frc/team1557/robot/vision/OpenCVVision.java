@@ -47,24 +47,37 @@ public class OpenCVVision implements VisionInterface {
 		@Override
 		public void run() {
 			while (true) {
-				DriverStation.getInstance().reportError("out ShouldRun", false);
+				// DriverStation.getInstance().reportError("Made it to the
+				// processing thread", false);
 				if (shouldRun()) {
-					DriverStation.getInstance().reportError("shouldRun", false);
-					Mat startImage = getImageInMat();
-					DriverStation.getInstance().reportError("Image width:" + startImage.width(), false);
+					// DriverStation.getInstance().reportError("shouldRun check
+					// resulted in true", false);
+					Mat startImage = null;
+					try {
+						startImage = altGetImageInMat(new URL(VisionInterface.URL));
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} // getImageInMat();
+						// DriverStation.getInstance().reportError("Image
+						// width:" +
+						// startImage.width(), false);
 					if (hasInitCamera && hasInitLibrary) {
 						// Processing code
 
 						if (startImage != null) {
 							List<MatOfPoint> contours = findContours(startImage, new Scalar(160, 150, 100),
 									new Scalar(240, 255, 200));
-							List<Rect> rects = filterRectsBySize(0, 100, 100, 1000, contours);
+							System.out.println("Contours: " + contours.size());
+							List<Rect> rects = filterRectsBySize(10, 10, 1000, 1000, contours);
+							System.out.println("Rectangles: " + rects.size());
 							Rect foundRect = findTargetWithoutSize(rects);
 							if (!foundRect.equals(new Rect())) {
 								setAngle(findAngle(findError(foundRect)[0]));
 							} else {
 								setAngle(0.0);
 							}
+							DriverStation.getInstance().reportError("" + getAngle(), false);
 							// End processing code
 
 						} else {
@@ -151,14 +164,17 @@ public class OpenCVVision implements VisionInterface {
 	private Mat getImageInMat() {
 		Mat mat = new Mat();
 		VideoCapture cam = new VideoCapture(URL);
+		int i = 0;
 		while (!cam.isOpened()) {
 			try {
+				DriverStation.getInstance().reportError("Attempt #" + i, false);
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			cam.open(URL);
+			i++;
 		}
 		cam.read(mat);
 		// BufferedImage imageFromCamera = null;
@@ -179,16 +195,20 @@ public class OpenCVVision implements VisionInterface {
 	private Mat altGetImageInMat(URL f) {
 		try {
 			URLConnection con = f.openConnection();
+			con.connect();
 			int length = con.getContentLength();
 			if (length == -1) {
 				throw new IOException("COuld not read file length!");
 			}
+			int i = 0;
+			int numRead;
 			byte[] data = new byte[length];
 			InputStream in = con.getInputStream();
-			while (in.read(data) != -1) {
-
-			}
-			Mat image = Imgcodecs.imdecode(new MatOfByte(data), Imgcodecs.IMREAD_UNCHANGED);
+			do {
+				numRead = in.read(data, i, data.length - i);
+				i += numRead;
+			} while (numRead != -1);
+			Mat image = Imgcodecs.imdecode(new MatOfByte(data), Imgcodecs.IMREAD_COLOR);
 			return image;
 		} catch (IOException e) {
 			e.printStackTrace();
