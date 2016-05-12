@@ -36,7 +36,7 @@ public class DriveCommand extends Command {
 	}
 
 	protected void execute() {
-		Robot.drive.tankDrive(leftSpeed, rightSpeed);
+		Robot.drive.tankDrive(-leftSpeed, -rightSpeed);
 	}
 
 	protected boolean isFinished() {

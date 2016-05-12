@@ -31,8 +31,8 @@ public class TimedAuto extends CommandGroup {
 		addSequential(new ControlArmCommand(1, 0.75));
 		// Lower ICBMs!
 		addSequential(new ControlPistonArmCommand(true, 1));
-		addSequential(new DriveCommand(-0.61, -0.61, 1.6));
-		addSequential(new DriveCommand(0.61, 0.61, 0.25));
+		addSequential(new DriveCommand(0.61, 0.61, 1.6));
+		addSequential(new DriveCommand(-0.61, -0.61, 0.25));
 		// addSequential(new DriveCommand(0.5, 0.6));
 		// addSequential(new DriveCommand(0.5, 1.2));
 		// addSequential(new GyroTurnCommand(27.6));

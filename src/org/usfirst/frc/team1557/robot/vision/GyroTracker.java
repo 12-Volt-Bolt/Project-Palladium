@@ -15,14 +15,14 @@ public class GyroTracker implements TrackInterface {
 	private boolean hasSetSetpoint = false;
 	private boolean hasInitialize = false;
 	private long initTime = 0;
-	private int timeToWait = 1_000;
+	private int timeToWait = 800;
 
 	@Override
 	public void initialize() {
 		vision = Robot.vision;
 		vision.initCamera(VisionInterface.URL);
 		if (!hasInitialize) {
-			gyroPID = new PIDController(0.025, 0, 0, Robot.drive.gyro, new PIDOutput() {
+			gyroPID = new PIDController(0.10, 0.000, 0, Robot.drive.gyro, new PIDOutput() {
 				@Override
 				public void pidWrite(double output) {
 					pidOutput = output;

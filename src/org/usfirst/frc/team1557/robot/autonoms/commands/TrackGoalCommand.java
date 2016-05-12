@@ -7,12 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TrackGoalCommand extends Command {
 	TrackInterface track;
 
+	public TrackGoalCommand() {
+		requires(Robot.drive);
+		
+	}
 	@Override
 	protected void initialize() {
-		requires(Robot.drive);
-		setTimeout(2.5);
+		setTimeout(3);
 		track = Robot.track;
 		track.initialize();
+		track.stopRunning();
 	}
 
 	@Override

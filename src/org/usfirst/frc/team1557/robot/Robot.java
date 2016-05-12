@@ -4,6 +4,7 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.backupauto.AutoManager;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.VisionAuto;
+import org.usfirst.frc.team1557.robot.autonoms.commands.TrackGoalCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 
 import org.usfirst.frc.team1557.robot.subsystems.ClimbPistonSubsystem;
@@ -20,6 +21,7 @@ import org.usfirst.frc.team1557.robot.vision.TrackInterface;
 import org.usfirst.frc.team1557.robot.vision.VisionInterface;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -76,6 +78,7 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		chooser.addObject("Vision Aided", new VisionAuto());
+		chooser.addObject("Track Goal", new TrackGoalCommand());
 		// Object for drive
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		// Objects for Vision
@@ -96,6 +99,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("TURN", TURN);
 		SmartDashboard.putNumber("DRIVE_TO_BATTER", DRIVE_TO_BATTER);
 		SmartDashboard.putNumber("DRIVE_UP_BATTER", DRIVE_UP_BATTER);
+		if (visionInterfaceChooser.getSelected() != null) {
+			vision = ((VisionInterface) visionInterfaceChooser.getSelected());
+		}
+		if (trackInterfaceChooser.getSelected() != null) {
+			track = ((TrackInterface) trackInterfaceChooser.getSelected());
+		}
 	}
 
 	public void disabledInit() {
@@ -132,12 +141,6 @@ public class Robot extends IterativeRobot {
 		if (driveChooser.getSelected() != null) {
 			((Command) driveChooser.getSelected()).start();
 		}
-		if (visionInterfaceChooser.getSelected() != null) {
-			vision = ((VisionInterface) visionInterfaceChooser.getSelected());
-		}
-		if (trackInterfaceChooser.getSelected() != null) {
-			track = ((TrackInterface) trackInterfaceChooser.getSelected());
-		}
 		intakeArm.initDefaultCommand();
 		intakeWheel.initDefaultCommand();
 		liftClimb.initDefaultCommand();
@@ -150,6 +153,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void testPeriodic() {
+
 		LiveWindow.run();
+
 	}
 }

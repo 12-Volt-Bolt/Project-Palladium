@@ -69,7 +69,7 @@ public class OpenCVVision implements VisionInterface {
 							List<MatOfPoint> contours = findContours(startImage, new Scalar(160, 150, 100),
 									new Scalar(240, 255, 200));
 							System.out.println("Contours: " + contours.size());
-							List<Rect> rects = filterRectsBySize(10, 10, 1000, 1000, contours);
+							List<Rect> rects = filterRectsBySize(3, 3, 1000, 1000, contours);
 							System.out.println("Rectangles: " + rects.size());
 							Rect foundRect = findTargetWithoutSize(rects);
 							if (!foundRect.equals(new Rect())) {
@@ -77,7 +77,9 @@ public class OpenCVVision implements VisionInterface {
 							} else {
 								setAngle(0.0);
 							}
-							DriverStation.getInstance().reportError("" + getAngle(), false);
+							System.out.println(
+									"X Coord:" + foundRect.x + " Y Coord:" + foundRect.y + " : angle:" + getAngle());
+
 							// End processing code
 
 						} else {
@@ -148,7 +150,6 @@ public class OpenCVVision implements VisionInterface {
 		if (!processingThread.isAlive() && !hasStartedThreadPreviously) {
 			processingThread.start();
 			hasStartedThreadPreviously = true;
-			DriverStation.getInstance().reportError("Yo. Things!", false);
 		}
 	}
 

@@ -4,7 +4,7 @@ public interface VisionInterface {
 	/**
 	 * FOV of the m1013
 	 */
-	final double FOV = 35;
+	final double FOV = 60;
 	/**
 	 * The resolution of the camera.
 	 */
