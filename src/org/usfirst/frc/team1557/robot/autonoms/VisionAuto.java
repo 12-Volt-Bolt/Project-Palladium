@@ -33,11 +33,11 @@ public class VisionAuto extends CommandGroup {
 		// // Confirm alignment with tower
 		addSequential(new TrackGoalCommand());
 		// Drive to batter
-		addSequential(new DriveCommand(0.5, 0.5, 0.8));
+		addSequential(new DriveCommand(0.35, 0.35, 1));
 		// Confirm alignment one last time.
 		addSequential(new TrackGoalCommand());
 		// Drive up batter.
-		addSequential(new DriveCommand(0.25, 0.25, 1));
+		addSequential(new DriveCommand(0.35, 0.35, 1));
 		// Run the outtake for 2 seconds while also...
 		// addParallel(new FireCommand(2));
 		// // Slowly driving into the tower.
