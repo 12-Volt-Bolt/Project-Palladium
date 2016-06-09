@@ -9,8 +9,9 @@ public class TrackGoalCommand extends Command {
 
 	public TrackGoalCommand() {
 		requires(Robot.drive);
-		
+
 	}
+
 	@Override
 	protected void initialize() {
 		setTimeout(3);

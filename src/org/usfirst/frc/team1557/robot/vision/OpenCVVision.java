@@ -18,6 +18,8 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
+import com.ni.vision.NIVision.SegmentationDistanceLevel;
+
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class OpenCVVision implements VisionInterface {
@@ -30,6 +32,7 @@ public class OpenCVVision implements VisionInterface {
 	private boolean shouldRun = false;
 	private boolean hasInitCamera = false;
 	private double angleOff = 0;
+	private double height = 0;
 	private double degreesPerPixel = ((double) FOV) / ((double) CAMERA_RESOLUTION[0]);
 	private boolean hasStartedThreadPreviously = false;
 
@@ -74,6 +77,7 @@ public class OpenCVVision implements VisionInterface {
 							Rect foundRect = findTargetWithoutSize(rects);
 							if (!foundRect.equals(new Rect())) {
 								setAngle(findAngle(findError(foundRect)[0]));
+								/**/ setHeight(findAngle(findError(foundRect)[1]));
 							} else {
 								setAngle(0.0);
 							}
@@ -327,5 +331,17 @@ public class OpenCVVision implements VisionInterface {
 	private List<Rect> filterRectByArea(double minArea, double maxArea, List<Rect> rects) {
 		// TODO: Filter rects by area
 		return rects;
+	}
+
+	@Override
+	public double getHeight() {
+		// TODO Auto-generated method stub
+		return height;
+	}
+
+	@Override
+	public void setHeight(double d) {
+		height = d;
+
 	}
 }

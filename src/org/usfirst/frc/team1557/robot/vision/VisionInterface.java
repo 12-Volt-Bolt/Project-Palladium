@@ -17,6 +17,10 @@ public interface VisionInterface {
 
 	public double getAngle();
 
+	/**/ public double getHeight();
+
+	/**/ void setHeight(double d);
+
 	public void startProcessing();
 
 	public void stopProcessing();

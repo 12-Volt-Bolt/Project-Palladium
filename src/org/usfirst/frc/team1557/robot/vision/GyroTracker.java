@@ -9,12 +9,17 @@ import org.usfirst.frc.team1557.robot.Robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GyroTracker implements TrackInterface {
 	VisionInterface vision;
 	PIDController gyroPID;
+	/**/ double pidDisOutput = 0;
+	/**/ PIDController disPID;
+
 	double pidOutput = 0;
 	private boolean hasSetSetpoint = false;
 	private boolean hasInitialize = false;
@@ -37,6 +42,30 @@ public class GyroTracker implements TrackInterface {
 			SmartDashboard.putNumber("timeToWait", timeToWait);
 		}
 		gyroPID.setSetpoint(0);
+		disPID = new PIDController(0.0, 0.0, 0.0, new PIDSource() {
+
+			@Override
+			public void setPIDSourceType(PIDSourceType pidSource) {
+
+			}
+
+			@Override
+			public double pidGet() {
+				return vision.getHeight();
+			}
+
+			@Override
+			public PIDSourceType getPIDSourceType() {
+				return null;
+			}
+		}, new PIDOutput() {
+			@Override
+			public void pidWrite(double output) {
+				/* may need to be inverted */
+				pidDisOutput = output;
+			}
+		});
+		disPID.setSetpoint(0);
 	}
 
 	@Override
@@ -45,8 +74,23 @@ public class GyroTracker implements TrackInterface {
 		vision.startProcessing();
 		setSetpoint();
 		// TODO: One side needs to be negative. Not sure which yet.
-		Robot.drive.tankDrive(pidOutput + OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
-				-pidOutput + OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+		if (gyroPID.getError() < 2.0) {
+			double left, right;
+			left = pidOutput + pidDisOutput;
+			right = -pidOutput + pidDisOutput;
+			if (Math.abs(left) > 1 || Math.abs(right) > 1)
+				if (Math.abs(left) > Math.abs(right)) {
+					right /= Math.abs(left);
+					left /= Math.abs(left);
+				} else {
+					left /= Math.abs(right);
+					right /= Math.abs(right);
+				}
+			Robot.drive.tankDrive(left, right);
+		} else {
+
+			Robot.drive.tankDrive(pidOutput, -pidOutput);
+		}
 	}
 
 	private void setSetpoint() {
