@@ -77,7 +77,7 @@ public class OpenCVVision implements VisionInterface {
 							Rect foundRect = findTargetWithoutSize(rects);
 							if (!foundRect.equals(new Rect())) {
 								setAngle(findAngle(findError(foundRect)[0]));
-								/**/ setHeight(findAngle(findError(foundRect)[1]));
+								/**/ setHeight(findError(foundRect)[1]);
 							} else {
 								setAngle(0.0);
 							}
@@ -315,6 +315,7 @@ public class OpenCVVision implements VisionInterface {
 		double xError = 0, yError = 0;
 		xError = (((CAMERA_RESOLUTION[0] / 2) - (r.x + r.width / 2))) * -1;
 		yError = ((CAMERA_RESOLUTION[1] / 2) - (r.y + r.height / 2));
+		System.out.println(yError + "not special");
 		return new double[] { xError, yError };
 	}
 
@@ -334,13 +335,13 @@ public class OpenCVVision implements VisionInterface {
 	}
 
 	@Override
-	public double getHeight() {
+	public synchronized double getHeight() {
 		// TODO Auto-generated method stub
 		return height;
 	}
 
 	@Override
-	public void setHeight(double d) {
+	public synchronized void setHeight(double d) {
 		height = d;
 
 	}

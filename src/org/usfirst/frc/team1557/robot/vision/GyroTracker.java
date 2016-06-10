@@ -3,6 +3,8 @@ package org.usfirst.frc.team1557.robot.vision;
 import static org.usfirst.frc.team1557.robot.RobotMap.MAIN_JOY_AXIS_ONE_ID;
 import static org.usfirst.frc.team1557.robot.RobotMap.MAIN_JOY_AXIS_TWO_ID;
 
+import java.util.Random;
+
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 
@@ -42,7 +44,7 @@ public class GyroTracker implements TrackInterface {
 			SmartDashboard.putNumber("timeToWait", timeToWait);
 		}
 		gyroPID.setSetpoint(0);
-		disPID = new PIDController(0.0, 0.0, 0.0, new PIDSource() {
+		disPID = new PIDController(0.02, 0.0, 0.0, new PIDSource() {
 
 			@Override
 			public void setPIDSourceType(PIDSourceType pidSource) {
@@ -56,16 +58,19 @@ public class GyroTracker implements TrackInterface {
 
 			@Override
 			public PIDSourceType getPIDSourceType() {
-				return null;
+				return PIDSourceType.kDisplacement;
 			}
 		}, new PIDOutput() {
 			@Override
 			public void pidWrite(double output) {
+
 				/* may need to be inverted */
-				pidDisOutput = output;
+				double clamp = 0.5;
+				pidDisOutput = (Math.abs(output) > clamp) ? Math.signum(output) * clamp : output;
 			}
 		});
 		disPID.setSetpoint(0);
+		SmartDashboard.putData("DistancePID", disPID);
 	}
 
 	@Override
@@ -74,11 +79,15 @@ public class GyroTracker implements TrackInterface {
 		vision.startProcessing();
 		setSetpoint();
 		// TODO: One side needs to be negative. Not sure which yet.
-		if (gyroPID.getError() < 2.0) {
+		if (Math.abs(gyroPID.getError()) < 4 && hasSetSetpoint) {
+			// System.out.println("Within livezone(tm)");
 			double left, right;
 			left = pidOutput + pidDisOutput;
 			right = -pidOutput + pidDisOutput;
-			if (Math.abs(left) > 1 || Math.abs(right) > 1)
+			System.out.println(left + ":" + right);
+
+			if (Math.abs(left) > 1 || Math.abs(right) > 1) {
+				System.out.println("changed" + left + "l:" + right + "r");
 				if (Math.abs(left) > Math.abs(right)) {
 					right /= Math.abs(left);
 					left /= Math.abs(left);
@@ -86,9 +95,13 @@ public class GyroTracker implements TrackInterface {
 					left /= Math.abs(right);
 					right /= Math.abs(right);
 				}
+
+			} else {
+				System.out.println("unchanged" + left + "l:" + right + "r");
+			}
 			Robot.drive.tankDrive(left, right);
 		} else {
-
+			// System.out.println("Within deadzone");
 			Robot.drive.tankDrive(pidOutput, -pidOutput);
 		}
 	}
@@ -97,6 +110,7 @@ public class GyroTracker implements TrackInterface {
 		if (!hasSetSetpoint && System.currentTimeMillis() - initTime > timeToWait/* 1_000 */) {
 			gyroPID.setSetpoint(Robot.drive.gyro.getAngle() + vision.getAngle());
 			gyroPID.enable();
+			disPID.enable();
 			hasSetSetpoint = true;
 			// initTime = System.currentTimeMillis();
 		}
@@ -106,6 +120,7 @@ public class GyroTracker implements TrackInterface {
 	public void stopRunning() {
 		initTime = System.currentTimeMillis();
 		gyroPID.reset();
+		disPID.reset();
 		vision.stopProcessing();
 		hasSetSetpoint = false;
 	}

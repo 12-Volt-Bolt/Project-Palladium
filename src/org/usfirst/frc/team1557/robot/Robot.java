@@ -134,6 +134,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
+		System.out.println("y u no work m8");
 		START_TIME = System.currentTimeMillis();
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).cancel();
