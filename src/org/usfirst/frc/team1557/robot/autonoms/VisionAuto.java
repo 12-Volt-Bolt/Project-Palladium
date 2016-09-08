@@ -8,6 +8,7 @@ import org.usfirst.frc.team1557.robot.autonoms.commands.TrackGoalCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,16 +32,20 @@ public class VisionAuto extends CommandGroup {
 		// addSequential(new DriveCommand(0.5, -0.5,
 		// SmartDashboard.getNumber("TURN", 0.4)));
 		// // Confirm alignment with tower
-		addSequential(new TrackGoalCommand());
+		// addSequential(new TrackGoalCommand());
 		// Drive to batter
-		addSequential(new DriveCommand(0.35, 0.35, 1));
+		// addSequential(new DriveCommand(0.35, 0.35, 1));
 		// Confirm alignment one last time.
-		addSequential(new TrackGoalCommand());
+		// addSequential(new TrackGoalCommand());
 		// Drive up batter.
-		addSequential(new DriveCommand(0.35, 0.35, 1));
-		// Run the outtake for 2 seconds while also...
+		// addSequential(new DriveCommand(0.35, 0.35, 1));
+		// Run the outtake for 2 seconds while also...   
 		// addParallel(new FireCommand(2));
 		// // Slowly driving into the tower.
 		// addSequential(new DriveCommand(0.15, 0.15, 2));
+		addSequential(new DriveCommand(0.35,0.35,1));
+		addSequential(new WaitCommand(2));
+		addSequential(new TrackGoalCommand(5));
+		
 	}
 }

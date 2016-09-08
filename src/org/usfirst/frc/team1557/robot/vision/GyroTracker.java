@@ -26,7 +26,7 @@ public class GyroTracker implements TrackInterface {
 	private boolean hasSetSetpoint = false;
 	private boolean hasInitialize = false;
 	private long initTime = 0;
-	private int timeToWait = 400;
+	private int timeToWait = 500;
 
 	@Override
 	public void initialize() {
@@ -44,7 +44,7 @@ public class GyroTracker implements TrackInterface {
 			SmartDashboard.putNumber("timeToWait", timeToWait);
 		}
 		gyroPID.setSetpoint(0);
-		disPID = new PIDController(0.03, 0.0, 0.0, new PIDSource() {
+		disPID = new PIDController(0.02, 0.0, 0.0, new PIDSource() {
 
 			@Override
 			public void setPIDSourceType(PIDSourceType pidSource) {
@@ -66,7 +66,7 @@ public class GyroTracker implements TrackInterface {
 
 				/* may need to be inverted */
 				double clamp = 0.3;
-				pidDisOutput = (Math.abs(output) > clamp) ? -Math.signum(output) * clamp : -output;
+				pidDisOutput = (Math.abs(output) > clamp) ? Math.signum(output) * clamp : output;
 			}
 		});
 		disPID.setSetpoint(0);
@@ -112,7 +112,7 @@ public class GyroTracker implements TrackInterface {
 			gyroPID.enable();
 			disPID.enable();
 			hasSetSetpoint = true;
-			// initTime = System.currentTimeMillis();
+			//initTime = System.currentTimeMillis();
 		}
 	}
 

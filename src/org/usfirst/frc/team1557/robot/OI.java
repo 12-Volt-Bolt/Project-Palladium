@@ -23,6 +23,7 @@ public class OI {
 	public static JoystickButton liftClimbUpButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_UP.getId());
 	public static JoystickButton liftClimbDownButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_DOWN.getId());
 	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.EXTEND_CLIMB_PISTON.getId());
+	public static JoystickButton spinLauncherButton = new JoystickButton(altJoyOne, ButtonId.FIRE.getId());
 	Trigger pushupToggle = new Trigger() {
 
 		@Override

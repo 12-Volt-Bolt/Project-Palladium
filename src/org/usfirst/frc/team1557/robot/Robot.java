@@ -12,6 +12,7 @@ import org.usfirst.frc.team1557.robot.subsystems.LiftClimbSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeArmSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.IntakeWheelSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.LaunchSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.PushupSubsystem;
 
 import org.usfirst.frc.team1557.robot.vision.BasicTracker;
@@ -47,6 +48,7 @@ public class Robot extends IterativeRobot {
 	public static LiftClimbSubsystem liftClimb;
 	public static IntakeWheelSubsystem intakeWheel;
 	public static PushupSubsystem pushup;
+	public static LaunchSubsystem launch;
 	SendableChooser chooser;
 	SendableChooser driveChooser;
 	SendableChooser visionInterfaceChooser;
@@ -67,6 +69,7 @@ public class Robot extends IterativeRobot {
 		climbPiston = new ClimbPistonSubsystem();
 		liftClimb = new LiftClimbSubsystem();
 		pushup = new PushupSubsystem();
+		launch = new LaunchSubsystem();
 		// InitButton commands. Must be called after subsystems are created.
 		oi.initButtonCommands();
 		// Sendable Choosers
@@ -78,7 +81,7 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addObject("Main Autonomous", new TimedAuto());
 		chooser.addObject("Vision Aided", new VisionAuto());
-		chooser.addObject("Track Goal", new TrackGoalCommand());
+		chooser.addObject("Track Goal", new TrackGoalCommand(5));
 		// Object for drive
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		// Objects for Vision
