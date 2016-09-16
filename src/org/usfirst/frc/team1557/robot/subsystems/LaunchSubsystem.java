@@ -35,8 +35,8 @@ public class LaunchSubsystem extends Subsystem {
     }
     
     public void startMotors() {
-    	fireLeft.set(1);
-    	fireRight.set(1);
+    	fireLeft.set(0.8);
+    	fireRight.set(0.8);
     }
 }
 

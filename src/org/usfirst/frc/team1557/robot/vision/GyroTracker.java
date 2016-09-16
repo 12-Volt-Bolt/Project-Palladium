@@ -33,7 +33,7 @@ public class GyroTracker implements TrackInterface {
 		vision = Robot.vision;
 		vision.initCamera(VisionInterface.URL);
 		if (!hasInitialize) {
-			gyroPID = new PIDController(0.1, 0, 0, Robot.drive.gyro, new PIDOutput() {
+			gyroPID = new PIDController(0.1, 0.01, 0, Robot.drive.gyro, new PIDOutput() {
 				@Override
 				public void pidWrite(double output) {
 					pidOutput = output;

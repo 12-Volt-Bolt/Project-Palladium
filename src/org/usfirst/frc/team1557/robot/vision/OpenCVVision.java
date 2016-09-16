@@ -314,7 +314,7 @@ public class OpenCVVision implements VisionInterface {
 	private double[] findError(Rect r) {
 		double xError = 0, yError = 0;
 		xError = (((CAMERA_RESOLUTION[0] / 2) - (r.x + r.width / 2))) * -1;
-		yError = ((CAMERA_RESOLUTION[1] / 2) - (r.y + r.height / 2));
+		yError = ((CAMERA_RESOLUTION[1] - 80) - (r.y + r.height / 2));
 		System.out.println(yError + "not special");
 		return new double[] { xError, yError };
 	}
