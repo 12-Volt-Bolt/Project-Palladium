@@ -6,6 +6,7 @@ import org.usfirst.frc.team1557.robot.utils.Mramp;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -13,12 +14,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class IntakeArmSubsystem extends Subsystem {
 	CANTalon intakeArmMotorOne;
 	CANTalon intakeArmMotorTwo;
-//	Mramp armOneMramp = new Mramp(200, 0.05);
-//	Mramp armTwoMramp = new Mramp(200, 0.05);
+	// Mramp armOneMramp = new Mramp(200, 0.05);
+	// Mramp armTwoMramp = new Mramp(200, 0.05);
 	/**
 	 * Speed to scale the intake motor by.
 	 */
-	double speed = 1d;
+	double speed = .4500000000000d;
 
 	public IntakeArmSubsystem() {
 		intakeArmMotorOne = new CANTalon(RobotMap.MotorId.INTAKE_ARM_ONE.getId());
@@ -31,10 +32,11 @@ public class IntakeArmSubsystem extends Subsystem {
 	}
 
 	public void set(double output) {
-//		armOneMramp.addSpeed(output);
-//		armTwoMramp.addSpeed(output);
+		// armOneMramp.addSpeed(output);
+		// armTwoMramp.addSpeed(output);
 		intakeArmMotorOne.set(output * speed);
 		intakeArmMotorTwo.set(output * speed);
+		SmartDashboard.putString("Intake Wheel", intakeArmMotorOne.get() + ":" + intakeArmMotorTwo.get());
 	}
 
 }

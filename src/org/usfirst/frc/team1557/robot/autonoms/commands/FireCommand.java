@@ -8,17 +8,24 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class FireCommand extends Command {
+	long startTime;
 
-	public FireCommand(int time) {
+	public FireCommand() {
 		requires(Robot.intakeWheel);
-		this.setTimeout(time);
+		requires(Robot.launch);
+		startTime = System.currentTimeMillis();
 	}
 
 	protected void initialize() {
 	}
 
 	protected void execute() {
-		Robot.intakeWheel.reverse();
+		if (System.currentTimeMillis() - startTime < 2) {
+			Robot.intakeWheel.forward();
+		} else {
+			Robot.intakeWheel.stopMotors();
+			Robot.launch.startMotors();
+		}
 	}
 
 	protected boolean isFinished() {
@@ -26,8 +33,11 @@ public class FireCommand extends Command {
 	}
 
 	protected void end() {
+		Robot.launch.stopMotors();
+		Robot.intakeWheel.stopMotors();
 	}
 
 	protected void interrupted() {
+	this.end();
 	}
 }
