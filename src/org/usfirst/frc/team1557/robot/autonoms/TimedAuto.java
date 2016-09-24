@@ -7,6 +7,7 @@ import org.usfirst.frc.team1557.robot.autonoms.commands.FireCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  * An autonomous routine that uses timed movements <b>TESTED</b> Lowers the arm,
@@ -28,9 +29,10 @@ public class TimedAuto extends CommandGroup {
 		// addSequential(new AssistedDriveCommand(0.5, 1.2, 180));
 
 		// this is a temporary custom drive which may or may not work
-		addSequential(new ControlArmCommand(1, 0.75));
+		addSequential(new ControlArmCommand(.75, 1));
+		//addSequential(new WaitCommand(2));
 		// Lower ICBMs!
-		addSequential(new ControlPistonArmCommand(true, 1));
+		addSequential(new ControlPistonArmCommand(true, 1.5));
 		addSequential(new DriveCommand(0.61, 0.61, 1.6));
 		addSequential(new DriveCommand(-0.61, -0.61, 0.25));
 		// addSequential(new DriveCommand(0.5, 0.6));

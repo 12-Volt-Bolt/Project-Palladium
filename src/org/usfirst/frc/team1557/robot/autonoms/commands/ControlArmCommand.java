@@ -23,6 +23,7 @@ public class ControlArmCommand extends Command {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intakeArm);
 		this.setTimeout(time);
+		this.speed = speed;
 	}
 
 	public ControlArmCommand(double speed) {
