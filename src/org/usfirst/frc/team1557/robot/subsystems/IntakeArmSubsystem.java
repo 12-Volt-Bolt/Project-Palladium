@@ -19,7 +19,7 @@ public class IntakeArmSubsystem extends Subsystem {
 	/**
 	 * Speed to scale the intake motor by.
 	 */
-	double speed = .4500000000000d;
+	double speed = .60d;
 
 	public IntakeArmSubsystem() {
 		intakeArmMotorOne = new CANTalon(RobotMap.MotorId.INTAKE_ARM_ONE.getId());

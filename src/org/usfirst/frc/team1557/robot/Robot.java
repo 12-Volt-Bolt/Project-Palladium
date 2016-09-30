@@ -4,6 +4,7 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.backupauto.AutoManager;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
 import org.usfirst.frc.team1557.robot.autonoms.VisionAuto;
+import org.usfirst.frc.team1557.robot.autonoms.commands.TimedAutoDefense;
 import org.usfirst.frc.team1557.robot.autonoms.commands.TrackGoalCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 
@@ -78,8 +79,9 @@ public class Robot extends IterativeRobot {
 		visionInterfaceChooser = new SendableChooser();
 		trackInterfaceChooser = new SendableChooser();
 		// Objects for auto
-		chooser.addDefault("No operation autonomous", new WaitCommand(1));
-		chooser.addObject("Main Autonomous", new TimedAuto());
+	//	chooser.addDefault("No operation autonomous", new WaitCommand(1));
+		chooser.addDefault("Lowbar Autonomous", new TimedAuto());
+		chooser.addObject("Non-lowbar Autonomous", new TimedAutoDefense());
 		chooser.addObject("Vision Aided", new VisionAuto());
 		chooser.addObject("Track Goal", new TrackGoalCommand(5));
 		// Object for drive

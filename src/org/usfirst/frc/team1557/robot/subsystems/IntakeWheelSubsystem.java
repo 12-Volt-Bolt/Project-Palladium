@@ -28,11 +28,11 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
 
 	public void forward() {
-		intakeMotor.set(-1);
+		intakeMotor.set(1);
 	}
 
 	public void reverse() {
-		intakeMotor.set(1);
+		intakeMotor.set(-1);
 	}
 
 	public boolean getBoulderSwitch() {
