@@ -37,8 +37,21 @@ public class TankDriveCommand extends Command {
 			} else {
 				Robot.drive.reverseMotors(false);
 			}
-			Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
-					OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+			// Psuedocode: Stay on batter
+			/*
+			 * If inEndGame and driverInput is null then apply forward force to
+			 * counteract gravity
+			 */
+			/*
+			 * System.currentTimeMillis() - Robot.START_TIME >= (1000 * 120) &&
+			 */
+			if (OI.mainJoyTwo.getRawButton(RobotMap.ButtonId.STAY_ON_RAMP.getId()) && !OI.areJoysticksHot(0.09)) {
+				// Slowly move backwards
+				Robot.drive.tankDrive(-0.1d, -0.1d);
+			} else {
+				Robot.drive.tankDrive(OI.mainJoyOne.getRawAxis(MAIN_JOY_AXIS_ONE_ID),
+						OI.mainJoyTwo.getRawAxis(MAIN_JOY_AXIS_TWO_ID));
+			}
 		} else {
 			tracker.run();
 		}

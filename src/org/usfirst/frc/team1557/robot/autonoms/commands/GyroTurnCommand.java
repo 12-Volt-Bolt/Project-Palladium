@@ -29,13 +29,13 @@ public class GyroTurnCommand extends Command {
 	 * @param tolerance
 	 *            Tolerance in degrees
 	 */
-	public GyroTurnCommand(double angle, double tolerance) {
+	public GyroTurnCommand(double angle, double tolerance, double feedforward) {
 		requires(Robot.drive);
 
 		this.angle = angle;
 		this.setTimeout(5);
 
-		gyroPID = new PIDController(0.05, 0, 0, Robot.drive.gyro, new PIDOutput() {
+		gyroPID = new PIDController(0.02, 0, 0, feedforward, Robot.drive.gyro, new PIDOutput() {
 			@Override
 			public void pidWrite(double output) {
 				gyroOutput = output;
@@ -45,6 +45,10 @@ public class GyroTurnCommand extends Command {
 		gyroPID.setAbsoluteTolerance(tolerance);
 
 		SmartDashboard.putData("gyroid", gyroPID);
+	}
+
+	public GyroTurnCommand(double angle, double tolerance) {
+		this(angle, tolerance, 0d);
 	}
 
 	/**
@@ -75,7 +79,7 @@ public class GyroTurnCommand extends Command {
 
 		SmartDashboard.putNumber("gyro_value", Robot.drive.gyro.getAngle());
 
-		Robot.drive.tankDrive(-gyroOutput, gyroOutput);
+		Robot.drive.tankDrive(gyroOutput, -gyroOutput);
 	}
 
 	protected boolean isFinished() {
@@ -84,7 +88,7 @@ public class GyroTurnCommand extends Command {
 	}
 
 	protected void end() {
-		gyroPID.disable();
+		gyroPID.reset();
 	}
 
 	protected void interrupted() {

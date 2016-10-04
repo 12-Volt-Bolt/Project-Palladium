@@ -23,22 +23,25 @@ public class OI {
 	public static JoystickButton liftClimbUpButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_UP.getId());
 	public static JoystickButton liftClimbDownButton = new JoystickButton(altJoyOne, ButtonId.LIFT_CLIMB_DOWN.getId());
 	public static JoystickButton climbButton = new JoystickButton(altJoyOne, ButtonId.EXTEND_CLIMB_PISTON.getId());
-	public static JoystickButton spinLauncherButton = new JoystickButton(altJoyOne, ButtonId.FIRE.getId());
-	Trigger pushupToggle = new Trigger() {
-
-		@Override
-		public boolean get() {
-			boolean isInEndGame = System.currentTimeMillis() - Robot.START_TIME >= (60 + 60) * 1_000;
-			return /* isInEndGame && */ mainJoyOne.getRawButton(ButtonId.PUSHUP.getId())
-					&& mainJoyTwo.getRawButton(ButtonId.PUSHUP.getId());
-		}
-	};
 
 	public OI() {
 
 	}
 
 	public void initButtonCommands() {
-		pushupToggle.whenActive(new PushupCommand());
+	}
+
+	/**
+	 * Returns false if both main joysticks are not giving a value that is
+	 * larger than the max value.
+	 * 
+	 * @param max
+	 *            The value to test against
+	 * @return
+	 */
+	public static boolean areJoysticksHot(double max) {
+
+		return Math.abs(mainJoyOne.getRawAxis(RobotMap.MAIN_JOY_AXIS_ONE_ID)) > max
+				|| Math.abs(mainJoyTwo.getRawAxis(RobotMap.MAIN_JOY_AXIS_TWO_ID)) > max;
 	}
 }

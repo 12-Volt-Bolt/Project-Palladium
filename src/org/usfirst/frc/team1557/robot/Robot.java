@@ -3,8 +3,9 @@ package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.backupauto.AutoManager;
 import org.usfirst.frc.team1557.robot.autonoms.TimedAuto;
+import org.usfirst.frc.team1557.robot.autonoms.TimedAutoDefense;
 import org.usfirst.frc.team1557.robot.autonoms.VisionAuto;
-import org.usfirst.frc.team1557.robot.autonoms.commands.TimedAutoDefense;
+import org.usfirst.frc.team1557.robot.autonoms.commands.GyroTurnCommand;
 import org.usfirst.frc.team1557.robot.autonoms.commands.TrackGoalCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 
@@ -79,11 +80,13 @@ public class Robot extends IterativeRobot {
 		visionInterfaceChooser = new SendableChooser();
 		trackInterfaceChooser = new SendableChooser();
 		// Objects for auto
-	//	chooser.addDefault("No operation autonomous", new WaitCommand(1));
+		// chooser.addDefault("No operation autonomous", new WaitCommand(1));
 		chooser.addDefault("Lowbar Autonomous", new TimedAuto());
-		chooser.addObject("Non-lowbar Autonomous", new TimedAutoDefense());
+		chooser.addObject("Non-Lowbar Autonomous", new TimedAutoDefense());
 		chooser.addObject("Vision Aided", new VisionAuto());
 		chooser.addObject("Track Goal", new TrackGoalCommand(5));
+		chooser.addObject("Gyro Turn Command", new GyroTurnCommand(45, 5));
+		chooser.addDefault("Gyro Turn with feedforward[0.25]", new GyroTurnCommand(45, 5, 0.25));
 		// Object for drive
 		driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 		// Objects for Vision
@@ -139,7 +142,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-		System.out.println("y u no work m8");
 		START_TIME = System.currentTimeMillis();
 		if (chooser.getSelected() != null) {
 			((Command) chooser.getSelected()).cancel();
@@ -161,6 +163,5 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 
 		LiveWindow.run();
-
 	}
 }

@@ -32,7 +32,6 @@ public class DriveSubsystem extends Subsystem {
 		motorTwo = new CANTalon(MotorId.DRIVE_TWO.getId());
 		motorThree = new CANTalon(MotorId.DRIVE_THREE.getId());
 		motorFour = new CANTalon(MotorId.DRIVE_FOUR.getId());
-
 		gyro = new ADXRS450_Gyro();
 		leftEncoder = new Encoder(EncoderId.LEFT_A.getId(), EncoderId.LEFT_B.getId());
 		rightEncoder = new Encoder(EncoderId.RIGHT_A.getId(), EncoderId.RIGHT_B.getId());
